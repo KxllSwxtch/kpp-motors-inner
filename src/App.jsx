@@ -3,7 +3,7 @@ import { ScrollToTop } from './components'
 
 // Local imports
 import { Header, Footer } from './components'
-import { Home, Contacts } from './pages'
+import { Home, Contacts, Cars } from './pages'
 
 const App = () => {
 	return (
@@ -13,6 +13,7 @@ const App = () => {
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/contacts' element={<Contacts />} />
+				<Route path='/cars' element={<Cars />} />
 			</Routes>
 			<Footer />
 		</>

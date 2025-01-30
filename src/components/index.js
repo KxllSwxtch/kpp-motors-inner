@@ -7,6 +7,9 @@ import ContactSection from './ContactSection'
 import BuyingProcessSection from './BuyingProcessSection'
 import ServiceVideoSection from './ServiceVideoSection'
 import ScrollToTop from './ScrollToTop'
+import CarsList from './CarsList'
+import Loader from './Loader'
+import CarsListItem from './CarsListItem'
 
 export {
 	Header,
@@ -18,4 +21,7 @@ export {
 	BuyingProcessSection,
 	ServiceVideoSection,
 	ScrollToTop,
+	CarsList,
+	Loader,
+	CarsListItem,
 }

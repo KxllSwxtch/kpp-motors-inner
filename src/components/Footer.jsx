@@ -3,7 +3,7 @@ import { FaTiktok, FaInstagram } from 'react-icons/fa'
 
 const Footer = () => {
 	return (
-		<footer className='bg-black text-light py-8 px-4 text-center sticky'>
+		<footer className='bg-black text-light py-8 px-4 text-center'>
 			<div className='container mx-auto flex flex-col md:flex-row justify-between items-center'>
 				{/* Логотип */}
 				<div className='mb-4 md:mb-0'>
