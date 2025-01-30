@@ -1,3 +1,21 @@
 import Header from './Header'
 import Footer from './Footer'
-export { Header, Footer }
+import HeroSection from './HeroSection'
+import WhyUsSection from './WhyUsSection'
+import PopularCars from './PopularCars'
+import ContactSection from './ContactSection'
+import BuyingProcessSection from './BuyingProcessSection'
+import ServiceVideoSection from './ServiceVideoSection'
+import ScrollToTop from './ScrollToTop'
+
+export {
+	Header,
+	Footer,
+	HeroSection,
+	WhyUsSection,
+	PopularCars,
+	ContactSection,
+	BuyingProcessSection,
+	ServiceVideoSection,
+	ScrollToTop,
+}
