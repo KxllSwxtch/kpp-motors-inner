@@ -19,7 +19,7 @@ const CarDetails = () => {
 
 				// Загружаем HTML-страницу
 				const response = await axios.get(
-					`https://www.carmodoo.com/app/market/car_detail_tab.html?m_no=${id}&tab=1`,
+					`https://corsproxy.io/?https://www.carmodoo.com/app/market/car_detail_tab.html?m_no=${id}&tab=1`,
 					{ responseType: 'text' },
 				)
 
