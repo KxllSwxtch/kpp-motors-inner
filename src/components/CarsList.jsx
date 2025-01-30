@@ -22,9 +22,10 @@ const CarsList = () => {
 			setLoading(true)
 			window.scrollTo({ top: 0, behavior: 'smooth' }) // Прокрутка вверх при загрузке
 
+			// https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&searchField=cho=0&bm_no=0&bo_no=0&bs_no=0&bd_no=0&searchSY=&searchEY=&searchSPrice=&searchEPrice=&searchSMileage=&searchEMileage=&fuel=&gearbox=&colors=&tons=&yong=&area=%EA%B2%BD%EA%B8%B0&gugun=%EC%88%98%EC%9B%90&areaGroup=&complex=&c_carNum=&c_regName=&c_dealerName=&c_sangsaName=&c_dealerHp=&optFlag1=&optFlag2=&optFlag3=&extFlag3=&extFlag4=&extFlag5=&extFlag6=&ordKey=&pageSize=${pageSize}&page=${page}
 			try {
 				const response = await axios.get(
-					`https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&searchField=cho=0&bm_no=0&bo_no=0&bs_no=0&bd_no=0&searchSY=&searchEY=&searchSPrice=&searchEPrice=&searchSMileage=&searchEMileage=&fuel=&gearbox=&colors=&tons=&yong=&area=%EA%B2%BD%EA%B8%B0&gugun=%EC%88%98%EC%9B%90&areaGroup=&complex=&c_carNum=&c_regName=&c_dealerName=&c_sangsaName=&c_dealerHp=&optFlag1=&optFlag2=&optFlag3=&extFlag3=&extFlag4=&extFlag5=&extFlag6=&ordKey=&pageSize=${pageSize}&page=${page}`,
+					`https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&pageSize=${pageSize}&page=${page}`,
 					{ responseType: 'text' },
 				)
 
