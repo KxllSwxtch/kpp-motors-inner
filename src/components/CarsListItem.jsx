@@ -37,10 +37,17 @@ const CarsListItem = ({ car }) => {
 				alt={car.name}
 				className='w-auto h-auto object-fill mb-4 rounded-lg'
 			/>
-			<h3 className='text-xl font-semibold'>{translatedName}</h3>
-			<p className='text-gray-600'>Год: {car.year}</p>
-			<p className='text-gray-600'>Цена в Корее: {formattedCarPrice} ₩</p>
-			<p className='text-gray-600'>Пробег: {formattedCarMileage} км</p>
+			<h1 className='text-lg font-semibold'>{translatedName}</h1>
+
+			<div className='mt-4'>
+				<p className='text-gray-600 text-sm'>Год: {car.year}</p>
+				<p className='text-gray-600 text-sm'>
+					Цена в Корее: ₩{formattedCarPrice}
+				</p>
+				<p className='text-gray-600 text-sm'>
+					Пробег: {formattedCarMileage} км
+				</p>
+			</div>
 
 			<Link
 				to={`/cars/${car.id}`}
