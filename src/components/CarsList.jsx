@@ -11,6 +11,7 @@ const CarsList = () => {
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
 	const [page, setPage] = useState(1)
+	const [carType, setCarType] = useState('korean') // 'korean' или 'foreign'
 
 	// Настройки пагинации
 	const pageSize = 9
@@ -22,13 +23,12 @@ const CarsList = () => {
 			setLoading(true)
 			window.scrollTo({ top: 0, behavior: 'smooth' }) // Прокрутка вверх при загрузке
 
-			// https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&searchField=cho=0&bm_no=0&bo_no=0&bs_no=0&bd_no=0&searchSY=&searchEY=&searchSPrice=&searchEPrice=&searchSMileage=&searchEMileage=&fuel=&gearbox=&colors=&tons=&yong=&area=%EA%B2%BD%EA%B8%B0&gugun=%EC%88%98%EC%9B%90&areaGroup=&complex=&c_carNum=&c_regName=&c_dealerName=&c_sangsaName=&c_dealerHp=&optFlag1=&optFlag2=&optFlag3=&extFlag3=&extFlag4=&extFlag5=&extFlag6=&ordKey=&pageSize=${pageSize}&page=${page}
-			try {
-				const response = await axios.get(
-					`https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&pageSize=${pageSize}&page=${page}`,
-					{ responseType: 'text' },
-				)
+			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&cho=${
+				carType === 'korean' ? '1' : '2'
+			}&pageSize=${pageSize}&page=${page}`
 
+			try {
+				const response = await axios.get(url, { responseType: 'text' })
 				const carsData = parseXML(response.data) // Используем новый парсер
 				setCars(carsData)
 			} catch (err) {
@@ -40,7 +40,7 @@ const CarsList = () => {
 		}
 
 		fetchCars()
-	}, [page])
+	}, [page, carType])
 
 	// Логика для показа страниц
 	const getPageNumbers = () => {
@@ -60,6 +60,29 @@ const CarsList = () => {
 			<h2 className='text-3xl font-bold mb-6 text-center'>
 				Список автомобилей
 			</h2>
+			{/* Переключение между категориями */}
+			<div className='flex justify-center mb-6'>
+				<button
+					className={`cursor-pointer px-6 py-2 mx-2 rounded-lg font-semibold transition-all duration-300 ${
+						carType === 'korean'
+							? 'bg-secondary text-white'
+							: 'bg-gray-100 hover:bg-gray-300'
+					}`}
+					onClick={() => setCarType('korean')}
+				>
+					Корейские авто
+				</button>
+				<button
+					className={`cursor-pointer px-6 py-2 mx-2 rounded-lg font-semibold transition-all duration-300 ${
+						carType === 'foreign'
+							? 'bg-secondary text-white'
+							: 'bg-gray-100 hover:bg-gray-300'
+					}`}
+					onClick={() => setCarType('foreign')}
+				>
+					Иномарки
+				</button>
+			</div>
 			{/* Список автомобилей */}
 			<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
 				{cars.map((car) => (
