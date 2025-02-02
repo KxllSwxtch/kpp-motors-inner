@@ -11,6 +11,7 @@ import CarsList from './CarsList'
 import Loader from './Loader'
 import CarsListItem from './CarsListItem'
 import { CustomNextArrow, CustomPrevArrow } from './Arrows'
+import Filters from './Filters'
 
 export {
 	Header,
@@ -27,4 +28,5 @@ export {
 	CarsListItem,
 	CustomNextArrow,
 	CustomPrevArrow,
+	Filters,
 }

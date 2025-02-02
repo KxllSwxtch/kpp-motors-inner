@@ -4,7 +4,7 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 // Local imports
 import { parseXML } from '../utils'
-import { CarsListItem, Loader } from '../components'
+import { CarsListItem, Loader, Filters } from '../components'
 
 const CarsList = () => {
 	const [cars, setCars] = useState([])
@@ -13,6 +13,23 @@ const CarsList = () => {
 	const [page, setPage] = useState(1)
 	const [carType, setCarType] = useState('korean') // 'korean' или 'foreign'
 	const [usdkrwRate, setUsdkrwRate] = useState(0)
+
+	// Фильтры
+	const [filters, setFilters] = useState({
+		bm_no: '',
+		model: '',
+		generation: '',
+		fuelType: '',
+		trim: '',
+		priceMin: '',
+		priceMax: '',
+		mileageMin: '',
+		mileageMax: '',
+		yearMin: '',
+		yearMax: '',
+		color: '',
+		sortBy: '',
+	})
 
 	// Настройки пагинации
 	const pageSize = 9
@@ -38,9 +55,27 @@ const CarsList = () => {
 			setLoading(true)
 			window.scrollTo({ top: 0, behavior: 'smooth' }) // Прокрутка вверх при загрузке
 
-			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&cho=${
-				carType === 'korean' ? '1' : '2'
-			}&pageSize=${pageSize}&page=${page}`
+			// Формируем URL с параметрами фильтрации
+			const params = new URLSearchParams({
+				cho: carType === 'korean' ? '1' : '2',
+				pageSize: 9,
+				page: page,
+				bm_no: filters.bm_no,
+				// model: filters.model,
+				// generation: filters.generation,
+				// fuelType: filters.fuelType,
+				// trim: filters.trim,
+				// priceMin: filters.priceMin,
+				// priceMax: filters.priceMax,
+				// mileageMin: filters.mileageMin,
+				// mileageMax: filters.mileageMax,
+				// yearMin: filters.yearMin,
+				// yearMax: filters.yearMax,
+				// color: filters.color,
+				// sortBy: filters.sortBy,
+			})
+
+			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&searchField=${params.toString()}`
 
 			try {
 				const response = await axios.get(url, { responseType: 'text' })
@@ -55,7 +90,12 @@ const CarsList = () => {
 		}
 
 		fetchCars()
-	}, [page, carType])
+	}, [page, carType, filters])
+
+	// Функция для обновления состояния фильтров
+	const handleFilterChange = (newFilters) => {
+		setFilters((prevFilters) => ({ ...prevFilters, ...newFilters }))
+	}
 
 	// Логика для показа страниц
 	const getPageNumbers = () => {
@@ -67,7 +107,24 @@ const CarsList = () => {
 		)
 	}
 
-	if (loading) return <Loader />
+	// Сброс фильтров
+	const resetFilters = () =>
+		setFilters({
+			bm_no: '',
+			model: '',
+			generation: '',
+			fuelType: '',
+			trim: '',
+			priceMin: '',
+			priceMax: '',
+			mileageMin: '',
+			mileageMax: '',
+			yearMin: '',
+			yearMax: '',
+			color: '',
+			sortBy: '',
+		})
+
 	if (error) return <p>{error}</p>
 
 	return (
@@ -75,6 +132,7 @@ const CarsList = () => {
 			<h2 className='text-3xl font-bold mb-6 text-center'>
 				Список автомобилей
 			</h2>
+
 			{/* Переключение между категориями */}
 			<div className='flex justify-center mb-6'>
 				<button
@@ -83,7 +141,10 @@ const CarsList = () => {
 							? 'bg-secondary text-white'
 							: 'bg-gray-100 hover:bg-gray-300'
 					}`}
-					onClick={() => setCarType('korean')}
+					onClick={() => {
+						setCarType('korean')
+						resetFilters({})
+					}}
 				>
 					Корейские авто
 				</button>
@@ -93,50 +154,63 @@ const CarsList = () => {
 							? 'bg-secondary text-white'
 							: 'bg-gray-100 hover:bg-gray-300'
 					}`}
-					onClick={() => setCarType('foreign')}
+					onClick={() => {
+						setCarType('foreign')
+						resetFilters()
+					}}
 				>
 					Иномарки
 				</button>
 			</div>
-			{/* Список автомобилей */}
-			<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-				{cars.map((car) => (
-					<CarsListItem key={car.id} car={car} usdkrwRate={usdkrwRate} />
-				))}
-			</div>
-			{/* Пагинация */}
-			<div className='flex justify-center mt-8 space-x-2'>
-				<button
-					className={`flex items-center px-4 py-2 rounded-md font-semibold transition-all duration-300 ${
-						page === 1
-							? 'bg-gray-300 cursor-not-allowed'
-							: 'bg-primary text-white hover:bg-secondary'
-					}`}
-					onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-					disabled={page === 1}
-				>
-					<FaChevronLeft className='mr-2' />
-				</button>
-				{getPageNumbers().map((pageNum) => (
-					<button
-						key={pageNum}
-						className={`cursor-pointer px-4 py-2 rounded-md font-semibold transition-all duration-300 ${
-							pageNum === page
-								? 'bg-secondary text-white'
-								: 'bg-gray-100 hover:bg-gray-300'
-						}`}
-						onClick={() => setPage(pageNum)}
-					>
-						{pageNum}
-					</button>
-				))}
-				<button
-					className='cursor-pointer flex items-center px-4 py-2 bg-primary text-white rounded-md font-semibold hover:bg-secondary transition-all duration-300'
-					onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-				>
-					<FaChevronRight className='ml-2' />
-				</button>
-			</div>
+
+			<Filters filters={filters} setFilters={handleFilterChange} />
+
+			{loading ? (
+				<Loader />
+			) : (
+				<>
+					{/* Список автомобилей */}
+					<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+						{cars.map((car) => (
+							<CarsListItem key={car.id} car={car} usdkrwRate={usdkrwRate} />
+						))}
+					</div>
+
+					{/* Пагинация */}
+					<div className='flex justify-center mt-8 space-x-2'>
+						<button
+							className={`flex items-center px-4 py-2 rounded-md font-semibold transition-all duration-300 ${
+								page === 1
+									? 'bg-gray-300 cursor-not-allowed'
+									: 'bg-primary text-white hover:bg-secondary'
+							}`}
+							onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+							disabled={page === 1}
+						>
+							<FaChevronLeft className='mr-2' />
+						</button>
+						{getPageNumbers().map((pageNum) => (
+							<button
+								key={pageNum}
+								className={`cursor-pointer px-4 py-2 rounded-md font-semibold transition-all duration-300 ${
+									pageNum === page
+										? 'bg-secondary text-white'
+										: 'bg-gray-100 hover:bg-gray-300'
+								}`}
+								onClick={() => setPage(pageNum)}
+							>
+								{pageNum}
+							</button>
+						))}
+						<button
+							className='cursor-pointer flex items-center px-4 py-2 bg-primary text-white rounded-md font-semibold hover:bg-secondary transition-all duration-300'
+							onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+						>
+							<FaChevronRight className='ml-2' />
+						</button>
+					</div>
+				</>
+			)}
 		</div>
 	)
 }

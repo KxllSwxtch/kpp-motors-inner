@@ -1,2 +1,3 @@
 import parseXML from './parseXML'
-export { parseXML }
+import koreanBrands from './koreanBrands'
+export { parseXML, koreanBrands }
