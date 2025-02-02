@@ -12,12 +12,27 @@ const CarsList = () => {
 	const [error, setError] = useState(null)
 	const [page, setPage] = useState(1)
 	const [carType, setCarType] = useState('korean') // 'korean' или 'foreign'
+	const [usdkrwRate, setUsdkrwRate] = useState(0)
 
 	// Настройки пагинации
 	const pageSize = 9
 	const totalPages = 50 // Допустим, у нас 50 страниц (должно быть динамическим)
 	const pageRange = 5 // Количество отображаемых страниц
 
+	// Подтягиваем курс USD к KRW
+	useEffect(() => {
+		const fetchUSDKRWRate = async () => {
+			const response = await axios.get(
+				'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json',
+			)
+			const data = response.data
+			setUsdkrwRate(data.usd.krw)
+		}
+
+		fetchUSDKRWRate()
+	}, [])
+
+	// Получаем список автомобилей
 	useEffect(() => {
 		const fetchCars = async () => {
 			setLoading(true)
@@ -86,7 +101,7 @@ const CarsList = () => {
 			{/* Список автомобилей */}
 			<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
 				{cars.map((car) => (
-					<CarsListItem key={car.id} car={car} />
+					<CarsListItem key={car.id} car={car} usdkrwRate={usdkrwRate} />
 				))}
 			</div>
 			{/* Пагинация */}

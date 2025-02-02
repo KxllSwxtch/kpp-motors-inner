@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-const CarsListItem = ({ car }) => {
+const CarsListItem = ({ car, usdkrwRate }) => {
 	const [translatedName, setTranslatedName] = useState(car.name)
 
 	// Для перевода car.name
@@ -24,9 +24,14 @@ const CarsListItem = ({ car }) => {
 		translateName()
 	}, [car.name])
 
-	const formattedCarPrice = parseInt(car?.price).toLocaleString()
 	const formattedCarMileage = parseInt(
 		car?.mileage.replace(/\D+/gm, ''),
+	).toLocaleString()
+
+	// Цена авто
+	const formattedCarPriceKrw = parseInt(car?.price).toLocaleString()
+	const formattedCarPriceUsd = Math.round(
+		parseInt(car?.price) / usdkrwRate,
 	).toLocaleString()
 
 	return (
@@ -41,7 +46,7 @@ const CarsListItem = ({ car }) => {
 			<div className='mt-4'>
 				<p className='text-gray-600 text-sm'>Год: {car.year}</p>
 				<p className='text-gray-600 text-sm'>
-					Цена в Корее: ₩{formattedCarPrice}
+					Цена в Корее: ₩{formattedCarPriceKrw} | ${formattedCarPriceUsd}
 				</p>
 				<p className='text-gray-600 text-sm'>
 					Пробег: {formattedCarMileage} км
@@ -70,6 +75,7 @@ CarsListItem.propTypes = {
 		gearbox: PropTypes.string.isRequired,
 		image: PropTypes.string.isRequired,
 	}).isRequired,
+	usdkrwRate: PropTypes.number.isRequired,
 }
 
 export default CarsListItem
