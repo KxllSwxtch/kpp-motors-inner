@@ -10,6 +10,7 @@ import ScrollToTop from './ScrollToTop'
 import CarsList from './CarsList'
 import Loader from './Loader'
 import CarsListItem from './CarsListItem'
+import { CustomNextArrow, CustomPrevArrow } from './Arrows'
 
 export {
 	Header,
@@ -24,4 +25,6 @@ export {
 	CarsList,
 	Loader,
 	CarsListItem,
+	CustomNextArrow,
+	CustomPrevArrow,
 }

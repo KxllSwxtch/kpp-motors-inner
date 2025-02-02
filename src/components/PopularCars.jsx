@@ -8,16 +8,19 @@ const PopularCars = () => {
 						img: 'https://ci.encar.com/carpicture/carpicture03/pic3873/38732268_001.jpg?impolicy=heightRate&rh=696&cw=1160&ch=696&cg=Center&wtmk=https://ci.encar.com/wt_mark/w_mark_04.png&t=20241218152253',
 						name: 'BMW 5-Series 530i xDrive M Sport - 2025',
 						price: '$53,000',
+						link: 'https://fem.encar.com/cars/detail/38732268',
 					},
 					{
 						img: 'https://ci.encar.com/carpicture/carpicture07/pic3887/38870305_001.jpg?impolicy=heightRate&rh=696&cw=1160&ch=696&cg=Center&wtmk=https://ci.encar.com/wt_mark/w_mark_04.png&t=20250113144751',
 						name: 'Hyundai Grandeur - 2025',
 						price: '$28,000',
+						link: 'https://fem.encar.com/cars/detail/38870305',
 					},
 					{
 						img: 'https://ci.encar.com/carpicture/carpicture07/pic3887/38873612_001.jpg?impolicy=heightRate&rh=696&cw=1160&ch=696&cg=Center&wtmk=https://ci.encar.com/wt_mark/w_mark_04.png&t=20250114145441',
 						name: 'Genesis G80 2022',
 						price: '$47,000',
+						link: 'https://fem.encar.com/cars/detail/38873612',
 					},
 				].map((car, index) => (
 					<div
@@ -31,9 +34,14 @@ const PopularCars = () => {
 						/>
 						<h3 className='text-xl font-semibold'>{car.name}</h3>
 						<p className='text-gray-600'>{car.price}</p>
-						<button className='mt-4 bg-primary text-white px-4 py-2 rounded hover:bg-secondary transition duration-300 cursor-pointer'>
+						<a
+							href={car.link}
+							target='_blank'
+							rel='noopener noreferrer'
+							className='block mt-4 bg-primary text-white px-4 py-2 rounded hover:bg-secondary transition duration-300 cursor-pointer'
+						>
 							Подробнее
-						</button>
+						</a>
 					</div>
 				))}
 			</div>

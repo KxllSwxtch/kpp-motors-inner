@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { FaWhatsapp, FaInstagram, FaTiktok, FaFacebook } from 'react-icons/fa'
 
 // Local imports
-import { Loader } from '../components'
+import { Loader, CustomNextArrow, CustomPrevArrow } from '../components'
 
 const CarDetails = () => {
 	const { id } = useParams()
@@ -46,17 +45,35 @@ const CarDetails = () => {
 
 				setCarImages(images)
 
-				// 🔹 Извлекаем данные об автомобиле 🔹
-				const carInfo = Array.from(
+				const carInfo = []
+
+				// 🔹 Извлекаем стандартные данные (где есть .article-tag и .article-content)
+				Array.from(
 					tempDiv.querySelectorAll('.article-list.carinfo-list li'),
-				)
-					.map((li) => ({
-						label: li.querySelector('.article-tag')?.innerText.trim(),
-						value: li.querySelector('.article-content')?.innerText.trim(),
-					}))
-					.filter((item) => item.label && item.value)
+				).forEach((li) => {
+					const label = li.querySelector('.article-tag')?.innerText?.trim()
+					const value = li.querySelector('.article-content')?.innerText?.trim()
+
+					if (label && value) {
+						carInfo.push({ label, value })
+					}
+				})
+
+				// 🔹 Извлекаем дополнительные данные из <p> внутри <li>
+				Array.from(
+					tempDiv.querySelectorAll('.article-list.carinfo-list li p'),
+				).forEach((p) => {
+					const label = p.querySelector('.article-tag')?.innerText?.trim()
+					const value = p.querySelector('.article-content')?.innerText?.trim()
+
+					if (label && value) {
+						carInfo.push({ label, value })
+					}
+				})
 
 				setCarDetails(carInfo)
+
+				console.log(carInfo)
 
 				// 🔹 Извлекаем данные о продавце 🔹
 				const dealer = {
@@ -84,24 +101,6 @@ const CarDetails = () => {
 	if (loading) return <Loader />
 	if (error) return <p className='text-red-500'>{error}</p>
 
-	const CustomPrevArrow = ({ onClick }) => (
-		<button
-			className='absolute top-1/2 left-2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-lg hover:bg-gray-700 transition hidden md:flex'
-			onClick={onClick}
-		>
-			<FaChevronLeft size={24} />
-		</button>
-	)
-
-	const CustomNextArrow = ({ onClick }) => (
-		<button
-			className='absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full shadow-lg hover:bg-gray-700 transition hidden md:flex'
-			onClick={onClick}
-		>
-			<FaChevronRight size={24} />
-		</button>
-	)
-
 	// 🔹 Настройки слайдера 🔹
 	const sliderSettings = {
 		dots: true,
@@ -113,9 +112,38 @@ const CarDetails = () => {
 		nextArrow: <CustomNextArrow />,
 	}
 
+	// Форматированные данные об автомобиле
+	const formattedCarPrice = (
+		parseInt(carDetails[0].value.replace(/\D+/gm, '')) * 10000
+	).toLocaleString()
+	const formattedCarDate = `${
+		carDetails
+			.filter((item) => item.label === '최초등록일')[0]
+			.value.split('.')[0]
+	}/${
+		carDetails
+			.filter((item) => item.label === '최초등록일')[0]
+			.value.split('.')[1]
+	}`
+	const formattedCarMileage = parseInt(
+		carDetails
+			.filter((item) => item.label === '주행거리')[0]
+			.value.replace(/\D+/gm, ''),
+	).toLocaleString()
+	const formattedFuelType =
+		carDetails[21].value === '휘발유'
+			? 'Газ'
+			: carDetails[21].value === '가솔린'
+			? 'Бензин'
+			: 'Дизель'
+	const formattedTransmissionType =
+		carDetails.filter((item) => item.label === '변속기')[0].value === '오토'
+			? 'Автоматическая'
+			: 'Механика'
+
 	return (
 		<div className='container mx-auto mt-16 py-12 px-4'>
-			<h2 className='text-3xl font-bold mb-6 text-center'>Детали автомобиля</h2>
+			{/* <h2 className='text-3xl font-bold mb-6 text-center'>{}</h2> */}
 
 			{/* 🔹 Галерея изображений 🔹 */}
 			{carImages.length > 0 ? (
@@ -142,13 +170,108 @@ const CarDetails = () => {
 			<div className='bg-white shadow-lg p-6 rounded-lg mb-6'>
 				<h3 className='text-2xl font-semibold mb-4'>Основная информация</h3>
 				<ul className='space-y-2 text-lg'>
-					{carDetails.map((item, index) => (
-						<li key={index} className='flex justify-between border-b pb-2'>
-							<span className='font-semibold text-gray-700'>{item.label}</span>
-							<span className='text-gray-900'>{item.value}</span>
-						</li>
-					))}
+					<li className='flex justify-between border-b pb-2'>
+						{/* Цена автомобиля */}
+						<span className='font-semibold text-gray-700'>Цена автомобиля</span>
+						<span className='text-gray-900'>₩{formattedCarPrice}</span>
+					</li>
+					<li className='flex justify-between border-b pb-2'>
+						{/* Номер автомобиля */}
+						<span className='font-semibold text-gray-700'>
+							Номер автомобиля
+						</span>
+						<span className='text-gray-900'>{carDetails[1].value}</span>
+					</li>
+					<li className='flex justify-between border-b pb-2'>
+						{/* Год выпуска */}
+						<span className='font-semibold text-gray-700'>Год выпуска</span>
+						<span className='text-gray-900'>{formattedCarDate}</span>
+					</li>
+					<li className='flex justify-between border-b pb-2'>
+						{/* Пробег */}
+						<span className='font-semibold text-gray-700'>Пробег</span>
+						<span className='text-gray-900'>{formattedCarMileage} км</span>
+					</li>
+					<li className='flex justify-between border-b pb-2'>
+						{/* Топливо */}
+						<span className='font-semibold text-gray-700'>Топливо</span>
+						<span className='text-gray-900'>{formattedFuelType}</span>
+					</li>
+					<li className='flex justify-between border-b pb-2'>
+						{/* КПП */}
+						<span className='font-semibold text-gray-700'>Коробка передач</span>
+						<span className='text-gray-900'>{formattedTransmissionType}</span>
+					</li>
 				</ul>
+
+				{/* 🔹 Контактная информация 🔹 */}
+				<div className='bg-white shadow-lg p-6 rounded-lg mb-6 mt-5 text-center'>
+					<h3 className='text-2xl font-semibold mb-4 text-center'>Контакты</h3>
+					<div className='text-lg text-center space-y-2'>
+						<p>
+							📞 <strong>Константин:</strong> +82 10-7650-3034
+						</p>
+						<p>
+							📞 <strong>Константин:</strong> +82 10-7291-1701
+						</p>
+						<p>
+							📞 <strong>Елена (English, 한국어):</strong> +82 10-3504-1522
+						</p>
+					</div>
+
+					<div className='mt-10'>
+						<h3 className='text-xl font-bold'>KPP Motors в соц. сетях</h3>
+						<a
+							href='https://www.instagram.com/kpp_motors'
+							target='_blank'
+							rel='noopener noreferrer'
+							className='flex items-center justify-center mt-3 mb-3'
+						>
+							<FaInstagram
+								size={30}
+								className='text-pink-500 hover:text-pink-600 transition mr-1'
+							/>{' '}
+							Instagram
+						</a>
+						<a
+							href='https://www.facebook.com/share/1D8bg2xL1i/?mibextid=wwXIfr'
+							target='_blank'
+							rel='noopener noreferrer'
+							className='flex items-center justify-center mt-3 mb-3'
+						>
+							<FaFacebook
+								size={30}
+								className='text-blue-600 hover:text-blue-700 transition mr-1'
+							/>
+							Facebook
+						</a>
+						<a
+							href='https://www.tiktok.com/@kpp_motors'
+							target='_blank'
+							rel='noopener noreferrer'
+							className='flex items-center justify-center mt-3 mb-3'
+						>
+							<FaTiktok
+								size={30}
+								className='text-black hover:text-gray-700 transition mr-1'
+							/>{' '}
+							TikTok
+						</a>
+					</div>
+				</div>
+
+				{/* 🔹 Кнопка связи 🔹 */}
+				<div className='mt-6 flex justify-center'>
+					<a
+						href='https://wa.me/821076503034'
+						target='_blank'
+						rel='noopener noreferrer'
+						className='bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg flex items-center gap-2 shadow-md transition-all'
+					>
+						<FaWhatsapp size={24} />
+						<span>Связаться с менеджером</span>
+					</a>
+				</div>
 			</div>
 		</div>
 	)

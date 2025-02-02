@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 
 const CarsListItem = ({ car }) => {
 	const [translatedName, setTranslatedName] = useState(car.name)
