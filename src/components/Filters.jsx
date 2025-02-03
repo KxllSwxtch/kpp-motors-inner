@@ -253,16 +253,23 @@ const Filters = ({
 
 					{/* Топливо */}
 					<select
-						name='fuelType'
-						value={filters.fuelType}
+						name='fuel'
+						value={filters.fuel}
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2'
 					>
 						<option value=''>Выберите топливо</option>
-						<option value='gasoline'>Бензин</option>
-						<option value='diesel'>Дизель</option>
-						<option value='hybrid'>Гибрид</option>
-						<option value='electric'>Электро</option>
+						<option value='%ED%9C%98%EB%B0%9C%EC%9C%A0'>Бензин</option>{' '}
+						{/* 휘발유 */}
+						<option value='%EA%B2%BD%EC%9C%A0'>Дизель</option> {/* 경유 */}
+						<option value='LPG'>Газ (LPG)</option>
+						<option value='%EA%B2%B8%EC%9A%A9'>Гибрид</option> {/* 겸용 */}
+						<option value='%EC%A0%84%EA%B8%B0'>Электро</option> {/* 전기 */}
+						<option value='CNG'>Cжатый природный газ (CNG)</option>
+						<option value='%ED%95%98%EC%9D%B4%EB%B8%8C%EB%A6%AC%EB%93%9C'>
+							Гибрид
+						</option>{' '}
+						{/* 하이브리드 */}
 					</select>
 
 					{/* Коробка передач */}
@@ -273,8 +280,12 @@ const Filters = ({
 						className='border rounded px-3 py-2'
 					>
 						<option value=''>Выберите передачу</option>
-						<option value='auto'>Автомат</option>
-						<option value='manual'>Механика</option>
+						<option value='%BF%C0%C5%E4'>Автомат</option>
+						<option value='%EC%88%98%EB%8F%99'>Механика</option>
+						<option value='%EC%84%B8%EB%AF%B8%EC%98%A4%ED%86%A0'>
+							Семи-автомат
+						</option>
+						<option value='CVT'>Вариатор</option>
 					</select>
 
 					{/* Цвет */}

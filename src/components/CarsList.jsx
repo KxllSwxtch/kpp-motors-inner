@@ -24,6 +24,8 @@ const CarsList = () => {
 		searchEMileage: '', // Пробег до
 		searchSPrice: '', // Цена от
 		searchEPrice: '', // Цена до
+		fuel: '', // Тип топлива
+		gearbox: '', // Тип КПП
 	})
 
 	// Фильтры, которые применяются после нажатия "Применить фильтры"
@@ -71,6 +73,8 @@ const CarsList = () => {
 				searchEMileage: appliedFilters.searchEMileage,
 				searchSPrice: appliedFilters.searchSPrice / 10000,
 				searchEPrice: appliedFilters.searchEPrice / 10000,
+				fuel: appliedFilters.fuel,
+				gearbox: appliedFilters.gearbox,
 			})
 
 			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&${params.toString()}`
@@ -124,6 +128,8 @@ const CarsList = () => {
 			searchEMileage: '',
 			searchSPrice: '',
 			searchEPrice: '',
+			fuel: '',
+			gearbox: '',
 		}
 
 		setFilters(defaultFilters) // Обновляем отображаемые фильтры
