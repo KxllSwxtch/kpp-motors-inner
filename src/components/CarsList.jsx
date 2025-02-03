@@ -31,6 +31,9 @@ const CarsList = () => {
 		sortBy: '',
 	})
 
+	// Фильтры, которые применяются после нажатия "Применить фильтры"
+	const [appliedFilters, setAppliedFilters] = useState({ ...filters })
+
 	// Настройки пагинации
 	const pageSize = 9
 	const totalPages = 50 // Допустим, у нас 50 страниц (должно быть динамическим)
@@ -60,7 +63,7 @@ const CarsList = () => {
 				cho: carType === 'korean' ? '1' : '2',
 				pageSize: 9,
 				page: page,
-				bm_no: filters.bm_no,
+				bm_no: appliedFilters.bm_no,
 				// model: filters.model,
 				// generation: filters.generation,
 				// fuelType: filters.fuelType,
@@ -75,7 +78,7 @@ const CarsList = () => {
 				// sortBy: filters.sortBy,
 			})
 
-			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&searchField=${params.toString()}`
+			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&${params.toString()}`
 
 			try {
 				const response = await axios.get(url, { responseType: 'text' })
@@ -90,11 +93,17 @@ const CarsList = () => {
 		}
 
 		fetchCars()
-	}, [page, carType, filters])
+	}, [page, carType, appliedFilters])
 
 	// Функция для обновления состояния фильтров
 	const handleFilterChange = (newFilters) => {
 		setFilters((prevFilters) => ({ ...prevFilters, ...newFilters }))
+	}
+
+	// Применить фильтры (обновляем `appliedFilters`)
+	const applyFilters = () => {
+		setAppliedFilters(filters)
+		setPage(1) // Сбрасываем страницу на первую
 	}
 
 	// Логика для показа страниц
@@ -108,8 +117,8 @@ const CarsList = () => {
 	}
 
 	// Сброс фильтров
-	const resetFilters = () =>
-		setFilters({
+	const resetFilters = () => {
+		const defaultFilters = {
 			bm_no: '',
 			model: '',
 			generation: '',
@@ -123,7 +132,11 @@ const CarsList = () => {
 			yearMax: '',
 			color: '',
 			sortBy: '',
-		})
+		}
+		setFilters(defaultFilters) // Обновляем отображаемые фильтры
+		setAppliedFilters(defaultFilters) // Сбрасываем применённые фильтры
+		setPage(1) // Сбрасываем страницу на первую
+	}
 
 	if (error) return <p>{error}</p>
 
@@ -163,7 +176,13 @@ const CarsList = () => {
 				</button>
 			</div>
 
-			<Filters filters={filters} setFilters={handleFilterChange} />
+			<Filters
+				filters={filters}
+				setFilters={handleFilterChange}
+				carType={carType}
+				resetFilters={resetFilters}
+				applyFilters={applyFilters}
+			/>
 
 			{loading ? (
 				<Loader />
