@@ -26,6 +26,7 @@ const CarsList = () => {
 		searchEPrice: '', // Цена до
 		fuel: '', // Тип топлива
 		gearbox: '', // Тип КПП
+		colors: '', // Цвет(а)
 	})
 
 	// Фильтры, которые применяются после нажатия "Применить фильтры"
@@ -75,6 +76,7 @@ const CarsList = () => {
 				searchEPrice: appliedFilters.searchEPrice / 10000,
 				fuel: appliedFilters.fuel,
 				gearbox: appliedFilters.gearbox,
+				colors: appliedFilters.colors,
 			})
 
 			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&${params.toString()}`
@@ -130,6 +132,7 @@ const CarsList = () => {
 			searchEPrice: '',
 			fuel: '',
 			gearbox: '',
+			colors: '',
 		}
 
 		setFilters(defaultFilters) // Обновляем отображаемые фильтры

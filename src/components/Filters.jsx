@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { FaFilter, FaTimes } from 'react-icons/fa'
+import Select from 'react-select'
 
 // Local imports
 import { koreanBrands, foreignBrands } from '../utils'
@@ -30,6 +31,65 @@ const Filters = ({
 			(_, i) => start + i * step,
 		)
 
+	// Список цветов
+	const colorOptions = [
+		{ value: '1', label: 'Белый' },
+		{ value: '2', label: 'Серебристый' },
+		{ value: '3', label: 'Серый' },
+		{ value: '4', label: 'Черный' },
+		{ value: '5', label: 'Красный' },
+		{ value: '6', label: 'Оранжевый' },
+		{ value: '7', label: 'Желтый' },
+		{ value: '8', label: 'Зеленый' },
+		{ value: '9', label: 'Голубой' },
+		{ value: '10', label: 'Синий' },
+		{ value: '11', label: 'Фиолетовый' },
+		{ value: '12', label: 'Коричневый' },
+		{ value: '13', label: 'Бежевый' },
+		{ value: '14', label: 'Розовый' },
+		{ value: '15', label: 'Бордовый' },
+		{ value: '16', label: 'Золотой' },
+		{ value: '17', label: 'Темно-зеленый' },
+		{ value: '18', label: 'Темно-синий' },
+		{ value: '19', label: 'Бирюзовый' },
+		{ value: '20', label: 'Хаки' },
+		{ value: '21', label: 'Медный' },
+		{ value: '22', label: 'Светло-зеленый' },
+		{ value: '23', label: 'Темно-фиолетовый' },
+		{ value: '24', label: 'Светло-голубой' },
+		{ value: '25', label: 'Оливковый' },
+		{ value: '26', label: 'Лавандовый' },
+		{ value: '27', label: 'Лаймовый' },
+		{ value: '28', label: 'Светло-розовый' },
+		{ value: '29', label: 'Графитовый' },
+		{ value: '30', label: 'Песочный' },
+		{ value: '31', label: 'Перламутровый' },
+		{ value: '32', label: 'Светло-коричневый' },
+		{ value: '33', label: 'Мятный' },
+		{ value: '34', label: 'Шампань' },
+		{ value: '35', label: 'Коралловый' },
+		{ value: '36', label: 'Темно-красный' },
+		{ value: '37', label: 'Темно-серый' },
+		{ value: '38', label: 'Темно-бежевый' },
+		{ value: '39', label: 'Светло-серый' },
+		{ value: '40', label: 'Темно-бордовый' },
+		{ value: '41', label: 'Темно-оранжевый' },
+		{ value: '42', label: 'Серебристо-серый' },
+		{ value: '43', label: 'Светло-фиолетовый' },
+		{ value: '44', label: 'Серебристо-голубой' },
+		{ value: '45', label: 'Светло-желтый' },
+		{ value: '46', label: 'Светло-бежевый' },
+		{ value: '47', label: 'Светло-красный' },
+		{ value: '48', label: 'Темно-золотой' },
+		{ value: '49', label: 'Бронзовый' },
+		{ value: '50', label: 'Глянцевый черный' },
+	]
+
+	const handleColorChange = (selectedOptions) => {
+		const selectedColors = selectedOptions.map((option) => option.value)
+		setFilters({ colors: selectedColors.join(',') })
+	}
+
 	const mileageOptions = generateRange(1000, 300000, 1000)
 	const yearOptions = generateRange(2005, 2025, 1)
 	const priceOptions = generateRange(1000000, 500000000, 1000000)
@@ -54,7 +114,7 @@ const Filters = ({
 			)}
 
 			<div
-				className={`overflow-scroll fixed md:static top-0 left-0 h-full md:h-auto w-3/3 md:w-full bg-white shadow-lg p-6 md:rounded-lg md:mb-6 transform ${
+				className={`overflow-scroll lg:overflow-visible fixed md:static top-0 left-0 h-full md:h-auto w-3/3 md:w-full bg-white shadow-lg p-6 md:rounded-lg md:mb-6 transform ${
 					isOpen ? 'translate-x-0' : '-translate-x-full'
 				} md:translate-x-0 transition-transform duration-300 z-50 md:z-auto`}
 			>
@@ -288,14 +348,18 @@ const Filters = ({
 						<option value='CVT'>Вариатор</option>
 					</select>
 
-					{/* Цвет */}
-					<input
-						type='text'
-						name='color'
-						placeholder='Цвет'
-						value={filters.color}
-						onChange={handleInputChange}
-						className='border rounded px-3 py-2'
+					{/* Цвет (Multiselect) */}
+					<Select
+						name='colors'
+						isMulti
+						options={colorOptions}
+						value={colorOptions.filter((option) =>
+							filters.colors?.split(',').includes(option.value),
+						)}
+						onChange={handleColorChange}
+						className='rounded px-3 py-1 w-full'
+						placeholder='Выберите до 4 цветов'
+						isOptionDisabled={() => filters.colors?.split(',').length >= 4}
 					/>
 
 					{/* Сортировка */}
