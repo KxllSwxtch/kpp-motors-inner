@@ -20,6 +20,8 @@ const CarsList = () => {
 		c_carNum: '', // Номер автомобиля
 		searchSY: '', // Год от
 		searchEY: '', // Год до
+		searchSMileage: '', // Пробег от
+		searchEMileage: '', // Пробег до
 	})
 
 	// Фильтры, которые применяются после нажатия "Применить фильтры"
@@ -61,21 +63,19 @@ const CarsList = () => {
 
 				bm_no: appliedFilters.bm_no,
 				c_carNum: appliedFilters.c_carNum,
-				searchSY: appliedFilters.searchSY
-					? `${appliedFilters.searchSY}.01`
-					: '',
-				searchEY: appliedFilters.searchEY
-					? `${appliedFilters.searchEY}.12`
-					: '',
+				searchSY: appliedFilters.searchSY ? appliedFilters.searchSY : '',
+				searchEY: appliedFilters.searchEY ? appliedFilters.searchEY : '',
+				searchSMileage: appliedFilters.searchSMileage,
+				searchEMileage: appliedFilters.searchEMileage,
 			})
 
 			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&${params.toString()}`
 
+			console.log(url)
+
 			try {
 				const response = await axios.get(url, { responseType: 'text' })
 				const carsData = parseXML(response.data) // Используем новый парсер
-
-				console.log('📊 Спарсенные данные:', carsData)
 				setCars(carsData)
 			} catch (err) {
 				console.error('Ошибка загрузки данных:', err)
@@ -116,6 +116,8 @@ const CarsList = () => {
 			c_carNum: '',
 			searchSY: '',
 			searchEY: '',
+			searchSMileage: '',
+			searchEMileage: '',
 		}
 
 		setFilters(defaultFilters) // Обновляем отображаемые фильтры
