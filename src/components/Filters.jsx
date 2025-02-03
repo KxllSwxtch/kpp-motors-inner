@@ -24,7 +24,7 @@ const Filters = ({
 
 	const mileageOptions = generateRange(1000, 300000, 1000)
 	const yearOptions = generateRange(2005, 2025, 1)
-	const priceOptions = generateRange(1_000_000, 100_000_000, 1_000_000)
+	const priceOptions = generateRange(1000000, 100000000, 1000000)
 
 	return (
 		<div className='bg-white shadow-md p-6 rounded-lg mb-6'>
@@ -111,7 +111,7 @@ const Filters = ({
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2 w-full'
 					>
-						<option value=''>От (км)</option>
+						<option value=''>Пробег (от)</option>
 						{mileageOptions.map((km) => (
 							<option key={km} value={km}>
 								{km.toLocaleString()} км
@@ -124,7 +124,7 @@ const Filters = ({
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2 w-full'
 					>
-						<option value=''>До (км)</option>
+						<option value=''>Пробег (до)</option>
 						{mileageOptions
 							.filter((km) => km >= (filters.mileageMin || 0))
 							.map((km) => (
@@ -143,12 +143,15 @@ const Filters = ({
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2 w-full'
 					>
-						<option value=''>От (год)</option>
-						{yearOptions.reverse().map((year) => (
-							<option key={year} value={year}>
-								{year}
-							</option>
-						))}
+						<option value=''>Год (от)</option>
+						{yearOptions
+							.reverse()
+							.filter((year) => !filters.searchEY || year <= filters.searchEY) // Ограничение для "Год от"
+							.map((year) => (
+								<option key={year} value={`${year}.01`}>
+									{year}
+								</option>
+							))}
 					</select>
 					<select
 						name='searchEY'
@@ -156,11 +159,14 @@ const Filters = ({
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2 w-full'
 					>
-						<option value=''>До (год)</option>
+						<option value=''>Год (до)</option>
 						{yearOptions
-							.filter((year) => year >= (filters.yearMin || 2005))
+							.filter(
+								(year) =>
+									!filters.searchSY || year >= parseInt(filters.searchSY),
+							) // Ограничение для "Год до"
 							.map((year) => (
-								<option key={year} value={year}>
+								<option key={year} value={`${year}.12`}>
 									{year}
 								</option>
 							))}
@@ -175,7 +181,7 @@ const Filters = ({
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2 w-full'
 					>
-						<option value=''>От (₩)</option>
+						<option value=''>Цена (от)</option>
 						{priceOptions.map((price) => (
 							<option key={price} value={price}>
 								₩{price.toLocaleString()}
@@ -188,7 +194,7 @@ const Filters = ({
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2 w-full'
 					>
-						<option value=''>До (₩)</option>
+						<option value=''>Цена (до)</option>
 						{priceOptions
 							.filter((price) => price >= (filters.priceMin || 1_000_000))
 							.map((price) => (
@@ -259,13 +265,13 @@ const Filters = ({
 			<div className='mt-4 flex justify-end gap-4'>
 				<button
 					onClick={resetFilters}
-					className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md font-semibold hover:bg-gray-400 transition-all'
+					className='bg-gray-300 text-gray-700 px-4 py-2 rounded-md font-semibold hover:bg-gray-400 transition-all cursor-pointer'
 				>
 					Сбросить
 				</button>
 				<button
 					onClick={applyFilters}
-					className='bg-primary text-white px-4 py-2 rounded-md font-semibold hover:bg-secondary transition-all'
+					className='bg-primary text-white px-4 py-2 rounded-md font-semibold hover:bg-secondary transition-all cursor-pointer'
 				>
 					Применить фильтры
 				</button>
