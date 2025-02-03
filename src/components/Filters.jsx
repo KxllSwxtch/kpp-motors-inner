@@ -32,7 +32,7 @@ const Filters = ({
 
 	const mileageOptions = generateRange(1000, 300000, 1000)
 	const yearOptions = generateRange(2005, 2025, 1)
-	const priceOptions = generateRange(1000000, 100000000, 1000000)
+	const priceOptions = generateRange(1000000, 500000000, 1000000)
 
 	return (
 		<>
@@ -214,27 +214,35 @@ const Filters = ({
 					{/* Цена */}
 					<div className='flex space-x-2'>
 						<select
-							name='priceMin'
-							value={filters.priceMin}
+							name='searchSPrice'
+							value={filters.searchSPrice}
 							onChange={handleInputChange}
 							className='border rounded px-3 py-2 w-full'
 						>
 							<option value=''>Цена (от)</option>
-							{priceOptions.map((price) => (
-								<option key={price} value={price}>
-									₩{price.toLocaleString()}
-								</option>
-							))}
+							{priceOptions
+								.filter(
+									(price) =>
+										!filters.searchEPrice || price <= filters.searchEPrice,
+								) // Ограничиваем макс. значение
+								.map((price) => (
+									<option key={price} value={price}>
+										₩{price.toLocaleString()}
+									</option>
+								))}
 						</select>
 						<select
-							name='priceMax'
-							value={filters.priceMax}
+							name='searchEPrice'
+							value={filters.searchEPrice}
 							onChange={handleInputChange}
 							className='border rounded px-3 py-2 w-full'
 						>
 							<option value=''>Цена (до)</option>
 							{priceOptions
-								.filter((price) => price >= (filters.priceMin || 1_000_000))
+								.filter(
+									(price) =>
+										!filters.searchSPrice || price >= filters.searchSPrice,
+								) // Ограничиваем мин. значение
 								.map((price) => (
 									<option key={price} value={price}>
 										₩{price.toLocaleString()}
