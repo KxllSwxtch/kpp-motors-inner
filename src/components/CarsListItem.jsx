@@ -44,7 +44,7 @@ const CarsListItem = ({ car, usdkrwRate }) => {
 			<h1 className='text-lg font-semibold'>{translatedName}</h1>
 
 			<div className='mt-4'>
-				<p className='text-gray-600 text-sm'>Год: {car.year}</p>
+				<p className='text-gray-600 text-sm'>Год: {car.regDate}</p>
 				<p className='text-gray-600 text-sm'>
 					Цена в Корее: ₩{formattedCarPriceKrw} | ${formattedCarPriceUsd}
 				</p>
@@ -74,6 +74,7 @@ CarsListItem.propTypes = {
 		mileage: PropTypes.string.isRequired,
 		gearbox: PropTypes.string.isRequired,
 		image: PropTypes.string.isRequired,
+		regDate: PropTypes.string.isRequired,
 	}).isRequired,
 	usdkrwRate: PropTypes.number.isRequired,
 }

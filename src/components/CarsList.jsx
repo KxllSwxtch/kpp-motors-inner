@@ -16,26 +16,16 @@ const CarsList = () => {
 
 	// Фильтры
 	const [filters, setFilters] = useState({
-		bm_no: '',
-		model: '',
-		generation: '',
-		fuelType: '',
-		trim: '',
-		priceMin: '',
-		priceMax: '',
-		mileageMin: '',
-		mileageMax: '',
-		yearMin: '',
-		yearMax: '',
-		color: '',
-		sortBy: '',
+		bm_no: '', // Марка
+		c_carNum: '', // Номер автомобиля
+		searchSY: '', // Год от
+		searchEY: '', // Год до
 	})
 
 	// Фильтры, которые применяются после нажатия "Применить фильтры"
 	const [appliedFilters, setAppliedFilters] = useState({ ...filters })
 
 	// Настройки пагинации
-	const pageSize = 9
 	const totalPages = 50 // Допустим, у нас 50 страниц (должно быть динамическим)
 	const pageRange = 5 // Количество отображаемых страниц
 
@@ -60,22 +50,19 @@ const CarsList = () => {
 
 			// Формируем URL с параметрами фильтрации
 			const params = new URLSearchParams({
-				cho: carType === 'korean' ? '1' : '2',
+				cho:
+					appliedFilters.c_carNum.length > 0
+						? '0'
+						: appliedFilters.c_carNum.length === 0 && carType === 'korean'
+						? '1'
+						: '2',
 				pageSize: 9,
 				page: page,
+
 				bm_no: appliedFilters.bm_no,
-				// model: filters.model,
-				// generation: filters.generation,
-				// fuelType: filters.fuelType,
-				// trim: filters.trim,
-				// priceMin: filters.priceMin,
-				// priceMax: filters.priceMax,
-				// mileageMin: filters.mileageMin,
-				// mileageMax: filters.mileageMax,
-				// yearMin: filters.yearMin,
-				// yearMax: filters.yearMax,
-				// color: filters.color,
-				// sortBy: filters.sortBy,
+				c_carNum: appliedFilters.c_carNum,
+				searchSY: appliedFilters.searchSY && `${appliedFilters.searchSY}.01`,
+				searchEY: appliedFilters.searchEY && `${appliedFilters.searchEY}.12`,
 			})
 
 			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&${params.toString()}`
@@ -120,19 +107,11 @@ const CarsList = () => {
 	const resetFilters = () => {
 		const defaultFilters = {
 			bm_no: '',
-			model: '',
-			generation: '',
-			fuelType: '',
-			trim: '',
-			priceMin: '',
-			priceMax: '',
-			mileageMin: '',
-			mileageMax: '',
-			yearMin: '',
-			yearMax: '',
-			color: '',
-			sortBy: '',
+			c_carNum: '',
+			searchSY: '',
+			searchEY: '',
 		}
+
 		setFilters(defaultFilters) // Обновляем отображаемые фильтры
 		setAppliedFilters(defaultFilters) // Сбрасываем применённые фильтры
 		setPage(1) // Сбрасываем страницу на первую

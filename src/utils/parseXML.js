@@ -20,6 +20,11 @@ const parseXML = (xmlString) => {
 			image: `http://www.carmodoo.com${
 				car.getElementsByTagName('mainImage')[0]?.textContent || ''
 			}`,
+			regDate:
+				car
+					.getElementsByTagName('regDateStr')[0]
+					?.textContent.match(/\d{4}\.\d{2}/)[0]
+					.replace('.', '/') || 'N/A',
 		}))
 
 		return cars
