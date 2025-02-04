@@ -364,21 +364,21 @@ const Filters = ({
 
 					{/* Сортировка */}
 					<select
-						name='sortBy'
-						value={filters.sortBy}
+						name='ordKey'
+						value={filters.ordKey}
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2'
 					>
 						<option value=''>Сортировка</option>
-						<option value='price_asc'>Цена (по возрастанию)</option>
-						<option value='price_desc'>Цена (по убыванию)</option>
-						<option value='mileage_asc'>Пробег (по возрастанию)</option>
-						<option value='mileage_desc'>Пробег (по убыванию)</option>
-						<option value='models_asc'>Старые модели</option>
-						<option value='models_desc'>Свежие модели</option>
-						<option value='recently_registered'>
-							Недавно зарегистрированные
-						</option>
+						<option value='c_editDate'>По дате модификации</option>
+						<option value='c_inNumber'>По номеру автомобиля</option>
+						<option value='c_dPrice'>Цена (по возрастанию)</option>
+						<option value='c_dPriceUp'>Цена (по убыванию)</option>
+						<option value='c_year'>Год выпуска (по возрастанию)</option>
+						<option value='c_yearUp'>Год выпуска (по убыванию)</option>
+						<option value='c_mileage'>Пробег (по возрастанию)</option>
+						<option value='c_mileageUp'>Пробег (по убыванию)</option>
+						<option value='c_carNum'>По номеру транспортного средства</option>
 					</select>
 				</div>
 

@@ -13,6 +13,7 @@ const CarsList = () => {
 	const [page, setPage] = useState(1)
 	const [carType, setCarType] = useState('korean') // 'korean' или 'foreign'
 	const [usdkrwRate, setUsdkrwRate] = useState(0)
+	const [priceMarkup, setPriceMarkup] = useState(0)
 
 	// Фильтры
 	const [filters, setFilters] = useState({
@@ -27,6 +28,7 @@ const CarsList = () => {
 		fuel: '', // Тип топлива
 		gearbox: '', // Тип КПП
 		colors: '', // Цвет(а)
+		ordKey: '', // Сортировка
 	})
 
 	// Фильтры, которые применяются после нажатия "Применить фильтры"
@@ -35,6 +37,11 @@ const CarsList = () => {
 	// Настройки пагинации
 	const totalPages = 50 // Допустим, у нас 50 страниц (должно быть динамическим)
 	const pageRange = 5 // Количество отображаемых страниц
+
+	// Проверка наценки на цены автомобилей
+	useEffect(() => {
+		fetchPriceMarkup()
+	}, [])
 
 	// Подтягиваем курс USD к KRW
 	useEffect(() => {
@@ -77,11 +84,10 @@ const CarsList = () => {
 				fuel: appliedFilters.fuel,
 				gearbox: appliedFilters.gearbox,
 				colors: appliedFilters.colors,
+				ordKey: appliedFilters.ordKey,
 			})
 
 			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&${params.toString()}`
-
-			console.log(url)
 
 			try {
 				const response = await axios.get(url, { responseType: 'text' })
@@ -133,11 +139,46 @@ const CarsList = () => {
 			fuel: '',
 			gearbox: '',
 			colors: '',
+			ordKey: '',
 		}
 
 		setFilters(defaultFilters) // Обновляем отображаемые фильтры
 		setAppliedFilters(defaultFilters) // Сбрасываем применённые фильтры
 		setPage(1) // Сбрасываем страницу на первую
+	}
+
+	console.log(priceMarkup)
+
+	// Функция запроса наценки
+	const fetchPriceMarkup = async () => {
+		try {
+			const response = await axios.get(
+				`https://api.allorigins.win/get?url=${encodeURIComponent(
+					'https://www.carmodoo.com/app/mypage/setup.html',
+					{
+						headers: {
+							'Accept-Language': 'en-US,en;q=0.9',
+							Cookie:
+								'_ga=GA1.1.1606020663.1738139206; _ga_N02E6P1EN4=GS1.1.1738139206.1.1.1738139899.0.0.0; _fwb=462p3UWBgR3e9knQA0aSuq.1738140900548; PHPSESSID=ucg9598mtohscijtjagv2us1l4; wcs_bt=a468f58a6984c8:1738635509; _ga_7HRXCC1P7K=GS1.1.1738634083.16.1.1738635509.0.0.0',
+						},
+					},
+				)}`,
+			)
+
+			if (response.data.contents) {
+				const parser = new DOMParser()
+				const doc = parser.parseFromString(response.data.contents, 'text/html')
+				const markupInput = doc.querySelector('input[name="uprice"]')
+
+				if (markupInput && markupInput.value.trim() !== '') {
+					setPriceMarkup(parseInt(markupInput.value, 10))
+				}
+			} else {
+				console.error('Ошибка получения данных:', response.data)
+			}
+		} catch (error) {
+			console.error('Ошибка получения наценки:', error)
+		}
 	}
 
 	if (error) return <p>{error}</p>
