@@ -73,8 +73,6 @@ const CarDetails = () => {
 
 				setCarDetails(carInfo)
 
-				console.log(carInfo)
-
 				// 🔹 Извлекаем данные о продавце 🔹
 				const dealer = {
 					name:
@@ -116,6 +114,7 @@ const CarDetails = () => {
 	const formattedCarPrice = (
 		parseInt(carDetails[0].value.replace(/\D+/gm, '')) * 10000
 	).toLocaleString()
+
 	const formattedCarDate = `${
 		carDetails
 			.filter((item) => item.label === '최초등록일')[0]
@@ -125,17 +124,32 @@ const CarDetails = () => {
 			.filter((item) => item.label === '최초등록일')[0]
 			.value.split('.')[1]
 	}`
+
 	const formattedCarMileage = parseInt(
 		carDetails
 			.filter((item) => item.label === '주행거리')[0]
 			.value.replace(/\D+/gm, ''),
 	).toLocaleString()
+
 	const formattedFuelType =
-		carDetails[21].value === '휘발유'
-			? 'Газ'
-			: carDetails[21].value === '가솔린'
+		carDetails.filter((item) => item.label === '연료')[0].value === '휘발유' ||
+		carDetails.filter((item) => item.label === '연료')[0].value === '가솔린'
 			? 'Бензин'
-			: 'Дизель'
+			: carDetails.filter((item) => item.label === '연료')[0].value ===
+					'디젤' ||
+			  carDetails.filter((item) => item.label === '연료')[0].value === '경유'
+			? 'Дизель'
+			: carDetails.filter((item) => item.label === '연료')[0].value === 'LPG' ||
+			  carDetails.filter((item) => item.label === '연료')[0].value === 'LPi'
+			? 'Газ'
+			: carDetails.filter((item) => item.label === '연료')[0].value === '겸용'
+			? 'Гибрид'
+			: carDetails.filter((item) => item.label === '연료')[0].value === '전기'
+			? 'Электро'
+			: ''
+
+	console.log(carDetails.filter((item) => item.label === '연료')[0].value)
+
 	const formattedTransmissionType =
 		carDetails.filter((item) => item.label === '변속기')[0].value === '오토'
 			? 'Автоматическая'

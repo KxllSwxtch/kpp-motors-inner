@@ -178,7 +178,7 @@ const Filters = ({
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2'
 					>
-						<option value=''>Выберите марку</option>
+						<option value=''>Марка (Все)</option>
 						{currentCarType.map((brand) => (
 							<option key={brand.id} value={brand.id}>
 								{brand.name}
@@ -194,7 +194,7 @@ const Filters = ({
 						className='border rounded px-3 py-2'
 						disabled={!filters.bm_no} // Отключаем, если марка не выбрана
 					>
-						<option value=''>Выберите модель</option>
+						<option value=''>Модель (Все)</option>
 						{koreanModels
 							.find((brand) => brand.bm_no === parseInt(filters.bm_no))
 							?.models.sort((a, b) => (a.name > b.name ? 1 : -1))
@@ -213,7 +213,7 @@ const Filters = ({
 						className='border rounded px-3 py-2'
 						disabled={!filters.bo_no || availableGenerations.length === 0}
 					>
-						<option value=''>Выберите поколение</option>
+						<option value=''>Поколение (Все)</option>
 						{availableGenerations.map((gen) => (
 							<option key={gen.bs_no} value={gen.bs_no}>
 								{gen.name}
@@ -229,7 +229,7 @@ const Filters = ({
 						className='border rounded px-3 py-2'
 						disabled={!filters.bs_no || availableTrims.length === 0}
 					>
-						<option value=''>Выберите детальную комплектацию</option>
+						<option value=''>Комплектация (Все)</option>
 						{availableTrims.map((trim) => (
 							<option key={trim.bd_no} value={trim.bd_no}>
 								{trim.name}
@@ -369,7 +369,7 @@ const Filters = ({
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2'
 					>
-						<option value=''>Выберите топливо</option>
+						<option value=''>Тип топлива (Все)</option>
 						<option value='%ED%9C%98%EB%B0%9C%EC%9C%A0'>Бензин</option>{' '}
 						{/* 휘발유 */}
 						<option value='%EA%B2%BD%EC%9C%A0'>Дизель</option> {/* 경유 */}
@@ -390,7 +390,7 @@ const Filters = ({
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2'
 					>
-						<option value=''>Выберите передачу</option>
+						<option value=''>КПП (Все)</option>
 						<option value='%BF%C0%C5%E4'>Автомат</option>
 						<option value='%EC%88%98%EB%8F%99'>Механика</option>
 						<option value='%EC%84%B8%EB%AF%B8%EC%98%A4%ED%86%A0'>
