@@ -155,7 +155,7 @@ const Filters = ({
 						<option value=''>Выберите модель</option>
 						{koreanModels
 							.find((brand) => brand.bm_no === parseInt(filters.bm_no))
-							?.models.sort((a, b) => (a.years > b.years ? -1 : 1))
+							?.models.sort((a, b) => (a.name > b.name ? 1 : -1))
 							.map((model) => (
 								<option key={model.bo_no} value={model.bo_no}>
 									{model.name} ({model.years})
