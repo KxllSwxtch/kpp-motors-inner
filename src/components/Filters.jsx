@@ -4,7 +4,7 @@ import { FaFilter, FaTimes } from 'react-icons/fa'
 import Select from 'react-select'
 
 // Local imports
-import { koreanBrands, foreignBrands } from '../utils'
+import { koreanBrands, koreanModels, foreignBrands } from '../utils'
 
 const Filters = ({
 	filters,
@@ -145,14 +145,23 @@ const Filters = ({
 					</select>
 
 					{/* Модель */}
-					<input
-						type='text'
-						name='model'
-						placeholder='Модель'
-						value={filters.model}
+					<select
+						name='bo_no'
+						value={filters.bo_no}
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2'
-					/>
+						disabled={!filters.bm_no} // Отключаем, если марка не выбрана
+					>
+						<option value=''>Выберите модель</option>
+						{koreanModels
+							.find((brand) => brand.bm_no === parseInt(filters.bm_no))
+							?.models.sort((a, b) => (a.years > b.years ? -1 : 1))
+							.map((model) => (
+								<option key={model.bo_no} value={model.bo_no}>
+									{model.name} ({model.years})
+								</option>
+							))}
+					</select>
 
 					{/* Поколение */}
 					<input
