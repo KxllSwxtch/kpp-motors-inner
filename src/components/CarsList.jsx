@@ -18,6 +18,8 @@ const CarsList = () => {
 	const [filters, setFilters] = useState({
 		bm_no: '', // Марка
 		bo_no: '', // Модель
+		bs_no: '', // Тип двигателя и объём
+		bd_no: '', // Комплектация
 		c_carNum: '', // Номер автомобиля
 		searchSY: '', // Год от
 		searchEY: '', // Год до
@@ -70,6 +72,8 @@ const CarsList = () => {
 
 				bm_no: appliedFilters.bm_no,
 				bo_no: appliedFilters.bo_no,
+				bs_no: appliedFilters.bs_no,
+				bd_no: appliedFilters.bd_no,
 				c_carNum: appliedFilters.c_carNum,
 				searchSY: appliedFilters.searchSY ? appliedFilters.searchSY : '',
 				searchEY: appliedFilters.searchEY ? appliedFilters.searchEY : '',
@@ -126,6 +130,8 @@ const CarsList = () => {
 		const defaultFilters = {
 			bm_no: '',
 			bo_no: '',
+			bs_no: '',
+			bd_no: '',
 			c_carNum: '',
 			searchSY: '',
 			searchEY: '',

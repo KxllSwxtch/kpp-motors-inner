@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaFilter, FaTimes } from 'react-icons/fa'
 import Select from 'react-select'
 
 // Local imports
-import { koreanBrands, koreanModels, foreignBrands } from '../utils'
+import {
+	koreanBrands,
+	koreanModels,
+	foreignBrands,
+	koreanFuelVolume,
+	koreanConfigurations,
+} from '../utils'
 
 const Filters = ({
 	filters,
@@ -14,6 +20,8 @@ const Filters = ({
 	carType,
 }) => {
 	const [isOpen, setIsOpen] = useState(false) // Состояние для мобильных устройств
+	const [availableGenerations, setAvailableGenerations] = useState([])
+	const [availableTrims, setAvailableTrims] = useState([])
 
 	const handleInputChange = (e) => {
 		const { name, value } = e.target
@@ -94,6 +102,40 @@ const Filters = ({
 	const yearOptions = generateRange(2005, 2025, 1)
 	const priceOptions = generateRange(1000000, 500000000, 1000000)
 
+	// Обновляем список поколений при изменении модели
+	useEffect(() => {
+		if (filters.bo_no) {
+			const fuelData = koreanFuelVolume.find(
+				(item) => parseInt(item.bo_no) === parseInt(filters.bo_no),
+			)
+			if (fuelData) {
+				setAvailableGenerations(fuelData.types)
+			} else {
+				setAvailableGenerations([])
+			}
+		} else {
+			setAvailableGenerations([])
+		}
+	}, [filters.bo_no])
+
+	// Обновляем список комплектаций (trim) при изменении bs_no (объём + топливо)
+	useEffect(() => {
+		if (filters.bs_no) {
+			const configData = koreanConfigurations.find(
+				(item) => parseInt(item.bs_no) === parseInt(filters.bs_no),
+			)
+			if (configData) {
+				setAvailableTrims(configData.configurations)
+			} else {
+				setAvailableTrims([])
+			}
+		} else {
+			setAvailableTrims([])
+		}
+		// Сбрасываем выбор trim при смене поколения
+		setFilters((prev) => ({ ...prev, bd_no: '' }))
+	}, [filters.bs_no])
+
 	return (
 		<>
 			{/* Кнопка для открытия фильтров на мобильных устройствах */}
@@ -163,36 +205,36 @@ const Filters = ({
 							))}
 					</select>
 
-					{/* Поколение */}
-					<input
-						type='text'
-						name='generation'
-						placeholder='Поколение'
-						value={filters.generation}
-						onChange={handleInputChange}
-						className='border rounded px-3 py-2'
-					/>
-
-					{/* Комплектация */}
+					{/* Поколение (только если выбрана модель) */}
 					<select
-						name='trim'
-						value={filters.trim}
+						name='bs_no'
+						value={filters.bs_no}
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2'
+						disabled={!filters.bo_no || availableGenerations.length === 0}
 					>
-						<option value=''>Выберите комплектацию</option>
-						{/* Опции будут добавляться динамически */}
+						<option value=''>Выберите поколение</option>
+						{availableGenerations.map((gen) => (
+							<option key={gen.bs_no} value={gen.bs_no}>
+								{gen.name}
+							</option>
+						))}
 					</select>
 
-					{/* Детальная комплектация */}
+					{/* Комплектация (зависит от bs_no) */}
 					<select
-						name='detailed_trim'
-						value={filters.detailed_trim}
+						name='bd_no'
+						value={filters.bd_no}
 						onChange={handleInputChange}
 						className='border rounded px-3 py-2'
+						disabled={!filters.bs_no || availableTrims.length === 0}
 					>
 						<option value=''>Выберите детальную комплектацию</option>
-						{/* Опции будут добавляться динамически */}
+						{availableTrims.map((trim) => (
+							<option key={trim.bd_no} value={trim.bd_no}>
+								{trim.name}
+							</option>
+						))}
 					</select>
 
 					{/* Поиск по номеру авто */}

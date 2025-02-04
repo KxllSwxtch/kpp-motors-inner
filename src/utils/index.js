@@ -2,7 +2,16 @@ import parseXML from './parseXML'
 
 import koreanBrands from './koreanBrands'
 import koreanModels from './koreanModels'
+import koreanFuelVolume from './koreanFuelVolume'
+import koreanConfigurations from './koreanConfigurations'
 
 import foreignBrands from './foreignBrands'
 
-export { parseXML, koreanBrands, foreignBrands, koreanModels }
+export {
+	parseXML,
+	koreanBrands,
+	foreignBrands,
+	koreanModels,
+	koreanFuelVolume,
+	koreanConfigurations,
+}
