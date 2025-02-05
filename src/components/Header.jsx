@@ -61,7 +61,7 @@ const Header = () => {
 				<Link to='/faq' className='hover:text-secondary'>
 					Ответы на вопросы
 				</Link>
-				<Link to='/about' className='hover:text-secondary'>
+				<Link to='/about-us' className='hover:text-secondary'>
 					О нас
 				</Link>
 				<Link to='/contacts' className='hover:text-secondary'>
