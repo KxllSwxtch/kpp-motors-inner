@@ -21,7 +21,15 @@ const Contacts = () => {
 					</div>
 					<div className='flex items-center gap-3'>
 						<FaPhoneAlt className='text-green-500 text-2xl' />
-						<p>+82-10-7650-3034 (Офис Южная Корея)</p>
+						<p>+82-10-7650-3034 (Константин)</p>
+					</div>
+					<div className='flex items-center gap-3'>
+						<FaPhoneAlt className='text-green-500 text-2xl' />
+						<p>+82-10-7291-1701 (Константин)</p>
+					</div>
+					<div className='flex items-center gap-3'>
+						<FaPhoneAlt className='text-green-500 text-2xl' />
+						<p>+82-10-3504-1522 (Елена) (English, 한국어)</p>
 					</div>
 					{/* <div className='flex items-center gap-3'>
 						<FaMapMarkerAlt className='text-red-500 text-2xl' />
