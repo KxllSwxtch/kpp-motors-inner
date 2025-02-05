@@ -1,4 +1,5 @@
 import parseXML from './parseXML'
+import sortModels from './sortModels'
 
 import koreanBrands from './koreanBrands'
 import koreanModels from './koreanModels'
@@ -14,4 +15,5 @@ export {
 	koreanModels,
 	koreanFuelVolume,
 	koreanConfigurations,
+	sortModels,
 }

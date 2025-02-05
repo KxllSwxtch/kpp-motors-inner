@@ -10,6 +10,7 @@ import {
 	foreignBrands,
 	koreanFuelVolume,
 	koreanConfigurations,
+	sortModels,
 } from '../utils'
 
 const Filters = ({
@@ -136,6 +137,19 @@ const Filters = ({
 		setFilters((prev) => ({ ...prev, bd_no: '' }))
 	}, [filters.bs_no])
 
+	const filteredModels = koreanModels.find(
+		(brand) => brand.bm_no === parseInt(filters.bm_no),
+	)?.models
+
+	let sortedModels = []
+	if (filteredModels) {
+		sortedModels = sortModels(filteredModels)?.map((model) => (
+			<option key={model.bo_no} value={model.bo_no}>
+				{model.name} ({model.years})
+			</option>
+		))
+	}
+
 	return (
 		<>
 			{/* Кнопка для открытия фильтров на мобильных устройствах */}
@@ -195,14 +209,7 @@ const Filters = ({
 						disabled={!filters.bm_no} // Отключаем, если марка не выбрана
 					>
 						<option value=''>Модель (Все)</option>
-						{koreanModels
-							.find((brand) => brand.bm_no === parseInt(filters.bm_no))
-							?.models.sort((a, b) => (a.name > b.name ? 1 : -1))
-							.map((model) => (
-								<option key={model.bo_no} value={model.bo_no}>
-									{model.name} ({model.years})
-								</option>
-							))}
+						{sortedModels}
 					</select>
 
 					{/* Поколение (только если выбрана модель) */}
