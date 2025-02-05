@@ -44,7 +44,27 @@ const CostCalculatorSection = () => {
 		})
 
 		try {
-			const response = await axios.post('/api/customs', payload)
+			const response = await axios.post(
+				'https://corsproxy.io/?key=28174bc7&url=https://calcus.ru/calculate/Customs',
+				new URLSearchParams({
+					owner: 1,
+					age: calculateAge(carYear, carMonth),
+					engine: engineType,
+					power: 1,
+					power_unit: 1,
+					value: engineVolume,
+					price: carPrice,
+					curr: 'KRW',
+				}).toString(),
+				{
+					withCredentials: false,
+					headers: {
+						'Content-Type': 'application/x-www-form-urlencoded',
+					},
+				},
+			)
+
+			console.log(response)
 
 			if (!response.status === 200) throw new Error('Ошибка при расчёте')
 
