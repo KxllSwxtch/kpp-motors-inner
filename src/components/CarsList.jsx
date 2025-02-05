@@ -89,8 +89,6 @@ const CarsList = () => {
 
 			const url = `https://corsproxy.io/?https://www.carmodoo.com/app/market/_inc_car_list.html?mode=carList&${params.toString()}`
 
-			console.log(appliedFilters.searchSPrice, appliedFilters.searchEPrice)
-
 			try {
 				const response = await axios.get(url, { responseType: 'text' })
 				const carsData = parseXML(response.data) // Используем новый парсер

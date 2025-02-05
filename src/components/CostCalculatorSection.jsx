@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useState } from 'react'
 
 const CostCalculatorSection = () => {
@@ -43,20 +44,11 @@ const CostCalculatorSection = () => {
 		})
 
 		try {
-			const response = await fetch('https://calcus.ru/calculate/Customs', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded',
-					'User-Agent': 'Mozilla/5.0',
-					Referer: 'https://calcus.ru/',
-					Origin: 'https://calcus.ru',
-				},
-				body: payload,
-			})
+			const response = await axios.post('/api/customs', payload)
 
-			if (!response.ok) throw new Error('Ошибка при расчёте')
+			if (!response.status === 200) throw new Error('Ошибка при расчёте')
 
-			const data = await response.json()
+			const data = await response.data
 			setResult(data)
 		} catch (err) {
 			setError(err.message)
