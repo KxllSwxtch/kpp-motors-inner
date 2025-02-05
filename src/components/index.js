@@ -12,6 +12,7 @@ import Loader from './Loader'
 import CarsListItem from './CarsListItem'
 import { CustomNextArrow, CustomPrevArrow } from './Arrows'
 import Filters from './Filters'
+import Accordion from './Accordion'
 
 export {
 	Header,
@@ -29,4 +30,5 @@ export {
 	CustomNextArrow,
 	CustomPrevArrow,
 	Filters,
+	Accordion,
 }
