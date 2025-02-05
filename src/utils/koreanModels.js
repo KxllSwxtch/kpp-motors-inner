@@ -362,7 +362,27 @@ const koreanModels = [
 	// Genesis
 	{
 		bm_no: 146,
-		models: [],
+		models: [
+			{ bo_no: 1594, name: 'EQ900', years: '2015.12 - 2018.12' },
+			{ bo_no: 2615, name: 'G70', years: '2017.09 - 2020.10' },
+			{ bo_no: 3003, name: 'The New G70', years: '2020.10 ~' },
+			{ bo_no: 2515, name: 'G80', years: '2016.07 - 2020.03' },
+			{ bo_no: 2559, name: 'G80 Sport', years: '2016.10 - 2020.03' },
+			{ bo_no: 2852, name: 'The All-New G80', years: '2020.03 - 2023.12' },
+			{ bo_no: 3530, name: 'New G80', years: '2023.12 ~' },
+			{ bo_no: 3120, name: 'eG80', years: '2021.07 - 2024.09' },
+			{ bo_no: 3599, name: 'New eG80', years: '2024.09 ~' },
+			{ bo_no: 2707, name: 'G90', years: '2018.11 - 2021.12' },
+			{ bo_no: 3175, name: 'New G90', years: '2021.12 ~' },
+			{ bo_no: 3141, name: 'GV60', years: '2021.10 ~' },
+			{ bo_no: 3023, name: 'GV70', years: '2020.12 - 2024.05' },
+			{ bo_no: 3561, name: 'New GV70', years: '2024.05 ~' },
+			{ bo_no: 3216, name: 'eGV70', years: '2022.05 - 2025.01' },
+			{ bo_no: 3627, name: 'New eGV70', years: '2025.01 ~' },
+			{ bo_no: 2835, name: 'GV80', years: '2020.01 - 2023.10' },
+			{ bo_no: 3508, name: 'New GV80', years: '2023.10 ~' },
+			{ bo_no: 3507, name: 'GV80 Coupe', years: '2023.10 ~' },
+		],
 	},
 ]
 
