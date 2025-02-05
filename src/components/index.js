@@ -13,6 +13,7 @@ import CarsListItem from './CarsListItem'
 import { CustomNextArrow, CustomPrevArrow } from './Arrows'
 import Filters from './Filters'
 import Accordion from './Accordion'
+import CostCalculatorSection from './CostCalculatorSection'
 
 export {
 	Header,
@@ -31,4 +32,5 @@ export {
 	CustomPrevArrow,
 	Filters,
 	Accordion,
+	CostCalculatorSection,
 }

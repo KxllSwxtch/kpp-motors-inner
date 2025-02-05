@@ -5,6 +5,7 @@ import {
 	PopularCars,
 	ServiceVideoSection,
 	WhyUsSection,
+	CostCalculatorSection,
 } from '../components'
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
 			<HeroSection />
 			<WhyUsSection />
 			<PopularCars />
+			<CostCalculatorSection />
 			<div className='bg-background'>
 				<ServiceVideoSection />
 				<BuyingProcessSection />

@@ -23,7 +23,7 @@ const HeroSection = () => {
 					to='/cars'
 					className='bg-secondary text-light py-3 px-6 rounded-lg text-lg font-semibold hover:bg-primary transition-all duration-300'
 				>
-					Смотреть каталог
+					Каталог Автомобилей
 				</Link>
 			</div>
 		</div>

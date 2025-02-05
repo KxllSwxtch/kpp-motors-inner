@@ -50,7 +50,7 @@ const Header = () => {
 					Главная
 				</Link>
 				<Link to='/cars' className='hover:text-secondary'>
-					Автомобили в наличии
+					Каталог
 				</Link>
 				<Link to='/cases' className='hover:text-secondary'>
 					Кейсы
@@ -59,7 +59,7 @@ const Header = () => {
 					Отзывы
 				</Link>
 				<Link to='/faq' className='hover:text-secondary'>
-					Ответы на вопросы
+					FAQ
 				</Link>
 				<Link to='/about-us' className='hover:text-secondary'>
 					О нас
