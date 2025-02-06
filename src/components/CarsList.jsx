@@ -201,45 +201,53 @@ const CarsList = () => {
 			) : (
 				<>
 					{/* Список автомобилей */}
-					<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-						{cars.map((car) => (
-							<CarsListItem key={car.id} car={car} usdkrwRate={usdkrwRate} />
-						))}
-					</div>
+					{cars.length > 0 ? (
+						<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+							{cars.map((car) => (
+								<CarsListItem key={car.id} car={car} usdkrwRate={usdkrwRate} />
+							))}
+						</div>
+					) : (
+						<h1>Автомобили не найдены</h1>
+					)}
 
 					{/* Пагинация */}
-					<div className='flex justify-center mt-8 space-x-2'>
-						<button
-							className={`flex items-center px-4 py-2 rounded-md font-semibold transition-all duration-300 ${
-								page === 1
-									? 'bg-gray-300 cursor-not-allowed'
-									: 'bg-primary text-white hover:bg-secondary'
-							}`}
-							onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-							disabled={page === 1}
-						>
-							<FaChevronLeft className='mr-2' />
-						</button>
-						{getPageNumbers().map((pageNum) => (
+					{cars.length > 0 && (
+						<div className='flex justify-center mt-8 space-x-2'>
 							<button
-								key={pageNum}
-								className={`cursor-pointer px-4 py-2 rounded-md font-semibold transition-all duration-300 ${
-									pageNum === page
-										? 'bg-secondary text-white'
-										: 'bg-gray-100 hover:bg-gray-300'
+								className={`flex items-center px-4 py-2 rounded-md font-semibold transition-all duration-300 ${
+									page === 1
+										? 'bg-gray-300 cursor-not-allowed'
+										: 'bg-primary text-white hover:bg-secondary'
 								}`}
-								onClick={() => setPage(pageNum)}
+								onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+								disabled={page === 1}
 							>
-								{pageNum}
+								<FaChevronLeft className='mr-2' />
 							</button>
-						))}
-						<button
-							className='cursor-pointer flex items-center px-4 py-2 bg-primary text-white rounded-md font-semibold hover:bg-secondary transition-all duration-300'
-							onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-						>
-							<FaChevronRight className='ml-2' />
-						</button>
-					</div>
+							{getPageNumbers().map((pageNum) => (
+								<button
+									key={pageNum}
+									className={`cursor-pointer px-4 py-2 rounded-md font-semibold transition-all duration-300 ${
+										pageNum === page
+											? 'bg-secondary text-white'
+											: 'bg-gray-100 hover:bg-gray-300'
+									}`}
+									onClick={() => setPage(pageNum)}
+								>
+									{pageNum}
+								</button>
+							))}
+							<button
+								className='cursor-pointer flex items-center px-4 py-2 bg-primary text-white rounded-md font-semibold hover:bg-secondary transition-all duration-300'
+								onClick={() =>
+									setPage((prev) => Math.min(prev + 1, totalPages))
+								}
+							>
+								<FaChevronRight className='ml-2' />
+							</button>
+						</div>
+					)}
 				</>
 			)}
 		</div>
