@@ -3,7 +3,7 @@ const koreanModels = [
 	{
 		bm_no: 5,
 		models: [
-			{ bo_no: 4, name: 'Hyundai i30cw', years: '2008.11 - 2011.10' },
+			{ bo_no: 4, name: 'i30cw', years: '2008.11 - 2011.10' },
 			{ bo_no: 1056, name: 'The New i30', years: '2015.10 - 2016.09' },
 			{ bo_no: 229, name: 'i40', years: '2011.09 - 2015.01' },
 			{ bo_no: 1057, name: 'The New i40', years: '2015.01 - 2019.05' },
