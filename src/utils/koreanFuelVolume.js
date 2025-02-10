@@ -1,4 +1,5 @@
 const koreanFuelVolume = [
+	// Hyundai
 	{
 		bo_no: 229,
 		types: [
@@ -20,7 +21,6 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-
 	{
 		bo_no: 1057,
 		types: [
@@ -42,7 +42,6 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-
 	{
 		bo_no: 170,
 		types: [
@@ -60,7 +59,6 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-
 	{
 		bo_no: 92,
 		types: [
@@ -82,7 +80,6 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-
 	{
 		bo_no: 234,
 		types: [
@@ -100,7 +97,6 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-
 	{
 		bo_no: 71,
 		types: [
@@ -114,7 +110,6 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-
 	{
 		bo_no: 72,
 		types: [
@@ -132,7 +127,6 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-
 	{
 		bo_no: 66,
 		types: [
@@ -166,9 +160,8 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-
 	{
-		bs_no: 225,
+		bo_no: 225,
 		types: [
 			{
 				bs_no: 19263,
@@ -180,11 +173,269 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-
 	{
-		bs_no: 8,
+		bo_no: 8,
+		types: [
+			{
+				bs_no: 27,
+				name: 'L330',
+			},
+			{
+				bs_no: 25,
+				name: 'Q240',
+			},
+			{
+				bs_no: 26,
+				name: 'Q270',
+			},
+			{
+				bs_no: 5766,
+				name: 'LPI',
+			},
+			{
+				bs_no: 19331,
+				name: '수출형(아제라)',
+			},
+		],
+	},
+	{
+		bo_no: 184,
+		types: [
+			{
+				bs_no: 786,
+				name: 'Q240',
+			},
+			{
+				bs_no: 787,
+				name: 'Q270',
+			},
+			{
+				bs_no: 5767,
+				name: 'LPI',
+			},
+		],
+	},
+	{
+		bo_no: 209,
+		types: [
+			{
+				bs_no: 895,
+				name: 'HG 300',
+			},
+			{
+				bs_no: 894,
+				name: 'HG 240',
+			},
+			{
+				bs_no: 924,
+				name: 'HG 330',
+			},
+			{
+				bs_no: 5768,
+				name: 'LPI',
+			},
+		],
+	},
+	{
+		bo_no: 955,
 		types: [],
 	},
+	{
+		bo_no: 955,
+		types: [
+			{
+				bs_no: 4149,
+				name: '2.4 HEV',
+			},
+		],
+	},
+	{
+		bo_no: 2569,
+		types: [
+			{
+				bs_no: 17595,
+				name: '2.4 GDi',
+			},
+			{
+				bs_no: 17596,
+				name: '3.0 GDi',
+			},
+			{
+				bs_no: 17644,
+				name: '3.3 GDi',
+			},
+			{
+				bs_no: 17597,
+				name: '3.0 LPi',
+			},
+			{
+				bs_no: 17598,
+				name: '2.2 디젤',
+			},
+		],
+	},
+	{
+		bo_no: 2591,
+		types: [
+			{
+				bs_no: 17663,
+				name: '2.4 HEV',
+			},
+		],
+	},
+	{
+		bo_no: 2820,
+		types: [
+			{
+				bs_no: 19146,
+				name: '가솔린 2.5',
+			},
+			{
+				bs_no: 19147,
+				name: '가솔린 3.3',
+			},
+			{
+				bs_no: 19148,
+				name: 'LPi 3.0',
+			},
+		],
+	},
+	{
+		bo_no: 2821,
+		types: [
+			{
+				bs_no: 19145,
+				name: '2.4 HEV',
+			},
+		],
+	},
+	{
+		bo_no: 3357,
+		types: [
+			{
+				bs_no: 21643,
+				name: 'LPi 3.5',
+			},
+			{
+				bs_no: 21642,
+				name: '가솔린 2.5',
+			},
+			{
+				bs_no: 21645,
+				name: '가솔린 3.5 AWD',
+			},
+			{
+				bs_no: 21644,
+				name: '가솔린 3.5 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 3358,
+		types: [
+			{
+				bs_no: 21646,
+				name: '1.6 하이브리드',
+			},
+		],
+	},
+	{
+		bo_no: 171,
+		types: [
+			{
+				bs_no: 9014,
+				name: '12인승 디젤',
+			},
+		],
+	},
+	{
+		bo_no: 100,
+		types: [
+			{
+				bs_no: 8731,
+				name: '3인승 디젤',
+			},
+			{
+				bs_no: 8737,
+				name: '15인승 디젤',
+			},
+		],
+	},
+	{
+		bo_no: 2658,
+		types: [
+			{
+				bs_no: 17922,
+				name: 'FCEV',
+			},
+		],
+	},
+	{
+		bo_no: 76,
+		types: [
+			{
+				bs_no: 317,
+				name: '2.5',
+			},
+			{
+				bs_no: 318,
+				name: '3.0 V6',
+			},
+			{
+				bs_no: 4254,
+				name: '3.0 LPG',
+			},
+			{
+				bs_no: 21420,
+				name: '리무진',
+			},
+			{
+				bs_no: 21453,
+				name: '3.5 V6',
+			},
+		],
+	},
+	{
+		bo_no: 83,
+		types: [
+			{
+				bs_no: 328,
+				name: '1.5 DOHC',
+			},
+		],
+	},
+	{
+		bo_no: 236,
+		types: [
+			{
+				bs_no: 3898,
+				name: '2.0',
+			},
+		],
+	},
+	{
+		bo_no: 929,
+		types: [
+			{
+				bs_no: 10182,
+				name: '디젤 R2.2 4WD',
+			},
+			{
+				bs_no: 10181,
+				name: '디젤 R2.2 2WD',
+			},
+		],
+	},
+
+	// Kia
+
+	// Genesis
+
+	// Renault (Samsung)
+
+	// Chevrolet
+
+	// SsangYong
 ]
 
 export default koreanFuelVolume

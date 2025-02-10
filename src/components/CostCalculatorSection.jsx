@@ -64,8 +64,6 @@ const CostCalculatorSection = () => {
 				},
 			)
 
-			console.log(response)
-
 			if (!response.status === 200) throw new Error('Ошибка при расчёте')
 
 			const data = await response.data
