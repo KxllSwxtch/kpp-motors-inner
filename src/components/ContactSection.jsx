@@ -9,7 +9,7 @@ import {
 const ContactSection = () => {
 	return (
 		<div className='bg-gray-800 text-white py-12 px-4 text-center'>
-			<h2 className='text-3xl font-bold mb-6'>KPP Motors всегда на связи</h2>
+			<h2 className='text-3xl font-bold mb-6'>Bazarish Auto всегда на связи</h2>
 			<div className='flex flex-col md:flex-row justify-center items-center gap-8'>
 				{/* Телефоны */}
 				<div className='flex flex-col items-start gap-3'>

@@ -9,7 +9,7 @@ const WhyUsSection = () => {
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.5 }}
 			>
-				Почему KPP Motors?
+				Почему Bazarish Auto?
 			</motion.h2>
 			<div className='grid grid-cols-1 md:grid-cols-4 gap-6'>
 				{[

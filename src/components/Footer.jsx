@@ -8,8 +8,8 @@ const Footer = () => {
 				{/* Логотип */}
 				<div className='mb-4 md:mb-0'>
 					<img
-						className='h-20'
-						src='https://res.cloudinary.com/pomegranitedesign/image/upload/v1738139100/kpp-motors/logo.png.png'
+						className='h-25'
+						src='https://res.cloudinary.com/pomegranitedesign/image/upload/v1738139100/kpp-motors/logo.jpeg'
 						alt='KPP Motors Логотип'
 					/>
 				</div>

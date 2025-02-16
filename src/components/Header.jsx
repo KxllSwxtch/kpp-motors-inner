@@ -29,18 +29,16 @@ const Header = () => {
 
 	return (
 		<header
-			className={`fixed top-0 left-0 w-full p-4 flex justify-between items-center transition-all duration-300 z-50 ${
-				isScrolled
-					? 'bg-black shadow-lg py-3'
-					: 'sm:bg-transparent py-4 bg-black'
+			className={`pr-8 fixed top-0 left-0 w-full flex justify-between items-center transition-all duration-300 z-50 ${
+				isScrolled ? 'bg-black shadow-lg' : 'sm:bg-transparent bg-black'
 			}`}
 		>
 			<div className='flex items-center'>
 				<Link to='/'>
 					<img
-						src='https://res.cloudinary.com/pomegranitedesign/image/upload/v1738139100/kpp-motors/logo.png.png'
+						src='https://res.cloudinary.com/pomegranitedesign/image/upload/v1738139100/kpp-motors/logo.jpeg'
 						alt='KPP Motors Logo'
-						className='h-12'
+						className='h-25'
 					/>
 				</Link>
 			</div>
