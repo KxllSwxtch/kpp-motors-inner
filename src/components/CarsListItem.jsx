@@ -9,7 +9,6 @@ const CarsListItem = ({ car, usdkrwRate, isExport }) => {
 	const [fuelType, setFuelType] = useState(null)
 	const [customsFees, setCustomsFees] = useState(null)
 	const [loadingFees, setLoadingFees] = useState(false)
-	const [carPriceRub, setCarPriceRub] = useState(null)
 
 	const calculateAge = (year, month) => {
 		const currentDate = new Date()
@@ -87,9 +86,8 @@ const CarsListItem = ({ car, usdkrwRate, isExport }) => {
 	useEffect(() => {
 		const fetchEngineSpecs = async (carId) => {
 			try {
-				//https://corsproxy.io/?
 				const response = await axios.get(
-					`https://www.carmodoo.com/app/market/car_detail_tab.html?m_no=${carId}&tab=4`,
+					`https://corsproxy.io/?https://www.carmodoo.com/app/market/car_detail_tab.html?m_no=${carId}&tab=4`,
 					{ responseType: 'text' },
 				)
 
