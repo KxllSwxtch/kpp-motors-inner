@@ -16,9 +16,71 @@ const CarDetails = () => {
 	const [dealerInfo, setDealerInfo] = useState({})
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
+	const [engineVolume, setEngineVolume] = useState(null)
+	const [customsFees, setCustomsFees] = useState(null)
+	const [loadingFees, setLoadingFees] = useState(false)
 
 	const BASE_IMAGE_URL = 'https://www.carmodoo.com'
 
+	const calculateAge = (year, month) => {
+		const currentDate = new Date()
+		const carDate = new Date(year, month - 1, 1) // Указываем 1-е число месяца
+
+		// Вычисляем возраст в месяцах
+		const ageInMonths =
+			(currentDate.getFullYear() - carDate.getFullYear()) * 12 +
+			(currentDate.getMonth() - carDate.getMonth())
+
+		if (ageInMonths < 36) {
+			return '0-3'
+		} else if (ageInMonths < 60) {
+			return '3-5'
+		} else if (ageInMonths < 84) {
+			return '5-7'
+		} else {
+			return '7-0'
+		}
+	}
+
+	// Получаем данные по объёму двс
+	useEffect(() => {
+		const fetchCarEngineVolume = async (carId) => {
+			try {
+				const response = await axios.get(
+					`https://corsproxy.io/?https://www.carmodoo.com/app/market/car_detail_tab.html?m_no=${carId}&tab=4`,
+					{ responseType: 'text' },
+				)
+
+				const parser = new DOMParser()
+				const doc = parser.parseFromString(response.data, 'text/html')
+
+				// Ищем все `td`, у которых внутри `label`
+				const rows = Array.from(doc.querySelectorAll('td'))
+
+				rows.forEach((td) => {
+					const label = td.querySelector('label')
+					if (!label) return
+
+					const labelText = label.textContent.trim()
+
+					// Ищем объем двигателя (배기량 (cc))
+					if (labelText.includes('배기량(cc)')) {
+						const p = td.querySelector('p')
+						if (p) {
+							setEngineVolume(parseInt(p.textContent.trim(), 10))
+						}
+					}
+				})
+			} catch (error) {
+				console.error('Ошибка получения характеристик двигателя:', error)
+			}
+			return null
+		}
+
+		fetchCarEngineVolume(id)
+	}, [id])
+
+	// Вывод базовой информации по автомобилю
 	useEffect(() => {
 		const fetchCarDetails = async () => {
 			setLoading(true)
@@ -96,6 +158,56 @@ const CarDetails = () => {
 		fetchCarDetails()
 	}, [id])
 
+	// Расчёт таможенных платежей по авто
+	useEffect(() => {
+		const fetchCustomsFees = async (volume, price, fuelType, yearMonth) => {
+			setLoadingFees(true)
+
+			const carYear = `20${yearMonth.split('/')[0]}`
+			const carMonth = yearMonth.split('/')[1]
+			const carAge = calculateAge(carYear, carMonth)
+
+			try {
+				const response = await axios.post(
+					'https://corsproxy.io/?key=28174bc7&url=https://calcus.ru/calculate/Customs',
+					new URLSearchParams({
+						owner: 1,
+						age: carAge,
+						engine: 1,
+						power: 1,
+						power_unit: 1,
+						value: volume,
+						price: parseInt(price.replace(/\D+/gm, '')) * 10000,
+						curr: 'KRW',
+					}).toString(),
+					{
+						withCredentials: false,
+						headers: {
+							'Content-Type': 'application/x-www-form-urlencoded',
+						},
+					},
+				)
+
+				setCustomsFees(response.data)
+			} catch (error) {
+				console.error('Ошибка расчёта таможенных платежей:', error)
+			}
+			setLoadingFees(false)
+		}
+
+		const formattedCarDate = `${
+			carDetails
+				?.filter((item) => item.label === '최초등록일')[0]
+				?.value.split('.')[0]
+		}/${
+			carDetails
+				?.filter((item) => item.label === '최초등록일')[0]
+				?.value.split('.')[1]
+		}`
+
+		fetchCustomsFees(engineVolume, carDetails[0]?.value, 1, formattedCarDate)
+	}, [carDetails, engineVolume])
+
 	if (loading) return <Loader />
 	if (error) return <p className='text-red-500'>{error}</p>
 
@@ -117,12 +229,12 @@ const CarDetails = () => {
 
 	const formattedCarDate = `${
 		carDetails
-			.filter((item) => item.label === '최초등록일')[0]
-			.value.split('.')[0]
+			?.filter((item) => item.label === '최초등록일')[0]
+			?.value.split('.')[0]
 	}/${
 		carDetails
-			.filter((item) => item.label === '최초등록일')[0]
-			.value.split('.')[1]
+			?.filter((item) => item.label === '최초등록일')[0]
+			?.value.split('.')[1]
 	}`
 
 	const formattedCarMileage = parseInt(
@@ -147,8 +259,6 @@ const CarDetails = () => {
 			: carDetails.filter((item) => item.label === '연료')[0].value === '전기'
 			? 'Электро'
 			: ''
-
-	console.log(carDetails.filter((item) => item.label === '연료')[0].value)
 
 	const formattedTransmissionType =
 		carDetails.filter((item) => item.label === '변속기')[0].value === '오토'
@@ -207,6 +317,13 @@ const CarDetails = () => {
 						<span className='text-gray-900'>{formattedCarMileage} км</span>
 					</li>
 					<li className='flex justify-between border-b pb-2'>
+						{/* Объём */}
+						<span className='font-semibold text-gray-700'>Объём</span>
+						<span className='text-gray-900'>
+							{engineVolume?.toLocaleString()} cc
+						</span>
+					</li>
+					<li className='flex justify-between border-b pb-2'>
 						{/* Топливо */}
 						<span className='font-semibold text-gray-700'>Топливо</span>
 						<span className='text-gray-900'>{formattedFuelType}</span>
@@ -217,6 +334,51 @@ const CarDetails = () => {
 						<span className='text-gray-900'>{formattedTransmissionType}</span>
 					</li>
 				</ul>
+
+				{/* 🔹 Расчёты таможенных платежей 🔹 */}
+				{loadingFees ? (
+					<Loader />
+				) : (
+					customsFees && (
+						<div className='bg-white shadow-lg p-6 rounded-lg mb-6'>
+							<h3 className='text-2xl font-semibold mb-4'>
+								Таможенные платежи во Владивостоке
+							</h3>
+							<ul className='space-y-2 text-lg'>
+								<li className='flex justify-between border-b pb-2'>
+									<span className='font-semibold text-gray-700'>
+										Таможенная пошлина
+									</span>
+									<span className='text-gray-900'>
+										{customsFees?.tax || '—'} ₽
+									</span>
+								</li>
+								<li className='flex justify-between border-b pb-2'>
+									<span className='font-semibold text-gray-700'>
+										Таможенный Сбор
+									</span>
+									<span className='text-gray-900'>
+										{customsFees?.sbor || '—'} ₽
+									</span>
+								</li>
+								<li className='flex justify-between border-b pb-2'>
+									<span className='font-semibold text-gray-700'>
+										Утилизационный сбор
+									</span>
+									<span className='text-gray-900'>
+										{customsFees?.util || '—'} ₽
+									</span>
+								</li>
+								<li className='flex justify-between border-b pb-2 text-xl font-bold'>
+									<span className='font-semibold text-gray-700'>Итого</span>
+									<span className='text-red-600'>
+										{customsFees?.total || '—'} ₽
+									</span>
+								</li>
+							</ul>
+						</div>
+					)
+				)}
 
 				{/* 🔹 Контактная информация 🔹 */}
 				<div className='bg-white shadow-lg p-6 rounded-lg mb-6 mt-5 text-center'>
