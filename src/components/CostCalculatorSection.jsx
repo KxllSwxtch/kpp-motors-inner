@@ -32,17 +32,6 @@ const CostCalculatorSection = () => {
 		setLoading(true)
 		setError('')
 
-		const payload = new URLSearchParams({
-			owner: '1',
-			age: calculateAge(carYear, carMonth),
-			engine: engineType,
-			power: '1',
-			power_unit: '1',
-			value: engineVolume,
-			price: carPrice,
-			curr: 'KRW',
-		})
-
 		try {
 			const response = await axios.post(
 				'https://corsproxy.io/?key=28174bc7&url=https://calcus.ru/calculate/Customs',

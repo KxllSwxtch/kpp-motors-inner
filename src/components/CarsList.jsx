@@ -13,6 +13,7 @@ const CarsList = () => {
 	const [page, setPage] = useState(1)
 	const [carType, setCarType] = useState('korean') // 'korean' или 'foreign'
 	const [usdkrwRate, setUsdkrwRate] = useState(0)
+	const [isExport, setIsExport] = useState(false)
 
 	// Фильтры
 	const [filters, setFilters] = useState({
@@ -188,6 +189,25 @@ const CarsList = () => {
 				</button>
 			</div>
 
+			<div className='flex justify-center gap-4 my-4'>
+				<button
+					className={`cursor-pointer px-4 py-2 rounded-lg ${
+						!isExport ? 'bg-blue-500 text-white' : 'bg-gray-200'
+					}`}
+					onClick={() => setIsExport(false)}
+				>
+					Внутри Кореи
+				</button>
+				<button
+					className={`cursor-pointer px-4 py-2 rounded-lg ${
+						isExport ? 'bg-blue-500 text-white' : 'bg-gray-200'
+					}`}
+					onClick={() => setIsExport(true)}
+				>
+					Экспорт
+				</button>
+			</div>
+
 			<Filters
 				filters={filters}
 				setFilters={handleFilterChange}
@@ -204,7 +224,12 @@ const CarsList = () => {
 					{cars.length > 0 ? (
 						<div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
 							{cars.map((car) => (
-								<CarsListItem key={car.id} car={car} usdkrwRate={usdkrwRate} />
+								<CarsListItem
+									key={car.id}
+									car={car}
+									usdkrwRate={usdkrwRate}
+									isExport={isExport}
+								/>
 							))}
 						</div>
 					) : (
