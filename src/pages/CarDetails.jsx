@@ -398,7 +398,7 @@ const CarDetails = () => {
 					<div className='mt-10'>
 						<h3 className='text-xl font-bold'>KPP Motors в соц. сетях</h3>
 						<a
-							href='https://www.instagram.com/kpp_motors'
+							href='https://www.instagram.com/bazarish_auto/'
 							target='_blank'
 							rel='noopener noreferrer'
 							className='flex items-center justify-center mt-3 mb-3'

@@ -176,12 +176,17 @@ const CarsListItem = ({ car, usdkrwRate, isExport }) => {
 				<p className='text-gray-600 text-sm'>
 					Пробег: {formattedCarMileage} км
 				</p>
-				<p className='text-gray-600 text-sm'>Объём: {engineVolume} cc</p>
+				{engineVolume && (
+					<p className='text-gray-600 text-sm'>Объём: {engineVolume} cc</p>
+				)}
 				<p className='text-gray-600 text-sm'>
 					Цена в Корее: ₩{formattedCarPriceKrw} | ${formattedCarPriceUsd}
 					{isExport &&
 						(loadingFees ? (
-							'Загрузка расчёта...'
+							<>
+								<br />
+								Загрузка расчёта...
+							</>
 						) : customsFees ? (
 							<>
 								<br />
@@ -198,6 +203,12 @@ const CarsListItem = ({ car, usdkrwRate, isExport }) => {
 							<>
 								<br />
 								Нет данных по таможне
+								<a
+									href='/#calculator'
+									className='mt-3 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition'
+								>
+									Перейти к калькулятору
+								</a>
 							</>
 						))}
 				</p>

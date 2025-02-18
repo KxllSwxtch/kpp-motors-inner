@@ -10,7 +10,7 @@ const Contacts = () => {
 	return (
 		<div className='container mx-auto mt-15 py-12 px-4'>
 			<h2 className='text-3xl font-bold mb-6 text-center'>
-				Контакты KPP Motors
+				Контакты Bazarish Auto
 			</h2>
 			<div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
 				{/* Контактная информация */}
@@ -57,7 +57,7 @@ const Contacts = () => {
 						allowFullScreen=''
 						loading='lazy'
 						referrerPolicy='no-referrer-when-downgrade'
-						title='KPP Motors Location'
+						title='Bazarish Auto Location'
 					></iframe>
 				</div>
 			</div>
@@ -69,7 +69,7 @@ const Contacts = () => {
 				<div className='flex justify-center gap-6'>
 					<a
 						target='_blank'
-						href='https://t.me/KPP_Motorss'
+						href='https://t.me/bazarish_auto'
 						className='flex items-center gap-2 text-blue-500 hover:text-blue-700'
 					>
 						<FaTelegramPlane className='text-2xl' /> Telegram

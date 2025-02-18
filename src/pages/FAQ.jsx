@@ -45,7 +45,7 @@ const faqData = [
 
 const FAQ = () => {
 	return (
-		<div className='p-6'>
+		<div className='p-6 mt-10'>
 			<h1 className='text-2xl font-bold text-center mb-6'>
 				Часто задаваемые вопросы
 			</h1>

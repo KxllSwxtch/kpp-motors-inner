@@ -39,7 +39,7 @@ const ContactSection = () => {
 
 			<div className='mt-6 flex justify-center gap-6'>
 				<a
-					href='https://t.me/KPP_Motorss'
+					href='https://t.me/BAZARISH_KPP'
 					target='_blank'
 					className='flex items-center gap-2 bg-blue-600 px-4 py-2 rounded-md text-white hover:bg-blue-700 transition-all'
 				>

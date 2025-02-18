@@ -5,7 +5,7 @@ const AboutUs = () => {
 		<div className='container mx-auto px-4 py-12 mt-20'>
 			<h1 className='text-4xl font-bold text-center mb-6'>О Нас</h1>
 			<p className='text-lg text-gray-700 text-center max-w-3xl mx-auto mb-8'>
-				Добро пожаловать в <strong>KPP Motors</strong> – ведущую компанию по
+				Добро пожаловать в <strong>Bazarish Auto</strong> – ведущую компанию по
 				импорту автомобилей из Южной Кореи. Мы предоставляем полный цикл услуг:
 				от подбора и проверки автомобиля до доставки и таможенного оформления.
 			</p>

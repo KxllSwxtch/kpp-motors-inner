@@ -37,7 +37,7 @@ const Header = () => {
 				<Link to='/'>
 					<img
 						src='https://res.cloudinary.com/pomegranitedesign/image/upload/v1738139100/kpp-motors/logo.jpeg'
-						alt='KPP Motors Logo'
+						alt='Bazarish Auto Logo'
 						className='h-25'
 					/>
 				</Link>

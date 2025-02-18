@@ -10,7 +10,7 @@ const Footer = () => {
 					<img
 						className='h-25'
 						src='https://res.cloudinary.com/pomegranitedesign/image/upload/v1738139100/kpp-motors/logo.jpeg'
-						alt='KPP Motors Логотип'
+						alt='Bazarish Auto Логотип'
 					/>
 				</div>
 				{/* Навигация */}
@@ -49,7 +49,7 @@ const Footer = () => {
 						<FaTiktok className='mr-2 text-2xl' /> TikTok
 					</a>
 					<a
-						href='https://www.instagram.com/kpp_motors'
+						href='https://www.instagram.com/bazarish_auto/'
 						target='_blank'
 						rel='noopener noreferrer'
 						className='flex items-center hover:text-secondary'
@@ -59,7 +59,7 @@ const Footer = () => {
 				</div>
 			</div>
 			<p className='mt-6 text-sm text-gray-400'>
-				© {new Date().getFullYear()} KPP Motors. Все права защищены.
+				© {new Date().getFullYear()} Bazarish Auto. Все права защищены.
 			</p>
 		</footer>
 	)
