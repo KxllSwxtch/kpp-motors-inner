@@ -5486,8 +5486,1242 @@ const koreanFuelVolume = [
 	},
 
 	// Genesis
+	{
+		bo_no: 1594,
+		types: [
+			{
+				bs_no: 17138,
+				name: '3.8 GDi',
+			},
+			{
+				bs_no: 17140,
+				name: '5.0 GDi AWD',
+			},
+			{
+				bs_no: 17139,
+				name: '3.3 터보',
+			},
+			{
+				bs_no: 17237,
+				name: '리무진 5.0 GDi',
+			},
+			{
+				bs_no: 17285,
+				name: '3.8 GDi AWD',
+			},
+			{
+				bs_no: 17284,
+				name: '3.3 터보 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 2515,
+		types: [
+			{
+				bs_no: 17457,
+				name: '3.8 GDi',
+			},
+			{
+				bs_no: 17456,
+				name: '3.3 GDi',
+			},
+			{
+				bs_no: 17458,
+				name: '3.3 GDi AWD',
+			},
+			{
+				bs_no: 17459,
+				name: '3.8 GDi AWD',
+			},
+			{
+				bs_no: 17854,
+				name: '2.2 D AWD',
+			},
+			{
+				bs_no: 17853,
+				name: '2.2 D',
+			},
+			{
+				bs_no: 19996,
+				name: '수출형',
+			},
+		],
+	},
+	{
+		bo_no: 2559,
+		types: [
+			{
+				bs_no: 17574,
+				name: '3.3T AWD',
+			},
+			{
+				bs_no: 17573,
+				name: '3.3T',
+			},
+		],
+	},
+	{
+		bo_no: 2615,
+		types: [
+			{
+				bs_no: 17753,
+				name: '2.2D',
+			},
+			{
+				bs_no: 17754,
+				name: '3.3T 스포츠',
+			},
+			{
+				bs_no: 17752,
+				name: '2.0T',
+			},
+			{
+				bs_no: 17757,
+				name: '3.3T 스포츠 AWD',
+			},
+			{
+				bs_no: 17755,
+				name: '2.0T AWD',
+			},
+			{
+				bs_no: 17756,
+				name: '2.2D AWD',
+			},
+		],
+	},
+	{
+		bo_no: 2852,
+		types: [
+			{
+				bs_no: 19285,
+				name: '가솔린 2.5 2WD',
+			},
+			{
+				bs_no: 19286,
+				name: '가솔린 2.5 AWD',
+			},
+			{
+				bs_no: 19287,
+				name: '가솔린 3.5 2WD',
+			},
+			{
+				bs_no: 19288,
+				name: '가솔린 3.5 AWD',
+			},
+			{
+				bs_no: 19290,
+				name: '디젤 2.2 AWD',
+			},
+			{
+				bs_no: 19289,
+				name: '디젤 2.2 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 3003,
+		types: [
+			{
+				bs_no: 20030,
+				name: '가솔린 2.0T 2WD',
+			},
+			{
+				bs_no: 20031,
+				name: '가솔린 2.0T AWD',
+			},
+			{
+				bs_no: 20033,
+				name: '가솔린 3.3T AWD',
+			},
+			{
+				bs_no: 20034,
+				name: '디젤 2.2 2WD',
+			},
+			{
+				bs_no: 20035,
+				name: '디젤 2.2 AWD',
+			},
+			{
+				bs_no: 20032,
+				name: '가솔린 3.3T 2WD',
+			},
+			{
+				bs_no: 21405,
+				name: '가솔린 2.0T AWD 슈팅브레이크',
+			},
+			{
+				bs_no: 21404,
+				name: '가솔린 2.0T 2WD 슈팅브레이크',
+			},
+			{
+				bs_no: 22171,
+				name: '가솔린 2.5T AWD',
+			},
+			{
+				bs_no: 22170,
+				name: '가솔린 2.5T 2WD 슈팅브레이크',
+			},
+			{
+				bs_no: 22172,
+				name: '가솔린 2.5T 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 2707,
+		types: [
+			{
+				bs_no: 18080,
+				name: '3.3T',
+			},
+			{
+				bs_no: 18081,
+				name: '3.3T AWD',
+			},
+			{
+				bs_no: 18082,
+				name: '3.8',
+			},
+			{
+				bs_no: 18084,
+				name: '5.0 AWD',
+			},
+			{
+				bs_no: 18083,
+				name: '3.8 AWD',
+			},
+			{
+				bs_no: 18157,
+				name: '5.0 AWD 리무진',
+			},
+			{
+				bs_no: 22769,
+				name: '수출형',
+			},
+		],
+	},
+	{
+		bo_no: 3120,
+		types: [
+			{
+				bs_no: 20490,
+				name: 'EV AWD',
+			},
+		],
+	},
+	{
+		bo_no: 3141,
+		types: [
+			{
+				bs_no: 20586,
+				name: 'EV 2WD',
+			},
+			{
+				bs_no: 20587,
+				name: 'EV AWD',
+			},
+		],
+	},
+	{
+		bo_no: 3175,
+		types: [
+			{
+				bs_no: 20674,
+				name: '3.5 터보 2WD',
+			},
+			{
+				bs_no: 20675,
+				name: '3.5 터보 AWD',
+			},
+			{
+				bs_no: 20676,
+				name: '3.5 터보 ESC AWD LWB',
+			},
+			{
+				bs_no: 22040,
+				name: '3.5 터보 ESC 2WD',
+			},
+			{
+				bs_no: 22041,
+				name: '3.5 터보 ESC 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 3530,
+		types: [
+			{
+				bs_no: 22422,
+				name: '가솔린 2.5 2WD',
+			},
+			{
+				bs_no: 22425,
+				name: '가솔린 3.5 AWD',
+			},
+			{
+				bs_no: 22423,
+				name: '가솔린 2.5 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 2835,
+		types: [
+			{
+				bs_no: 19218,
+				name: '3.0 디젤 2WD',
+			},
+			{
+				bs_no: 19219,
+				name: '3.0 디젤 AWD',
+			},
+			{
+				bs_no: 19274,
+				name: '3.5 가솔린 2WD',
+			},
+			{
+				bs_no: 19272,
+				name: '2.5 가솔린 2WD',
+			},
+			{
+				bs_no: 19273,
+				name: '2.5 가솔린 AWD',
+			},
+			{
+				bs_no: 19275,
+				name: '3.5 가솔린 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 3023,
+		types: [
+			{
+				bs_no: 20100,
+				name: '2.5T 2WD',
+			},
+			{
+				bs_no: 20103,
+				name: '2.5T AWD',
+			},
+			{
+				bs_no: 20105,
+				name: '2.2 디젤 2WD',
+			},
+			{
+				bs_no: 20104,
+				name: '3.5T AWD',
+			},
+			{
+				bs_no: 20106,
+				name: '2.2 디젤 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 3216,
+		types: [
+			{
+				bs_no: 20906,
+				name: 'EV  AWD',
+			},
+		],
+	},
+	{
+		bo_no: 3508,
+		types: [
+			{
+				bs_no: 22317,
+				name: '2.5 가솔린 2WD',
+			},
+			{
+				bs_no: 22318,
+				name: '2.5 가솔린 AWD',
+			},
+			{
+				bs_no: 22319,
+				name: '3.5 가솔린 2WD',
+			},
+			{
+				bs_no: 22320,
+				name: '3.5 가솔린 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 3507,
+		types: [
+			{
+				bs_no: 22315,
+				name: '3.5 가솔린 AWD',
+			},
+			{
+				bs_no: 22314,
+				name: '2.5 가솔린 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 3561,
+		types: [
+			{
+				bs_no: 22573,
+				name: '2.5T AWD',
+			},
+			{
+				bs_no: 22572,
+				name: '2.5T 2WD',
+			},
+			{
+				bs_no: 22575,
+				name: '3.5T AWD',
+			},
+		],
+	},
 
 	// Renault (Samsung)
+	{
+		bo_no: 62,
+		types: [
+			{
+				bs_no: 246,
+				name: '1.5',
+			},
+			{
+				bs_no: 412,
+				name: '1.6',
+			},
+		],
+	},
+	{
+		bo_no: 98,
+		types: [
+			{
+				bs_no: 409,
+				name: '1.6 PE',
+			},
+			{
+				bs_no: 410,
+				name: '1.6 SE',
+			},
+			{
+				bs_no: 719,
+				name: '1.6 LE',
+			},
+			{
+				bs_no: 720,
+				name: '1.6 RE',
+			},
+			{
+				bs_no: 897,
+				name: '2.0 SE',
+			},
+			{
+				bs_no: 898,
+				name: '2.0 LE',
+			},
+			{
+				bs_no: 3893,
+				name: '1.6 XE',
+			},
+		],
+	},
+	{
+		bo_no: 146,
+		types: [
+			{
+				bs_no: 585,
+				name: '1.5',
+			},
+			{
+				bs_no: 877,
+				name: '1.6',
+			},
+		],
+	},
+	{
+		bo_no: 147,
+		types: [
+			{
+				bs_no: 586,
+				name: '518',
+			},
+			{
+				bs_no: 587,
+				name: '520',
+			},
+			{
+				bs_no: 589,
+				name: '525V',
+			},
+			{
+				bs_no: 588,
+				name: '520V',
+			},
+			{
+				bs_no: 5758,
+				name: 'LPG',
+			},
+		],
+	},
+	{
+		bo_no: 207,
+		types: [
+			{
+				bs_no: 879,
+				name: 'PE',
+			},
+			{
+				bs_no: 880,
+				name: 'SE',
+			},
+			{
+				bs_no: 887,
+				name: 'XE',
+			},
+			{
+				bs_no: 881,
+				name: 'LE',
+			},
+			{
+				bs_no: 5763,
+				name: 'LPLi',
+			},
+		],
+	},
+	{
+		bo_no: 1024,
+		types: [
+			{
+				bs_no: 5703,
+				name: 'PE',
+			},
+			{
+				bs_no: 5704,
+				name: 'SE',
+			},
+			{
+				bs_no: 5707,
+				name: 'RE',
+			},
+			{
+				bs_no: 5706,
+				name: 'LE',
+			},
+			{
+				bs_no: 10618,
+				name: 'SE 플러스',
+			},
+			{
+				bs_no: 17183,
+				name: '1.5 디젤 LE',
+			},
+			{
+				bs_no: 17182,
+				name: '1.5 디젤 SE',
+			},
+		],
+	},
+	{
+		bo_no: 950,
+		types: [
+			{
+				bs_no: 10198,
+				name: 'SE 플러스',
+			},
+			{
+				bs_no: 10199,
+				name: 'RE',
+			},
+			{
+				bs_no: 10637,
+				name: '택시',
+			},
+			{
+				bs_no: 17297,
+				name: 'SE',
+			},
+		],
+	},
+	{
+		bo_no: 63,
+		types: [
+			{
+				bs_no: 248,
+				name: 'SE',
+			},
+			{
+				bs_no: 249,
+				name: 'XE',
+			},
+			{
+				bs_no: 250,
+				name: 'LE',
+			},
+			{
+				bs_no: 5759,
+				name: 'LPLi',
+			},
+		],
+	},
+	{
+		bo_no: 163,
+		types: [
+			{
+				bs_no: 688,
+				name: '2.0 PE',
+			},
+			{
+				bs_no: 689,
+				name: '2.0 SE',
+			},
+			{
+				bs_no: 690,
+				name: '2.0 XE',
+			},
+			{
+				bs_no: 808,
+				name: '2.0 RE',
+			},
+			{
+				bs_no: 807,
+				name: '2.0 LE',
+			},
+			{
+				bs_no: 889,
+				name: '2.5 RE',
+			},
+			{
+				bs_no: 5760,
+				name: 'LPLi',
+			},
+		],
+	},
+	{
+		bo_no: 208,
+		types: [
+			{
+				bs_no: 882,
+				name: '2.3 SE',
+			},
+			{
+				bs_no: 884,
+				name: '2.3 LE',
+			},
+			{
+				bs_no: 1156,
+				name: '3.5 RE',
+			},
+		],
+	},
+	{
+		bo_no: 536,
+		types: [
+			{
+				bs_no: 2528,
+				name: '2.0 PE',
+			},
+			{
+				bs_no: 2529,
+				name: '2.0 SE',
+			},
+			{
+				bs_no: 2531,
+				name: '2.0 RE',
+			},
+			{
+				bs_no: 2530,
+				name: '2.0 LE',
+			},
+			{
+				bs_no: 3860,
+				name: '1.6 TCE',
+			},
+			{
+				bs_no: 5761,
+				name: 'LPLi',
+			},
+			{
+				bs_no: 9639,
+				name: '디젤 1.5 D',
+			},
+		],
+	},
+	{
+		bo_no: 1051,
+		types: [
+			{
+				bs_no: 10902,
+				name: 'SE',
+			},
+			{
+				bs_no: 10903,
+				name: 'LE',
+			},
+			{
+				bs_no: 10901,
+				name: 'PE',
+			},
+			{
+				bs_no: 10906,
+				name: '디젤 1.5 D',
+			},
+			{
+				bs_no: 10904,
+				name: 'RE',
+			},
+			{
+				bs_no: 10907,
+				name: 'LPLi',
+			},
+			{
+				bs_no: 10905,
+				name: '1.6 TCE',
+			},
+			{
+				bs_no: 17479,
+				name: '클래식',
+			},
+		],
+	},
+	{
+		bo_no: 1606,
+		types: [
+			{
+				bs_no: 17247,
+				name: '2.0 GDe',
+			},
+			{
+				bs_no: 17251,
+				name: '1.6 TCe',
+			},
+			{
+				bs_no: 17254,
+				name: '2.0 LPe',
+			},
+			{
+				bs_no: 17512,
+				name: '1.5 dCi',
+			},
+			{
+				bs_no: 18055,
+				name: '2.0 프라임',
+			},
+		],
+	},
+	{
+		bo_no: 2967,
+		types: [
+			{
+				bs_no: 19912,
+				name: 'TCe 300',
+			},
+			{
+				bs_no: 19911,
+				name: 'TCe 260',
+			},
+			{
+				bs_no: 19913,
+				name: '2.0 LPe',
+			},
+		],
+	},
+	{
+		bo_no: 64,
+		types: [
+			{
+				bs_no: 253,
+				name: '2.3 SE',
+			},
+			{
+				bs_no: 254,
+				name: '2.3 LE',
+			},
+			{
+				bs_no: 255,
+				name: '2.3 RE',
+			},
+			{
+				bs_no: 773,
+				name: '3.5 RE',
+			},
+			{
+				bs_no: 8618,
+				name: '2.3 프레스티지',
+			},
+		],
+	},
+	{
+		bo_no: 228,
+		types: [
+			{
+				bs_no: 957,
+				name: '2.5 LE',
+			},
+			{
+				bs_no: 956,
+				name: '2.5 SE',
+			},
+			{
+				bs_no: 1021,
+				name: '2.5 RE',
+			},
+			{
+				bs_no: 1023,
+				name: '3.5 LE',
+			},
+			{
+				bs_no: 1024,
+				name: '3.5 RE',
+			},
+			{
+				bs_no: 1022,
+				name: '3.5 SE',
+			},
+		],
+	},
+	{
+		bo_no: 949,
+		types: [
+			{
+				bs_no: 4103,
+				name: 'SE',
+			},
+			{
+				bs_no: 4104,
+				name: 'LE',
+			},
+			{
+				bs_no: 4105,
+				name: 'RE',
+			},
+		],
+	},
+	{
+		bo_no: 61,
+		types: [
+			{
+				bs_no: 8615,
+				name: '디젤 2WD',
+			},
+			{
+				bs_no: 8617,
+				name: '가솔린 2WD 씨티',
+			},
+			{
+				bs_no: 8616,
+				name: '디젤 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 227,
+		types: [
+			{
+				bs_no: 9144,
+				name: '디젤 2WD',
+			},
+			{
+				bs_no: 9146,
+				name: '가솔린 2WD 씨티',
+			},
+			{
+				bs_no: 9145,
+				name: '디젤 4WD',
+			},
+			{
+				bs_no: 9147,
+				name: '가솔린 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 967,
+		types: [
+			{
+				bs_no: 10216,
+				name: '디젤 2WD',
+			},
+			{
+				bs_no: 10218,
+				name: '가솔린 2WD',
+			},
+			{
+				bs_no: 10217,
+				name: '디젤 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 1032,
+		types: [
+			{
+				bs_no: 10626,
+				name: '2.5 SE',
+			},
+			{
+				bs_no: 10629,
+				name: '3.5 LE',
+			},
+			{
+				bs_no: 10627,
+				name: '2.5 LE',
+			},
+			{
+				bs_no: 10628,
+				name: '2.5 RE',
+			},
+			{
+				bs_no: 10630,
+				name: '3.5 RE',
+			},
+			{
+				bs_no: 17029,
+				name: '2.0 LPe',
+			},
+			{
+				bs_no: 17480,
+				name: '2.5 V6',
+			},
+			{
+				bs_no: 17481,
+				name: '3.5 V6',
+			},
+		],
+	},
+	{
+		bo_no: 2612,
+		types: [
+			{
+				bs_no: 17740,
+				name: '1.5 dCi',
+			},
+		],
+	},
+	{
+		bo_no: 2529,
+		types: [
+			{
+				bs_no: 17525,
+				name: '2.0 dCi 2WD',
+			},
+			{
+				bs_no: 17526,
+				name: '2.0 dCi 4WD',
+			},
+			{
+				bs_no: 17749,
+				name: '2.0 GDe 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 2777,
+		types: [
+			{
+				bs_no: 18926,
+				name: '2.0 LPe',
+			},
+			{
+				bs_no: 19019,
+				name: '1.7 dCi 2WD',
+			},
+			{
+				bs_no: 19020,
+				name: '2.0 dCi 4WD',
+			},
+			{
+				bs_no: 19845,
+				name: '2.0 GDe',
+			},
+		],
+	},
+	{
+		bo_no: 2847,
+		types: [
+			{
+				bs_no: 19266,
+				name: '1.6 GTe',
+			},
+			{
+				bs_no: 19265,
+				name: '1.3 TCe',
+			},
+		],
+	},
+	{
+		bo_no: 3016,
+		types: [
+			{
+				bs_no: 20080,
+				name: '2.0 LPe',
+			},
+			{
+				bs_no: 20079,
+				name: '2.0 GDe',
+			},
+		],
+	},
+	{
+		bo_no: 3346,
+		types: [
+			{
+				bs_no: 21596,
+				name: '1.6 GTe',
+			},
+		],
+	},
+	{
+		bo_no: 3434,
+		types: [
+			{
+				bs_no: 21987,
+				name: '2.0 LPe',
+			},
+			{
+				bs_no: 21988,
+				name: '퀘스트 2.0 LPe',
+			},
+			{
+				bs_no: 21986,
+				name: '2.0 GDe',
+			},
+		],
+	},
+	{
+		bo_no: 3553,
+		types: [
+			{
+				bs_no: 22543,
+				name: '2.0 LPe',
+			},
+			{
+				bs_no: 22542,
+				name: '2.0 GDe',
+			},
+		],
+	},
+	{
+		bo_no: 2608,
+		types: [
+			{
+				bs_no: 17719,
+				name: '인텐스',
+			},
+			{
+				bs_no: 17720,
+				name: '카고',
+			},
+			{
+				bs_no: 18164,
+				name: '라이프',
+			},
+		],
+	},
+	{
+		bo_no: 2670,
+		types: [
+			{
+				bs_no: 17954,
+				name: '1.5 디젤',
+			},
+		],
+	},
+	{
+		bo_no: 2701,
+		types: [
+			{
+				bs_no: 18058,
+				name: '밴',
+			},
+			{
+				bs_no: 18758,
+				name: '버스',
+			},
+			{
+				bs_no: 20394,
+				name: '캠핑카',
+			},
+			{
+				bs_no: 20911,
+				name: '어린이보호차',
+			},
+			{
+				bs_no: 22760,
+				name: '이동업무차',
+			},
+		],
+	},
+	{
+		bo_no: 2853,
+		types: [
+			{
+				bs_no: 19283,
+				name: '15인승',
+			},
+			{
+				bs_no: 19284,
+				name: '밴',
+			},
+			{
+				bs_no: 19282,
+				name: '13인승',
+			},
+			{
+				bs_no: 20395,
+				name: '캠핑카',
+			},
+			{
+				bs_no: 20910,
+				name: '어린이보호차',
+			},
+		],
+	},
+	{
+		bo_no: 2940,
+		types: [
+			{
+				bs_no: 19799,
+				name: '1.5 dCi',
+			},
+			{
+				bs_no: 19800,
+				name: 'TCe 260',
+			},
+		],
+	},
+	{
+		bo_no: 2978,
+		types: [
+			{
+				bs_no: 19949,
+				name: 'EV',
+			},
+		],
+	},
+	{
+		bo_no: 3550,
+		types: [
+			{
+				bs_no: 22536,
+				name: '1.6 GTe',
+			},
+		],
+	},
+	{
+		bo_no: 3551,
+		types: [
+			{
+				bs_no: 22538,
+				name: '1.6 GTe',
+			},
+		],
+	},
+	{
+		bo_no: 3588,
+		types: [
+			{
+				bs_no: 22659,
+				name: '1.5 HEV',
+			},
+		],
+	},
+	{
+		bo_no: 231,
+		types: [
+			{
+				bs_no: 5786,
+				name: 'LPGi',
+			},
+			{
+				bs_no: 9157,
+				name: '2.0 디젤',
+			},
+			{
+				bs_no: 9156,
+				name: '2.4 가솔린',
+			},
+			{
+				bs_no: 9155,
+				name: '2.0 가솔린',
+			},
+		],
+	},
+	{
+		bo_no: 2339,
+		types: [
+			{
+				bs_no: 17344,
+				name: '1.5 터보',
+			},
+			{
+				bs_no: 17345,
+				name: '2.0 터보',
+			},
+			{
+				bs_no: 17477,
+				name: '1.8 하이브리드',
+			},
+		],
+	},
+	{
+		bo_no: 2577,
+		types: [
+			{
+				bs_no: 17623,
+				name: '1.5 하이브리드',
+			},
+		],
+	},
+	{
+		bo_no: 2593,
+		types: [
+			{
+				bs_no: 17680,
+				name: '2WD',
+			},
+		],
+	},
+	{
+		bo_no: 2706,
+		types: [
+			{
+				bs_no: 18076,
+				name: '1.35 가솔린',
+			},
+			{
+				bs_no: 18077,
+				name: '2.0 가솔린',
+			},
+			{
+				bs_no: 18078,
+				name: '1.6 디젤',
+			},
+			{
+				bs_no: 18315,
+				name: '1.8 하이브리드',
+			},
+		],
+	},
+	{
+		bo_no: 3132,
+		types: [
+			{
+				bs_no: 20537,
+				name: 'EV',
+			},
+		],
+	},
+	{
+		bo_no: 3131,
+		types: [
+			{
+				bs_no: 20536,
+				name: 'EV',
+			},
+		],
+	},
 
 	// Chevrolet
 
