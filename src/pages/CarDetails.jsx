@@ -106,6 +106,11 @@ const CarDetails = () => {
 					.map((src) => (src.startsWith('/data') ? BASE_IMAGE_URL + src : src)) // Формируем абсолютные URL
 
 				setCarImages(images)
+				if (images.length === 0) {
+					setCarImages(['/placeholder.jpg']) // Заглушка
+				} else {
+					setCarImages(images)
+				}
 
 				const carInfo = []
 
@@ -133,6 +138,9 @@ const CarDetails = () => {
 					}
 				})
 
+				if (carInfo.length === 0) {
+					throw new Error('Данные об автомобиле отсутствуют')
+				}
 				setCarDetails(carInfo)
 
 				// 🔹 Извлекаем данные о продавце 🔹
@@ -150,6 +158,9 @@ const CarDetails = () => {
 			} catch (err) {
 				console.error('❌ Ошибка загрузки данных:', err)
 				setError('Ошибка загрузки данных')
+				setTimeout(() => {
+					window.location.href = '/404'
+				}, 2000)
 			} finally {
 				setLoading(false)
 			}
@@ -209,7 +220,22 @@ const CarDetails = () => {
 	}, [carDetails, engineVolume])
 
 	if (loading) return <Loader />
-	if (error) return <p className='text-red-500'>{error}</p>
+	if (error) {
+		return (
+			<div className='text-center mt-40 h-full flex items-center justify-center flex-col'>
+				<h2 className='text-3xl font-bold text-red-600'>
+					Ошибка загрузки автомобиля
+				</h2>
+				<p className='text-gray-500 mt-2'>{error}</p>
+				<a
+					href='/'
+					className='mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition'
+				>
+					Вернуться на главную
+				</a>
+			</div>
+		)
+	}
 
 	// 🔹 Настройки слайдера 🔹
 	const sliderSettings = {

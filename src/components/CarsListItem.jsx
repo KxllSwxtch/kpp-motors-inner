@@ -152,6 +152,12 @@ const CarsListItem = ({ car, usdkrwRate, isExport }) => {
 	).toLocaleString()
 
 	// Цена авто
+	const carPrice = parseInt(car?.price, 10)
+
+	// Если цена 0, не отображаем автомобиль
+	if (carPrice === 0) {
+		return null
+	}
 	const formattedCarPriceKrw = parseInt(car?.price).toLocaleString()
 	const formattedCarPriceUsd = Math.round(
 		parseInt(car?.price) / usdkrwRate,
@@ -165,7 +171,7 @@ const CarsListItem = ({ car, usdkrwRate, isExport }) => {
 	return (
 		<div className='p-6 bg-white shadow-lg rounded-lg flex flex-col justify-between h-full'>
 			<img
-				src={car.image}
+				src={car.image.replace('http://www.carmodoo.comhttp://', 'http://')}
 				alt={car.name}
 				className='w-auto h-auto object-fill mb-4 rounded-lg'
 			/>
