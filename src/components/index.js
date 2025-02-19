@@ -14,6 +14,7 @@ import { CustomNextArrow, CustomPrevArrow } from './Arrows'
 import Filters from './Filters'
 import Accordion from './Accordion'
 import CostCalculatorSection from './CostCalculatorSection'
+import InstagramFeed from './InstagramFeed'
 
 export {
 	Header,
@@ -33,4 +34,5 @@ export {
 	Filters,
 	Accordion,
 	CostCalculatorSection,
+	InstagramFeed,
 }

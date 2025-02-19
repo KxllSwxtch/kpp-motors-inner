@@ -50,9 +50,7 @@ const Header = () => {
 				<Link to='/cars' className='hover:text-secondary'>
 					Каталог
 				</Link>
-				<Link to='/cases' className='hover:text-secondary'>
-					Кейсы
-				</Link>
+				{/* <Link ts */}
 				<Link to='/reviews' className='hover:text-secondary'>
 					Отзывы
 				</Link>
@@ -88,9 +86,9 @@ const Header = () => {
 					<Link to='/cars' className='block hover:text-secondary'>
 						Автомобили в наличии
 					</Link>
-					<Link to='/cases' className='block hover:text-secondary'>
+					{/* <Link to='/cases' className='block hover:text-secondary'>
 						Кейсы
-					</Link>
+					</Link> */}
 					<Link to='/reviews' className='block hover:text-secondary'>
 						Отзывы
 					</Link>
