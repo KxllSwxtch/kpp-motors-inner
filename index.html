@@ -10,5 +10,17 @@
 	<body>
 		<div id="root"></div>
 		<script type="module" src="/src/main.jsx"></script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+				const observer = new MutationObserver(() => {
+					let elfsightLink = document.querySelector('a[href*="elfsight.com"]')
+					if (elfsightLink) {
+						elfsightLink.remove()
+					}
+				})
+
+				observer.observe(document.body, { childList: true, subtree: true })
+			})
+		</script>
 	</body>
 </html>

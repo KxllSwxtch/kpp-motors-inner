@@ -1,2 +1,7 @@
 @import 'tailwindcss';
 @config "../tailwind.config.js";
+
+a[href*='elfsight.com'] {
+	display: none !important;
+	visibility: hidden !important;
+}

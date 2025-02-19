@@ -10,7 +10,7 @@ const InstagramFeed = () => {
 	}, [])
 
 	return (
-		<div className='container mx-auto mt-10 px-4'>
+		<div className='container mx-auto mt-10 px-4 mb-20'>
 			<h2 className='text-2xl font-bold text-center mb-6'>
 				🕶️ Свежий контент не отходя от кассы
 			</h2>
