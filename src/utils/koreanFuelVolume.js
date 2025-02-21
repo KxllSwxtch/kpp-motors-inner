@@ -7891,9 +7891,1039 @@ const koreanFuelVolume = [
 			},
 		],
 	},
-	// Chevrolet
-
-	// SsangYong
+	{
+		bo_no: 54,
+		types: [
+			{
+				bs_no: 231,
+				name: '2WD RX4',
+			},
+			{
+				bs_no: 232,
+				name: '2WD RX5',
+			},
+			{
+				bs_no: 234,
+				name: 'AWD RX7',
+			},
+			{
+				bs_no: 233,
+				name: '4WD RX6',
+			},
+			{
+				bs_no: 699,
+				name: '2WD RX6',
+			},
+			{
+				bs_no: 4305,
+				name: '4WD RX4',
+			},
+			{
+				bs_no: 8600,
+				name: 'AWD 노블레스',
+			},
+		],
+	},
+	{
+		bo_no: 150,
+		types: [
+			{
+				bs_no: 628,
+				name: '4WD RE290',
+			},
+			{
+				bs_no: 629,
+				name: '4WD RJ290',
+			},
+			{
+				bs_no: 631,
+				name: '2WD XJ290',
+			},
+			{
+				bs_no: 630,
+				name: '4WD RX290',
+			},
+			{
+				bs_no: 4776,
+				name: '4WD RX320',
+			},
+			{
+				bs_no: 10681,
+				name: '4WD XJ290',
+			},
+		],
+	},
+	{
+		bo_no: 202,
+		types: [
+			{
+				bs_no: 848,
+				name: '2WD RX5',
+			},
+			{
+				bs_no: 849,
+				name: '4WD RX5',
+			},
+			{
+				bs_no: 850,
+				name: 'AWD RX7',
+			},
+			{
+				bs_no: 9079,
+				name: 'AWD 노블레스',
+			},
+			{
+				bs_no: 20054,
+				name: '수출용',
+			},
+		],
+	},
+	{
+		bo_no: 285,
+		types: [
+			{
+				bs_no: 1212,
+				name: '2.0 2WD RX5',
+			},
+			{
+				bs_no: 1213,
+				name: '2.0 2WD RX7',
+			},
+			{
+				bs_no: 1214,
+				name: '2.0 4WD RX7',
+			},
+			{
+				bs_no: 4306,
+				name: '2.0 4WD RX5',
+			},
+			{
+				bs_no: 9243,
+				name: '2.0 4WD 노블레스',
+			},
+			{
+				bs_no: 10735,
+				name: '2.0 4WD 어드벤처 60th 에디션',
+			},
+			{
+				bs_no: 17093,
+				name: '2.2 4WD RX7',
+			},
+			{
+				bs_no: 17092,
+				name: '2.2 2WD RX7',
+			},
+			{
+				bs_no: 17094,
+				name: '2.2 4WD 노블레스',
+			},
+		],
+	},
+	{
+		bo_no: 151,
+		types: [
+			{
+				bs_no: 4774,
+				name: '4WD RX5 EDi',
+			},
+			{
+				bs_no: 4773,
+				name: '2WD RX5 TI CT',
+			},
+		],
+	},
+	{
+		bo_no: 2595,
+		types: [
+			{
+				bs_no: 17685,
+				name: '2.2 2WD',
+			},
+			{
+				bs_no: 17686,
+				name: '2.2 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 3010,
+		types: [
+			{
+				bs_no: 20074,
+				name: '2.2 2WD',
+			},
+			{
+				bs_no: 20075,
+				name: '2.2 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 160,
+		types: [
+			{
+				bs_no: 8981,
+				name: '11ÀÎ½Â 4WD',
+			},
+			{
+				bs_no: 8980,
+				name: '11인승 2WD',
+			},
+			{
+				bs_no: 8982,
+				name: '9인승 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 2633,
+		types: [
+			{
+				bs_no: 17843,
+				name: '2.2 2WD',
+			},
+			{
+				bs_no: 17844,
+				name: '2.2 4WD',
+			},
+			{
+				bs_no: 21830,
+				name: '고소작업차',
+			},
+		],
+	},
+	{
+		bo_no: 2717,
+		types: [
+			{
+				bs_no: 18102,
+				name: '디젤 2.2 4WD',
+			},
+			{
+				bs_no: 18101,
+				name: 'µðÁ© 2.2 2WD',
+			},
+			{
+				bs_no: 21689,
+				name: 'Ä·ÇÎÄ«',
+			},
+			{
+				bs_no: 22111,
+				name: '고소작업차',
+			},
+		],
+	},
+	{
+		bo_no: 3071,
+		types: [
+			{
+				bs_no: 20351,
+				name: '2.2 4WD',
+			},
+			{
+				bs_no: 20350,
+				name: '2.2 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 3072,
+		types: [
+			{
+				bs_no: 20353,
+				name: '2.2 4WD',
+			},
+			{
+				bs_no: 20352,
+				name: '2.2 2WD',
+			},
+			{
+				bs_no: 21688,
+				name: 'Ä·ÇÎÄ«',
+			},
+		],
+	},
+	{
+		bo_no: 3457,
+		types: [
+			{
+				bs_no: 22154,
+				name: '2 2 2WD',
+			},
+			{
+				bs_no: 22155,
+				name: '2.2 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 3455,
+		types: [
+			{
+				bs_no: 22151,
+				name: '2.2 4WD',
+			},
+			{
+				bs_no: 22477,
+				name: '언더리프트(렉카)',
+			},
+		],
+	},
+	{
+		bo_no: 3456,
+		types: [
+			{
+				bs_no: 22152,
+				name: '2.2 2WD',
+			},
+			{
+				bs_no: 22153,
+				name: '2.2 4WD',
+			},
+			{
+				bs_no: 22611,
+				name: 'Ä·ÇÎÄ«',
+			},
+		],
+	},
+	{
+		bo_no: 56,
+		types: [
+			{
+				bs_no: 238,
+				name: '2WD CX5',
+			},
+			{
+				bs_no: 696,
+				name: '2WD CX7',
+			},
+			{
+				bs_no: 856,
+				name: '4WD CX5',
+			},
+		],
+	},
+	{
+		bo_no: 57,
+		types: [
+			{
+				bs_no: 239,
+				name: '2WD AX5',
+			},
+			{
+				bs_no: 697,
+				name: '4WD AX7',
+			},
+		],
+	},
+	{
+		bo_no: 157,
+		types: [
+			{
+				bs_no: 648,
+				name: '4WD 290S',
+			},
+		],
+	},
+	{
+		bo_no: 289,
+		types: [
+			{
+				bs_no: 1217,
+				name: '2WD RD400',
+			},
+			{
+				bs_no: 1220,
+				name: '4WD RD500',
+			},
+			{
+				bs_no: 1218,
+				name: '4WD RD400',
+			},
+			{
+				bs_no: 1219,
+				name: '2WD RD500',
+			},
+		],
+	},
+	{
+		bo_no: 60,
+		types: [
+			{
+				bs_no: 8612,
+				name: '9인승 2WD',
+			},
+			{
+				bs_no: 8614,
+				name: '11인승 4WD',
+			},
+			{
+				bs_no: 8613,
+				name: '11인승 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 155,
+		types: [
+			{
+				bs_no: 8944,
+				name: '7ÀÎ½Â 2WD 230S CT',
+			},
+			{
+				bs_no: 8946,
+				name: '7ÀÎ½Â 4WD 230SL',
+			},
+			{
+				bs_no: 8947,
+				name: '7ÀÎ½Â 4WD 290SL',
+			},
+		],
+	},
+	{
+		bo_no: 3595,
+		types: [
+			{
+				bs_no: 22679,
+				name: '1.5 T-GDI 2WD',
+			},
+			{
+				bs_no: 22680,
+				name: '1.5 T-GDI 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 58,
+		types: [
+			{
+				bs_no: 241,
+				name: '600S',
+			},
+			{
+				bs_no: 240,
+				name: '500S',
+			},
+		],
+	},
+	{
+		bo_no: 975,
+		types: [
+			{
+				bs_no: 242,
+				name: 'CW600',
+			},
+			{
+				bs_no: 256,
+				name: 'CW700',
+			},
+			{
+				bs_no: 948,
+				name: 'CW600 4TRONIC',
+			},
+			{
+				bs_no: 949,
+				name: 'CW700 4TRONIC',
+			},
+			{
+				bs_no: 950,
+				name: 'V8 5000',
+			},
+			{
+				bs_no: 10228,
+				name: '리무진',
+			},
+		],
+	},
+	{
+		bo_no: 148,
+		types: [
+			{
+				bs_no: 590,
+				name: 'CM400',
+			},
+		],
+	},
+	{
+		bo_no: 149,
+		types: [
+			{
+				bs_no: 596,
+				name: 'CM500S',
+			},
+			{
+				bs_no: 597,
+				name: 'CM400S',
+			},
+			{
+				bs_no: 598,
+				name: 'CM600S',
+			},
+			{
+				bs_no: 8922,
+				name: '리무진',
+			},
+		],
+	},
+	{
+		bo_no: 59,
+		types: [
+			{
+				bs_no: 565,
+				name: 'CW600',
+			},
+			{
+				bs_no: 566,
+				name: 'CW700',
+			},
+			{
+				bs_no: 694,
+				name: 'CW700 4TRONIC',
+			},
+			{
+				bs_no: 695,
+				name: 'V8 5000',
+			},
+			{
+				bs_no: 1067,
+				name: 'CW600 4TRONIC',
+			},
+			{
+				bs_no: 8611,
+				name: '리무진',
+			},
+		],
+	},
+	{
+		bo_no: 205,
+		types: [
+			{
+				bs_no: 860,
+				name: '2WD 2.0',
+			},
+		],
+	},
+	{
+		bo_no: 974,
+		types: [
+			{
+				bs_no: 945,
+				name: '500S',
+			},
+			{
+				bs_no: 946,
+				name: '600S',
+			},
+		],
+	},
+	{
+		bo_no: 1599,
+		types: [
+			{
+				bs_no: 17201,
+				name: 'CW700',
+			},
+			{
+				bs_no: 17203,
+				name: 'V8 5000',
+			},
+			{
+				bs_no: 17205,
+				name: 'CW700 AWD',
+			},
+			{
+				bs_no: 17204,
+				name: 'CW600 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 937,
+		types: [
+			{
+				bs_no: 3932,
+				name: '2.0 2WD',
+			},
+			{
+				bs_no: 4310,
+				name: '2.0 AWD',
+			},
+			{
+				bs_no: 16928,
+				name: '2.2 2WD',
+			},
+			{
+				bs_no: 16929,
+				name: '2.2 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 55,
+		types: [
+			{
+				bs_no: 8602,
+				name: '7인승 2.0 2WD',
+			},
+			{
+				bs_no: 8603,
+				name: '5인승 2.0 2WD',
+			},
+			{
+				bs_no: 8605,
+				name: '7인승 2.0 4WD',
+			},
+			{
+				bs_no: 8607,
+				name: '7인승 2.7 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 158,
+		types: [
+			{
+				bs_no: 8955,
+				name: '밴 602EL CT',
+			},
+			{
+				bs_no: 8958,
+				name: '하드탑 230SL',
+			},
+			{
+				bs_no: 8957,
+				name: '밴 290S',
+			},
+			{
+				bs_no: 8956,
+				name: '¹ê 602EL',
+			},
+			{
+				bs_no: 8961,
+				name: '소프트탑 290SR',
+			},
+			{
+				bs_no: 8962,
+				name: '하드탑 230SL CT',
+			},
+			{
+				bs_no: 8969,
+				name: '가솔린 소프트탑 230SR',
+			},
+		],
+	},
+	{
+		bo_no: 206,
+		types: [
+			{
+				bs_no: 9094,
+				name: '소프트탑 TX7',
+			},
+			{
+				bs_no: 9095,
+				name: '밴 TX5 CT',
+			},
+			{
+				bs_no: 9090,
+				name: '하드탑 TX5',
+			},
+		],
+	},
+	{
+		bo_no: 219,
+		types: [
+			{
+				bs_no: 9122,
+				name: '시크 2WD',
+			},
+			{
+				bs_no: 9127,
+				name: '클래시 4WD',
+			},
+			{
+				bs_no: 9124,
+				name: '클러비 4WD',
+			},
+			{
+				bs_no: 9126,
+				name: '시크 4WD',
+			},
+			{
+				bs_no: 9123,
+				name: '클러비 2WD',
+			},
+			{
+				bs_no: 9125,
+				name: '클래시 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 246,
+		types: [
+			{
+				bs_no: 9215,
+				name: '5인승',
+			},
+			{
+				bs_no: 9216,
+				name: '6인승',
+			},
+			{
+				bs_no: 9217,
+				name: '9ÀÎ½Â',
+			},
+			{
+				bs_no: 9218,
+				name: '2ÀÎ½Â',
+			},
+		],
+	},
+	{
+		bo_no: 2572,
+		types: [
+			{
+				bs_no: 17613,
+				name: '2.2 AWD',
+			},
+			{
+				bs_no: 17612,
+				name: '2.2 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 240,
+		types: [
+			{
+				bs_no: 977,
+				name: 'CX5 2WD',
+			},
+			{
+				bs_no: 978,
+				name: 'CX7 4WD',
+			},
+			{
+				bs_no: 21224,
+				name: '언더리프트(렉카)',
+			},
+		],
+	},
+	{
+		bo_no: 927,
+		types: [
+			{
+				bs_no: 10178,
+				name: '2.0 샤토 4WD 9인승',
+			},
+			{
+				bs_no: 10176,
+				name: '2.0 4WD 11인승',
+			},
+			{
+				bs_no: 10175,
+				name: '2.0 2WD 11인승',
+			},
+			{
+				bs_no: 10177,
+				name: '2.0 샤토 4WD 11인승',
+			},
+			{
+				bs_no: 10179,
+				name: '2.0 2WD 9인승',
+			},
+			{
+				bs_no: 10180,
+				name: '2.0 4WD 9인승',
+			},
+			{
+				bs_no: 17074,
+				name: '2.2 2WD 9인승',
+			},
+			{
+				bs_no: 17076,
+				name: '2.2 2WD 11인승',
+			},
+			{
+				bs_no: 17077,
+				name: '2.2 4WD 11인승',
+			},
+			{
+				bs_no: 17075,
+				name: '2.2 4WD 9인승',
+			},
+			{
+				bs_no: 17079,
+				name: '아웃도어 9인승 4WD',
+			},
+			{
+				bs_no: 17142,
+				name: '리무진 2.2 샤토 4WD 9인승',
+			},
+			{
+				bs_no: 17194,
+				name: '2.2 샤토 4WD 9인승',
+			},
+			{
+				bs_no: 17193,
+				name: '2.2 샤토 4WD 11인승',
+			},
+		],
+	},
+	{
+		bo_no: 2520,
+		types: [
+			{
+				bs_no: 17485,
+				name: '2.2 2WD',
+			},
+			{
+				bs_no: 17486,
+				name: '2.2 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 2632,
+		types: [
+			{
+				bs_no: 17821,
+				name: '2.2 9인승 4WD',
+			},
+			{
+				bs_no: 17822,
+				name: '아웃도어 9인승 4WD',
+			},
+			{
+				bs_no: 17824,
+				name: '2.2 11인승 4WD',
+			},
+			{
+				bs_no: 17826,
+				name: '샤토 11인승 4WD',
+			},
+			{
+				bs_no: 17825,
+				name: '샤토 9인승 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 2737,
+		types: [
+			{
+				bs_no: 18162,
+				name: '1.6 디젤 2WD',
+			},
+			{
+				bs_no: 18163,
+				name: '1.6 디젤 AWD',
+			},
+			{
+				bs_no: 18994,
+				name: '1.5 가솔린 2WD',
+			},
+			{
+				bs_no: 18995,
+				name: '1.5 가솔린 AWD',
+			},
+		],
+	},
+	{
+		bo_no: 3195,
+		types: [
+			{
+				bs_no: 20852,
+				name: 'E5',
+			},
+			{
+				bs_no: 20851,
+				name: 'E3',
+			},
+		],
+	},
+	{
+		bo_no: 1052,
+		types: [
+			{
+				bs_no: 10909,
+				name: '디젤 2WD',
+			},
+			{
+				bs_no: 10908,
+				name: '가솔린 2WD',
+			},
+			{
+				bs_no: 10910,
+				name: '',
+			},
+			{
+				bs_no: 16935,
+				name: '가솔린 4WD',
+			},
+			{
+				bs_no: 17073,
+				name: 'µðÁ© 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 1604,
+		types: [
+			{
+				bs_no: 17234,
+				name: '디젤 2WD',
+			},
+			{
+				bs_no: 17235,
+				name: '디젤 4WD',
+			},
+			{
+				bs_no: 17513,
+				name: '가솔린 2WD',
+			},
+			{
+				bs_no: 17514,
+				name: '가솔린 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 2610,
+		types: [
+			{
+				bs_no: 17723,
+				name: '1.6 가솔린',
+			},
+			{
+				bs_no: 17726,
+				name: '1.6 디젤 4WD',
+			},
+			{
+				bs_no: 17724,
+				name: '1.6 가솔린 4WD',
+			},
+			{
+				bs_no: 17725,
+				name: '1.6 디젤',
+			},
+		],
+	},
+	{
+		bo_no: 2771,
+		types: [
+			{
+				bs_no: 18751,
+				name: '1.5 가솔린 2WD',
+			},
+			{
+				bs_no: 18753,
+				name: '1.6 디젤 2WD',
+			},
+			{
+				bs_no: 18752,
+				name: '1.5 가솔린 4WD',
+			},
+			{
+				bs_no: 18754,
+				name: '1.6 디젤 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 2992,
+		types: [
+			{
+				bs_no: 20004,
+				name: '1.5 가솔린 터보',
+			},
+			{
+				bs_no: 20399,
+				name: '캠핑카',
+			},
+		],
+	},
+	{
+		bo_no: 3283,
+		types: [
+			{
+				bs_no: 21383,
+				name: '1.5 GDI-T 4WD',
+			},
+			{
+				bs_no: 21382,
+				name: '1.5 GDI-T 2WD',
+			},
+			{
+				bs_no: 21839,
+				name: '1.5 바이퓨얼 2WD',
+			},
+			{
+				bs_no: 22296,
+				name: '1.5 GDI-T  ¹ê 4WD',
+			},
+			{
+				bs_no: 22295,
+				name: '1.5 GDI-T  밴 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 3463,
+		types: [
+			{
+				bs_no: 22174,
+				name: '1.5 가솔린 터보 2WD',
+			},
+			{
+				bs_no: 22175,
+				name: '1.5 가솔린 터보 4WD',
+			},
+			{
+				bs_no: 22176,
+				name: '1.6 가솔린 2WD',
+			},
+		],
+	},
+	{
+		bo_no: 3464,
+		types: [
+			{
+				bs_no: 22177,
+				name: '1.5 가솔린 터보',
+			},
+		],
+	},
+	{
+		bo_no: 3562,
+		types: [
+			{
+				bs_no: 22576,
+				name: '1.5 GDI-T 2WD',
+			},
+			{
+				bs_no: 22577,
+				name: '1.5 GDI-T 4WD',
+			},
+			{
+				bs_no: 22580,
+				name: '1.5 GDI-T 밴 2WD',
+			},
+			{
+				bs_no: 22581,
+				name: '1.5 GDI-T 밴 4WD',
+			},
+		],
+	},
+	{
+		bo_no: 3443,
+		types: [
+			{
+				bs_no: 22235,
+				name: 'EV',
+			},
+		],
+	},
 ]
 
 export default koreanFuelVolume
