@@ -5,5 +5,6 @@ import CarDetails from './CarDetails'
 import ErrorPage from './ErrorPage'
 import FAQ from './FAQ'
 import AboutUs from './AboutUs'
+import Catalog from './Catalog'
 
-export { Home, Contacts, Cars, CarDetails, ErrorPage, FAQ, AboutUs }
+export { Home, Contacts, Cars, CarDetails, ErrorPage, FAQ, AboutUs, Catalog }

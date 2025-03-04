@@ -70,7 +70,6 @@ const CarsList = () => {
 						: '2',
 				pageSize: 9,
 				page: page,
-
 				bm_no: appliedFilters.bm_no,
 				bo_no: appliedFilters.bo_no,
 				bs_no: appliedFilters.bs_no,

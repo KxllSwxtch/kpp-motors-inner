@@ -9,12 +9,16 @@ import ServiceVideoSection from './ServiceVideoSection'
 import ScrollToTop from './ScrollToTop'
 import CarsList from './CarsList'
 import Loader from './Loader'
-import CarsListItem from './CarsListItem'
+import CarsListItem from './CarsListItem_Backup'
 import { CustomNextArrow, CustomPrevArrow } from './Arrows'
 import Filters from './Filters'
 import Accordion from './Accordion'
 import CostCalculatorSection from './CostCalculatorSection'
 import InstagramFeed from './InstagramFeed'
+import CarListItem from './CarListItem'
+import Message from './Message'
+import Calculator from './Calculator'
+import ImageSlider from './ImageSlider'
 
 export {
 	Header,
@@ -35,4 +39,8 @@ export {
 	Accordion,
 	CostCalculatorSection,
 	InstagramFeed,
+	Message,
+	CarListItem,
+	Calculator,
+	ImageSlider,
 }

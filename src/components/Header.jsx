@@ -38,7 +38,7 @@ const Header = () => {
 					<img
 						src='https://res.cloudinary.com/pomegranitedesign/image/upload/v1738139100/kpp-motors/logo.jpeg'
 						alt='Bazarish Auto Logo'
-						className='h-25'
+						className='h-25 pl-20'
 					/>
 				</Link>
 			</div>
@@ -47,13 +47,13 @@ const Header = () => {
 				<Link to='/' className='hover:text-secondary'>
 					Главная
 				</Link>
-				<Link to='/cars' className='hover:text-secondary'>
+				<Link to='/catalogw' className='hover:text-secondary'>
 					Каталог
 				</Link>
 				{/* <Link ts */}
-				<Link to='/reviews' className='hover:text-secondary'>
+				{/* <Link to='/reviews' className='hover:text-secondary'>
 					Отзывы
-				</Link>
+				</Link> */}
 				<Link to='/faq' className='hover:text-secondary'>
 					FAQ
 				</Link>
@@ -83,15 +83,15 @@ const Header = () => {
 					<Link to='/' className='block hover:text-secondary'>
 						Главная
 					</Link>
-					<Link to='/cars' className='block hover:text-secondary'>
+					<Link to='/catalogw' className='block hover:text-secondary'>
 						Автомобили в наличии
 					</Link>
 					{/* <Link to='/cases' className='block hover:text-secondary'>
 						Кейсы
 					</Link> */}
-					<Link to='/reviews' className='block hover:text-secondary'>
+					{/* <Link to='/reviews' className='block hover:text-secondary'>
 						Отзывы
-					</Link>
+					</Link> */}
 					<Link to='/faq' className='block hover:text-secondary'>
 						Ответы на вопросы
 					</Link>

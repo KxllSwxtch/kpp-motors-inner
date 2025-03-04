@@ -5,3 +5,7 @@ a[href*='elfsight.com'] {
 	display: none !important;
 	visibility: hidden !important;
 }
+
+.css-1jsxt1n-control {
+	height: 100% !important;
+}

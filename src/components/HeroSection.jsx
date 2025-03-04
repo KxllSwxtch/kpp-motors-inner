@@ -20,7 +20,7 @@ const HeroSection = () => {
 					Прямые поставки авто из Кореи. Проверенные автомобили по лучшим ценам.
 				</p>
 				<Link
-					to='/cars'
+					to='/catalog'
 					className='bg-secondary text-light py-3 px-6 rounded-lg text-lg font-semibold hover:bg-primary transition-all duration-300'
 				>
 					Каталог Автомобилей

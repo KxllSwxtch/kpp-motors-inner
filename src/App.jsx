@@ -6,11 +6,12 @@ import { Header, Footer } from './components'
 import {
 	Home,
 	Contacts,
-	Cars,
 	CarDetails,
 	ErrorPage,
 	FAQ,
 	AboutUs,
+	Catalog,
+	// Cars,
 } from './pages'
 
 const App = () => {
@@ -23,8 +24,8 @@ const App = () => {
 				<Route path='/contacts' element={<Contacts />} />
 				<Route path='/faq' element={<FAQ />} />
 				<Route path='/about-us' element={<AboutUs />} />
-				<Route path='/cars' element={<Cars />} />
-				<Route path='/cars/:id' element={<CarDetails />} />
+				<Route path='/catalog' element={<Catalog />} />
+				<Route path='/catalog/:carId' element={<CarDetails />} />
 				<Route path='*' element={<ErrorPage />} />
 			</Routes>
 			<Footer />
