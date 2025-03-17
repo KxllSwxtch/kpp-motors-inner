@@ -530,7 +530,7 @@ const Catalog = () => {
 										${
 											selectedMaker
 												? 'border-yellow-500 bg-white text-black hover:border-yellow-600 focus:ring-red-500'
-												: 'border-gray-600 bg-gray-800 text-gray-400 cursor-not-allowed'
+												: 'border-gray-600 bg-gray-800 text-gray-500 cursor-not-allowed'
 										}
 									`}
 									disabled={!selectedMaker}
@@ -542,7 +542,7 @@ const Catalog = () => {
 										backgroundSize: '1rem',
 									}}
 								>
-									<option value='' className='text-gray-400'>
+									<option value='' className='text-black'>
 										Модель
 									</option>
 									{modelList
@@ -551,7 +551,7 @@ const Catalog = () => {
 											<option
 												key={model.MODEL_NO}
 												value={model.MODEL_NO}
-												className='text-white'
+												className='text-black'
 											>
 												{carModelsTranslation[model.MODEL_NAME] ||
 													model.MODEL_NAME}
@@ -569,7 +569,7 @@ const Catalog = () => {
 										${
 											selectedModel
 												? 'border-yellow-500 bg-white text-black hover:border-yellow-600 focus:ring-yellow-500'
-												: 'border-gray-600 bg-gray-800 text-gray-400 cursor-not-allowed'
+												: 'border-gray-600 bg-gray-800 text-gray-500 cursor-not-allowed'
 										}
 									`}
 									disabled={!selectedModel}
@@ -581,7 +581,7 @@ const Catalog = () => {
 										backgroundSize: '1rem',
 									}}
 								>
-									<option value='' className='text-gray-400'>
+									<option value='' className='text-black'>
 										Поколение
 									</option>
 									{detailModelList.map((dmodel) => (
@@ -606,7 +606,7 @@ const Catalog = () => {
 										${
 											selectedDetailModel
 												? 'border-yellow-500 bg-white text-black hover:border-yellow-600 focus:ring-yellow-500'
-												: 'border-gray-600 bg-gray-800 text-gray-400 cursor-not-allowed'
+												: 'border-gray-600 bg-gray-800 text-gray-500 cursor-not-allowed'
 										}
 									`}
 									disabled={!selectedDetailModel}
@@ -618,7 +618,7 @@ const Catalog = () => {
 										backgroundSize: '1rem',
 									}}
 								>
-									<option value='' className='text-gray-400'>
+									<option value='' className='text-black'>
 										Выберите комплектацию
 									</option>
 									{gradeList.map((grade) => (
@@ -642,7 +642,7 @@ const Catalog = () => {
 										${
 											selectedGrade
 												? 'border-yellow-500 bg-white text-black hover:border-yellow-600 focus:ring-yellow-500'
-												: 'border-gray-600 bg-gray-800 text-gray-400 cursor-not-allowed'
+												: 'border-gray-600 bg-gray-800 text-gray-500 cursor-not-allowed'
 										}
 									`}
 									disabled={!selectedGrade}
@@ -654,7 +654,7 @@ const Catalog = () => {
 										backgroundSize: '1rem',
 									}}
 								>
-									<option value='' className='text-gray-400'>
+									<option value='' className='text-black'>
 										Выберите детальную комплектацию
 									</option>
 									{detailGradeList.map((dgrade) => (
