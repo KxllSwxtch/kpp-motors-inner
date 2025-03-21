@@ -16,20 +16,22 @@ import {
 
 const App = () => {
 	return (
-		<>
+		<div className='flex flex-col min-h-screen'>
 			<Header />
 			<ScrollToTop />
-			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route path='/contacts' element={<Contacts />} />
-				<Route path='/faq' element={<FAQ />} />
-				<Route path='/about-us' element={<AboutUs />} />
-				<Route path='/catalog' element={<Catalog />} />
-				<Route path='/catalog/:carId' element={<CarDetails />} />
-				<Route path='*' element={<ErrorPage />} />
-			</Routes>
+			<main className='flex-grow'>
+				<Routes>
+					<Route path='/' element={<Home />} />
+					<Route path='/contacts' element={<Contacts />} />
+					<Route path='/faq' element={<FAQ />} />
+					<Route path='/about-us' element={<AboutUs />} />
+					<Route path='/catalog' element={<Catalog />} />
+					<Route path='/catalog/:carId' element={<CarDetails />} />
+					<Route path='*' element={<ErrorPage />} />
+				</Routes>
+			</main>
 			<Footer />
-		</>
+		</div>
 	)
 }
 

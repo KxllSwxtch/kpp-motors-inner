@@ -456,7 +456,7 @@ const Catalog = () => {
 	}
 
 	return (
-		<div className='p-4 mt-20 md:mt-30  text-secondary-500 min-h-screen'>
+		<div className='p-4 mt-25 md:mt-30  text-secondary-500 min-h-screen'>
 			<h1 className='text-black text-3xl text-center w-full mb-5 font-medium'>
 				Каталог автомобилей в Корее
 			</h1>

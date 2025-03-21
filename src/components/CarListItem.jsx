@@ -46,7 +46,7 @@ const CarListItem = ({ car, market, usdKrwRate }) => {
 		<div className='relative bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg duration-300 border border-gray-300'>
 			{/* Блок изображения */}
 			<Link
-				to={`/car/${carId}`}
+				to={`/catalog/${carId}`}
 				target='_blank'
 				rel='noopener noreferrer'
 				className='block'

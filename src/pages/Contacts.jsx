@@ -8,7 +8,7 @@ import {
 
 const Contacts = () => {
 	return (
-		<div className='container mx-auto mt-15 py-12 px-4'>
+		<div className='container mx-auto mt-20 md:mt-25 py-12 px-4'>
 			<h2 className='text-3xl font-bold mb-6 text-center'>
 				Контакты Bazarish Auto
 			</h2>
