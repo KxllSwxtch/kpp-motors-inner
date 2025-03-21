@@ -47,7 +47,7 @@ const Header = () => {
 				<Link to='/' className='hover:text-secondary'>
 					Главная
 				</Link>
-				<Link to='/catalogw' className='hover:text-secondary'>
+				<Link to='/catalog' className='hover:text-secondary'>
 					Каталог
 				</Link>
 				{/* <Link ts */}
