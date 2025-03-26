@@ -54,7 +54,11 @@ const CarDetails = () => {
 				// Сервер возвращает JSON с полями carName и carData
 				setCarName(response.data.carName)
 				setCarData(response.data.carData)
-				setCarHistoryURL(response.data.carHistoryURL)
+				const secureURL = response.data.carHistoryURL?.replace(
+					/^http:\/\//i,
+					'https://',
+				)
+				setCarHistoryURL(secureURL)
 			} catch (error) {
 				console.error('Ошибка при загрузке деталей автомобиля:', error)
 			} finally {
