@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import { motion, AnimatePresence } from 'framer-motion'
 
 import { translateCarName } from '../utils'
 import { carModelsTranslation } from '../translations'
@@ -44,6 +45,7 @@ const CarDetails = () => {
 	const [images, setImages] = useState([])
 	const [carName, setCarName] = useState('')
 	const [carHistoryURL, setCarHistoryURL] = useState('')
+	const [showPopup, setShowPopup] = useState(false)
 
 	useEffect(() => {
 		const fetchCarDetails = async () => {
@@ -146,11 +148,23 @@ const CarDetails = () => {
 					<h2 className='text-xl font-bold text-gray-700 mb-4 text-center'>
 						Техническая карта автомобиля
 					</h2>
-					<iframe
-						src={carHistoryURL}
-						title='Car History'
-						className='w-full h-screen border border-gray-300 rounded-lg shadow-md'
-					/>
+					<div className='relative'>
+						<iframe
+							src={carHistoryURL}
+							title='Car History'
+							className='w-full h-[80vh] border border-gray-300 rounded-lg shadow-md'
+						/>
+						<div className='text-center mt-2'>
+							<a
+								href={carHistoryURL}
+								target='_blank'
+								rel='noopener noreferrer'
+								className='block text-sm text-white hover:text-gray-300 transition bg-black p-2 rounded mt-5 m-auto'
+							>
+								🔍 Открыть в новой вкладке
+							</a>
+						</div>
+					</div>
 				</div>
 			) : (
 				<p className='text-center text-gray-500'>Ссылка на карту не найдена</p>
