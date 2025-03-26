@@ -43,8 +43,7 @@ const CarDetails = () => {
 	const [loading, setLoading] = useState(true)
 	const [images, setImages] = useState([])
 	const [carName, setCarName] = useState('')
-
-	console.log(carId)
+	const [carHistoryURL, setCarHistoryURL] = useState('')
 
 	useEffect(() => {
 		const fetchCarDetails = async () => {
@@ -55,6 +54,7 @@ const CarDetails = () => {
 				// Сервер возвращает JSON с полями carName и carData
 				setCarName(response.data.carName)
 				setCarData(response.data.carData)
+				setCarHistoryURL(response.data.carHistoryURL)
 			} catch (error) {
 				console.error('Ошибка при загрузке деталей автомобиля:', error)
 			} finally {
@@ -123,7 +123,7 @@ const CarDetails = () => {
 												<b>
 													{translations[value] ||
 														carModelsTranslation[value] ||
-														value.toLocaleString()}
+														value?.toLocaleString()}
 												</b>
 											</td>
 										</tr>
@@ -136,6 +136,21 @@ const CarDetails = () => {
 					</div>
 				</div>
 			</div>
+
+			{carHistoryURL ? (
+				<div className='mt-10'>
+					<h2 className='text-xl font-bold text-gray-700 mb-4 text-center'>
+						Техническая карта автомобиля
+					</h2>
+					<iframe
+						src={carHistoryURL}
+						title='Car History'
+						className='w-full h-screen border border-gray-300 rounded-lg shadow-md'
+					/>
+				</div>
+			) : (
+				<p className='text-center text-gray-500'>Ссылка на карту не найдена</p>
+			)}
 
 			<div className='mt-10 md:hidden'>
 				<Calculator />
