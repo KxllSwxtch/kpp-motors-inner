@@ -588,7 +588,7 @@ const Catalog = () => {
 										<option
 											key={dmodel.DETAIL_MODEL_NO}
 											value={dmodel.DETAIL_MODEL_NO}
-											className='text-white'
+											className='text-black'
 										>
 											{carTrimsTranslation[dmodel.DETAIL_MODEL_NAME] ||
 												dmodel.DETAIL_MODEL_NAME}
@@ -625,7 +625,7 @@ const Catalog = () => {
 										<option
 											key={grade.GRADE_NO}
 											value={grade.GRADE_NO}
-											className='text-white'
+											className='text-black'
 										>
 											{translateFuelType(grade.GRADE_NAME) || grade.GRADE_NAME}
 										</option>
@@ -661,7 +661,7 @@ const Catalog = () => {
 										<option
 											key={dgrade.DETAIL_GRADE_NO}
 											value={dgrade.DETAIL_GRADE_NO}
-											className='text-white'
+											className='text-black'
 										>
 											{translateFuelType(dgrade.DETAIL_GRADE_NAME)}
 										</option>
