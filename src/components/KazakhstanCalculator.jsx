@@ -37,7 +37,7 @@ const KazakhstanCalculator = ({ usdKztRate, usdKrwRate, carPriceKRW }) => {
 			// Если данных нет, делаем запрос к API
 			axios
 				.get(
-					`https://corsproxy.io/${encodeURIComponent(
+					`https://corsproxy.io/?url=${encodeURIComponent(
 						'https://calculator.ida.kz/data.php',
 					)}`,
 				)
