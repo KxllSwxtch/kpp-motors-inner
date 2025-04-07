@@ -20,6 +20,9 @@ import brandLogos from './brandLogos'
 
 import formatDate from './formatDate'
 import transformBadgeValue from './transformBadgeValue'
+import formatModelName from './formatModelName'
+import encodeKoreanForApi from './encodeKoreanForApi'
+import createEncarApiUrl from './createEncarApiUrl'
 
 export {
 	parseXML,
@@ -39,4 +42,7 @@ export {
 	brandLogos,
 	formatDate,
 	transformBadgeValue,
+	formatModelName,
+	encodeKoreanForApi,
+	createEncarApiUrl,
 }

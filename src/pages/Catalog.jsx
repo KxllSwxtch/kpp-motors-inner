@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
-import { formatDate, transformBadgeValue } from '../utils'
+import { formatDate, formatModelName, encodeKoreanForApi } from '../utils'
 import { CarCard, Loader } from '../components'
 import { translations, translateSmartly } from '../translations'
 
@@ -85,6 +85,8 @@ const ExportCatalog = () => {
 			setPriceStart(savedFilters.priceStart || '')
 			setPriceEnd(savedFilters.priceEnd || '')
 			setSearchByNumber(savedFilters.searchByNumber || '')
+			setSortOption(savedFilters.sortOption || 'newest')
+			setCurrentPage(savedFilters.currentPage || 1)
 
 			// Устанавливаем timeout, чтобы дождаться всех setState
 			setTimeout(() => {
@@ -113,6 +115,8 @@ const ExportCatalog = () => {
 			priceStart,
 			priceEnd,
 			searchByNumber,
+			sortOption,
+			currentPage,
 		}
 		localStorage.setItem('exportCatalogFilters', JSON.stringify(filters))
 	}, [
@@ -131,6 +135,8 @@ const ExportCatalog = () => {
 		priceStart,
 		priceEnd,
 		searchByNumber,
+		sortOption,
+		currentPage,
 	])
 
 	// Загружаем курс USD
@@ -257,7 +263,9 @@ const ExportCatalog = () => {
 			if (!selectedModel) return
 			setCurrentPage(1)
 
-			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${selectedModel}.))))&inav=%7CMetadata%7CSort`
+			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${formatModelName(
+				selectedModel,
+			)}.))))&inav=%7CMetadata%7CSort`
 
 			const response = await axios.get(url)
 
@@ -299,7 +307,9 @@ const ExportCatalog = () => {
 		setCurrentPage(1)
 
 		const fetchBadges = async () => {
-			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${selectedModel}._.BadgeGroup.${selectedConfiguration}.)))))&inav=%7CMetadata%7CSort`
+			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+				selectedModel,
+			)}._.BadgeGroup.${selectedConfiguration}.)))))&inav=%7CMetadata%7CSort`
 
 			const response = await axios.get(url)
 
@@ -352,11 +362,18 @@ const ExportCatalog = () => {
 			if (!selectedBadge) return
 			setCurrentPage(1)
 
-			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${selectedModel}._.(C.BadgeGroup.${selectedConfiguration}._.Badge.${transformBadgeValue(
+			// Log the values we're using to construct the URL
+			console.log('Selected Badge:', selectedBadge)
+			console.log('Encoded Badge:', encodeKoreanForApi(selectedBadge))
+
+			// Construct URL matching the exact structure of the working example
+			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+				selectedModel,
+			)}._.(C.BadgeGroup.${selectedConfiguration}._.Badge.${encodeKoreanForApi(
 				selectedBadge,
 			)}.))))))&inav=%7CMetadata%7CSort`
 
-			console.log(url)
+			console.log('Fetching badge details with URL:', url)
 
 			try {
 				const response = await axios.get(url)
@@ -392,7 +409,8 @@ const ExportCatalog = () => {
 
 				setBadgeDetails(badgeDetails)
 			} catch (error) {
-				console.error('Ошибка при получении badgeDetails:', error)
+				console.error('Error fetching badge details:', error)
+				console.error('Error details:', error.response?.data || error.message)
 			}
 		}
 
@@ -419,6 +437,7 @@ const ExportCatalog = () => {
 			queryParts.push('(And.Hidden.N._.SellType.일반._.')
 		}
 
+		// Проверяем, что все необходимые параметры для фильтрации выбраны
 		if (
 			selectedManufacturer &&
 			selectedModelGroup &&
@@ -427,10 +446,34 @@ const ExportCatalog = () => {
 			selectedBadge &&
 			selectedBadgeDetails
 		) {
+			// Log values for debugging
+			console.log('Using badge:', selectedBadge)
+			console.log('Encoded badge:', encodeKoreanForApi(selectedBadge))
+
 			queryParts.push(
-				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${selectedModel}._.(C.BadgeGroup.${selectedConfiguration}._.(C.Badge.${transformBadgeValue(
+				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+					selectedModel,
+				)}._.(C.BadgeGroup.${selectedConfiguration}._.(C.Badge.${encodeKoreanForApi(
 					selectedBadge,
 				)}._.BadgeDetail.${selectedBadgeDetails}.))))))`,
+			)
+		} else if (
+			selectedManufacturer &&
+			selectedModelGroup &&
+			selectedModel &&
+			selectedConfiguration &&
+			selectedBadge
+		) {
+			// Log values for debugging
+			console.log('Using badge:', selectedBadge)
+			console.log('Encoded badge:', encodeKoreanForApi(selectedBadge))
+
+			queryParts.push(
+				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+					selectedModel,
+				)}._.(C.BadgeGroup.${selectedConfiguration}._.Badge.${encodeKoreanForApi(
+					selectedBadge,
+				)}.)))))`,
 			)
 		} else if (
 			selectedManufacturer &&
@@ -439,11 +482,15 @@ const ExportCatalog = () => {
 			selectedConfiguration
 		) {
 			queryParts.push(
-				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${selectedModel}._.BadgeGroup.${selectedConfiguration}.))))`,
+				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+					selectedModel,
+				)}._.BadgeGroup.${selectedConfiguration}.))))`,
 			)
 		} else if (selectedManufacturer && selectedModelGroup && selectedModel) {
 			queryParts.push(
-				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${selectedModel}.)))`,
+				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${formatModelName(
+					selectedModel,
+				)}.)))`,
 			)
 		} else if (selectedManufacturer && selectedModelGroup) {
 			queryParts.push(
@@ -465,13 +512,7 @@ const ExportCatalog = () => {
 		}
 
 		// Год
-		if (startYear && endYear) {
-			filters.push(`Year.range(${startYear}00..${endYear}99).`)
-		} else if (startYear) {
-			filters.push(`Year.range(${startYear}00..).`)
-		} else if (endYear) {
-			filters.push(`Year.range(..${endYear}99).`)
-		} else if (startYear && startMonth && endYear && endMonth) {
+		if (startYear && startMonth && endYear && endMonth) {
 			filters.push(
 				`Year.range(${startYear}${startMonth}..${endYear}${endMonth}).`,
 			)
@@ -479,6 +520,12 @@ const ExportCatalog = () => {
 			filters.push(`Year.range(${startYear}${startMonth}..).`)
 		} else if (endYear && endMonth) {
 			filters.push(`Year.range(..${endYear}${endMonth}).`)
+		} else if (startYear && endYear) {
+			filters.push(`Year.range(${startYear}00..${endYear}99).`)
+		} else if (startYear) {
+			filters.push(`Year.range(${startYear}00..).`)
+		} else if (endYear) {
+			filters.push(`Year.range(..${endYear}99).`)
 		}
 
 		// Цена
@@ -500,24 +547,38 @@ const ExportCatalog = () => {
 		const itemsPerPage = 20
 		const offset = (currentPage - 1) * itemsPerPage
 
-		// const url = `https://api-encar.habsidev.com/api/catalog?count=true&q=${encodedQuery}&sr=|ModifiedDate|${offset}|${itemsPerPage}`
+		// Формируем URL запроса
 		const url = `https://encar-proxy.onrender.com/api/catalog?q=${encodedQuery}&sr=${sortOptions[sortOption]}|${offset}|${itemsPerPage}`
 
-		console.log('Generated q=', query)
+		console.log('Generated q=', url)
 
 		try {
 			const response = await axios.get(url)
-			setCars(response.data?.SearchResults || [])
+			// Если ответ пустой, обнуляем результат
+			if (response.data?.Count === 0) {
+				console.log('No results found for query')
+				setCars([])
+			} else {
+				setCars(response.data?.SearchResults || [])
+			}
 			setLoading(false)
 			window.scrollTo({ top: 0, behavior: 'smooth' })
 		} catch (error) {
 			console.error('Ошибка при загрузке автомобилей:', error)
+			console.error('Error details:', error.response?.data || error.message)
+			setCars([])
+			setLoading(false)
 		}
 	}
 
+	// Обновляем useEffect для fetchCars, чтобы правильно реагировать на изменения фильтров
 	useEffect(() => {
 		if (filtersReady.current) {
-			fetchCars()
+			// Добавляем небольшую задержку, чтобы убедиться, что все состояния обновились
+			const timer = setTimeout(() => {
+				fetchCars()
+			}, 100)
+			return () => clearTimeout(timer)
 		}
 	}, [
 		selectedManufacturer,
@@ -627,6 +688,7 @@ const ExportCatalog = () => {
 						<option value=''>Модель</option>
 						{modelGroups
 							?.filter((modelGroup) => modelGroup.Count > 0)
+							.sort((a, b) => (a.Value > b.Value ? 1 : -1))
 							.map((modelGroup, index) => (
 								<option key={index} value={modelGroup.Value}>
 									{translateSmartly(modelGroup.Value)} ({modelGroup.Count}{' '}
