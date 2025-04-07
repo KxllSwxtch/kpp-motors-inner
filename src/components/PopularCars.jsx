@@ -30,7 +30,7 @@ const PopularCars = () => {
 						<img
 							src={car.img}
 							alt={car.name}
-							className='w-full h-60 object-cover mb-4 rounded-lg'
+							className='w-full h-80 object-contain md:object-cover mb-4 rounded-lg'
 						/>
 						<h3 className='text-xl font-semibold'>{car.name}</h3>
 						<p className='text-gray-600'>{car.price}</p>

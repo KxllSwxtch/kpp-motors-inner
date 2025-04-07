@@ -15,6 +15,16 @@ export function translateSmartly(text) {
 }
 
 const translations = {
+	매뉴팩처: 'Manufaktur',
+	히어로: 'Hero',
+	마그노: 'Magno',
+	주년: '-Anniversary',
+	'가솔린+전기': 'Гибрид',
+	온라인: 'Online',
+	컴페티션: 'Competition',
+	비츠: 'Vitz',
+	야리스: 'Yaris',
+	크루져: 'Cruiser',
 	트라제: 'Trajet',
 	셀렉션: 'Selection',
 	숨김데이터: 'Hidden Data',

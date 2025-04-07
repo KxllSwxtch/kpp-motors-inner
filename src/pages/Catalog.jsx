@@ -691,8 +691,7 @@ const ExportCatalog = () => {
 							.sort((a, b) => (a.Value > b.Value ? 1 : -1))
 							.map((modelGroup, index) => (
 								<option key={index} value={modelGroup.Value}>
-									{translateSmartly(modelGroup.Value)} ({modelGroup.Count}{' '}
-									автомобилей)
+									{translateSmartly(modelGroup.Value)} ({modelGroup.Count})
 								</option>
 							))}
 					</select>
@@ -711,8 +710,8 @@ const ExportCatalog = () => {
 										translateSmartly(model.Value) ||
 										model.Value}{' '}
 									({formatDate(model?.Metadata?.ModelStartDate[0])} -{' '}
-									{formatDate(model?.Metadata?.ModelEndDate[0])}) ({model.Count}{' '}
-									автомобилей )
+									{formatDate(model?.Metadata?.ModelEndDate[0])}) ({model.Count}
+									)
 								</option>
 							))}
 					</select>
