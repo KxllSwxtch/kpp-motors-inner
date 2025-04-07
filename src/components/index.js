@@ -19,6 +19,10 @@ import CarListItem from './CarListItem'
 import Message from './Message'
 import Calculator from './Calculator'
 import ImageSlider from './ImageSlider'
+import CarCard from './CarCard'
+import CarInspection from './CarInspection'
+import KazakhstanCalculator from './KazakhstanCalculator'
+import KyrgyzstanCalculator from './KyrgyzstanCalculator'
 
 export {
 	Header,
@@ -43,4 +47,8 @@ export {
 	CarListItem,
 	Calculator,
 	ImageSlider,
+	CarCard,
+	CarInspection,
+	KazakhstanCalculator,
+	KyrgyzstanCalculator,
 }

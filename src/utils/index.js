@@ -18,6 +18,9 @@ import translateCarName from './translateCarName'
 
 import brandLogos from './brandLogos'
 
+import formatDate from './formatDate'
+import transformBadgeValue from './transformBadgeValue'
+
 export {
 	parseXML,
 	koreanBrands,
@@ -34,4 +37,6 @@ export {
 	colorOptions,
 	translateCarName,
 	brandLogos,
+	formatDate,
+	transformBadgeValue,
 }
