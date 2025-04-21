@@ -1,8 +1,9 @@
 const transformBadgeValue = (value) => {
 	if (!value) return value
 
-	// Только если badge начинается с X.Y (например, 1.6 или 2.0)
-	const regex = /^(\d)\.(\d)(?=\s|$)/
+	// Обновляем регулярное выражение, чтобы находить все вхождения X.Y в строке,
+	// даже если после второй цифры идет буква или другой символ
+	const regex = /(\d)\.(\d)/g
 	return value.replace(regex, '$1_.$2')
 }
 
