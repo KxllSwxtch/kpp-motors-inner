@@ -83,7 +83,7 @@ const Header = () => {
 					<Link to='/' className='block hover:text-secondary'>
 						Главная
 					</Link>
-					<Link to='/catalogw' className='block hover:text-secondary'>
+					<Link to='/catalog' className='block hover:text-secondary'>
 						Автомобили в наличии
 					</Link>
 					{/* <Link to='/cases' className='block hover:text-secondary'>

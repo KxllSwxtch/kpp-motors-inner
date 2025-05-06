@@ -1,21 +1,15 @@
 import axios from 'axios'
 import { useState, useEffect, useRef } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { translations, translateSmartly } from '../translations'
-import { formatDate, transformBadgeValue } from '../utils'
+import { formatDate, formatModelName, encodeKoreanForApi } from '../utils'
 import { CarCard, Loader } from '../components'
+import { translations, translateSmartly } from '../translations'
 
-const Catalog = () => {
-	const location = useLocation()
-	const navigate = useNavigate()
+const ExportCatalog = () => {
 	const filtersReady = useRef(false)
-	const urlParams = useRef({
-		manufacturer: null,
-		modelGroup: null,
-		model: null,
-	})
 
 	const [sortOption, setSortOption] = useState('newest')
+
+	const [selectedRegion, setSelectedRegion] = useState('')
 
 	const [loading, setLoading] = useState(false)
 	const [searchByNumber, setSearchByNumber] = useState('')
@@ -57,8 +51,6 @@ const Catalog = () => {
 	const [badgeDetails, setBadgeDetails] = useState(null)
 	const [selectedBadgeDetails, setSelectedBadgeDetails] = useState('')
 
-	const [error, setError] = useState('')
-
 	const sortOptions = {
 		newest: '|ModifiedDate',
 		priceAsc: '|PriceAsc',
@@ -67,19 +59,6 @@ const Catalog = () => {
 		mileageDesc: '|MileageDesc',
 		yearDesc: '|Year',
 	}
-
-	useEffect(() => {
-		const searchParams = new URLSearchParams(location.search)
-		urlParams.current = {
-			manufacturer: searchParams.get('manufacturer'),
-			modelGroup: searchParams.get('modelGroup'),
-			model: searchParams.get('model'),
-		}
-
-		if (urlParams.current.manufacturer) {
-			setSelectedManufacturer(urlParams.current.manufacturer)
-		}
-	}, [location.search])
 
 	useEffect(() => {
 		const savedFiltersRaw = localStorage.getItem('exportCatalogFilters')
@@ -91,11 +70,9 @@ const Catalog = () => {
 		try {
 			const savedFilters = JSON.parse(savedFiltersRaw)
 
-			setSelectedManufacturer(
-				urlParams.current.manufacturer ||
-					savedFilters.selectedManufacturer ||
-					'',
-			)
+			setSelectedManufacturer(savedFilters.selectedManufacturer || '')
+			setSelectedModelGroup(savedFilters.selectedModelGroup || '')
+			setSelectedModel(savedFilters.selectedModel || '')
 			setSelectedConfiguration(savedFilters.selectedConfiguration || '')
 			setSelectedBadge(savedFilters.selectedBadge || '')
 			setSelectedBadgeDetails(savedFilters.selectedBadgeDetails || '')
@@ -108,7 +85,10 @@ const Catalog = () => {
 			setPriceStart(savedFilters.priceStart || '')
 			setPriceEnd(savedFilters.priceEnd || '')
 			setSearchByNumber(savedFilters.searchByNumber || '')
+			setSortOption(savedFilters.sortOption || 'newest')
+			setCurrentPage(savedFilters.currentPage || 1)
 
+			// Устанавливаем timeout, чтобы дождаться всех setState
 			setTimeout(() => {
 				filtersReady.current = true
 			}, 0)
@@ -135,6 +115,8 @@ const Catalog = () => {
 			priceStart,
 			priceEnd,
 			searchByNumber,
+			sortOption,
+			currentPage,
 		}
 		localStorage.setItem('exportCatalogFilters', JSON.stringify(filters))
 	}, [
@@ -153,8 +135,11 @@ const Catalog = () => {
 		priceStart,
 		priceEnd,
 		searchByNumber,
+		sortOption,
+		currentPage,
 	])
 
+	// Загружаем курс USD
 	useEffect(() => {
 		const fetchUsdKrwRate = async () => {
 			try {
@@ -184,6 +169,7 @@ const Catalog = () => {
 		}
 	}, [filtersReady.current])
 
+	// Загружаем список производителей
 	useEffect(() => {
 		const fetchManufacturers = async () => {
 			setCurrentPage(1)
@@ -196,6 +182,7 @@ const Catalog = () => {
 
 			setTotalCars(count)
 
+			// data -> iNav -> Nodes[2] -> Nodes[2]?.Facets -> Nodes[2]?.Facets[0]?.Refinements?.Nodes[0]?.Facets
 			const manufacturers =
 				data?.iNav?.Nodes[2]?.Facets[0]?.Refinements?.Nodes[0]?.Facets
 
@@ -205,6 +192,7 @@ const Catalog = () => {
 		fetchManufacturers()
 	}, [])
 
+	// Загружаем модели
 	useEffect(() => {
 		const fetchModelGroups = async () => {
 			if (!selectedManufacturer) return
@@ -213,40 +201,30 @@ const Catalog = () => {
 
 			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.Manufacturer.${selectedManufacturer}.))&inav=%7CMetadata%7CSort`
 
-			try {
-				const response = await axios.get(url)
-				const data = response?.data
-				const count = data?.Count
+			const response = await axios.get(url)
 
-				setTotalCars(count)
+			const data = response?.data
+			const count = data?.Count
 
-				const allManufacturers =
-					data?.iNav?.Nodes[2]?.Facets[0]?.Refinements?.Nodes[0]?.Facets
+			setTotalCars(count)
 
-				const filteredManufacturer = allManufacturers.filter(
-					(item) => item.IsSelected === true,
-				)[0]
+			// data?.iNav?.Nodes[2]?.Facets[0]?.Refinements?.Nodes[0]?.Facets
+			const allManufacturers =
+				data?.iNav?.Nodes[2]?.Facets[0]?.Refinements?.Nodes[0]?.Facets
 
-				const models = filteredManufacturer?.Refinements?.Nodes[0]?.Facets
+			const filteredManufacturer = allManufacturers.filter(
+				(item) => item.IsSelected === true,
+			)[0]
 
-				setModelGroups(models)
+			const models = filteredManufacturer?.Refinements?.Nodes[0]?.Facets
 
-				if (urlParams.current.modelGroup) {
-					const modelExists = models?.some(
-						(model) => model.Value === urlParams.current.modelGroup,
-					)
-					if (modelExists) {
-						setSelectedModelGroup(urlParams.current.modelGroup)
-					}
-				}
-			} catch (error) {
-				console.error('Ошибка при загрузке моделей:', error)
-			}
+			setModelGroups(models)
 		}
 
 		fetchModelGroups()
 	}, [selectedManufacturer])
 
+	// Загружаем поколения
 	useEffect(() => {
 		const fetchModelGroups = async () => {
 			if (!selectedModelGroup) return
@@ -274,31 +252,20 @@ const Catalog = () => {
 			const models = filteredModel?.Refinements?.Nodes[0]?.Facets
 
 			setModels(models)
-
-			if (urlParams.current.model) {
-				const modelExists = models?.some(
-					(model) => model.Value === urlParams.current.model,
-				)
-				if (modelExists) {
-					setSelectedModel(urlParams.current.model)
-				}
-				urlParams.current = {
-					manufacturer: null,
-					modelGroup: null,
-					model: null,
-				}
-			}
 		}
 
 		fetchModelGroups()
 	}, [selectedManufacturer, selectedModelGroup])
 
+	// Загружаем конфигурации
 	useEffect(() => {
 		const fetchConfigurations = async () => {
 			if (!selectedModel) return
 			setCurrentPage(1)
 
-			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${selectedModel}.))))&inav=%7CMetadata%7CSort`
+			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${formatModelName(
+				selectedModel,
+			)}.))))&inav=%7CMetadata%7CSort`
 
 			const response = await axios.get(url)
 
@@ -334,12 +301,15 @@ const Catalog = () => {
 		fetchConfigurations()
 	}, [selectedManufacturer, selectedModelGroup, selectedModel])
 
+	// Загружаем объёмы
 	useEffect(() => {
 		if (!selectedConfiguration) return
 		setCurrentPage(1)
 
 		const fetchBadges = async () => {
-			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${selectedModel}._.BadgeGroup.${selectedConfiguration}.)))))&inav=%7CMetadata%7CSort`
+			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+				selectedModel,
+			)}._.BadgeGroup.${selectedConfiguration}.)))))&inav=%7CMetadata%7CSort`
 
 			const response = await axios.get(url)
 
@@ -392,11 +362,18 @@ const Catalog = () => {
 			if (!selectedBadge) return
 			setCurrentPage(1)
 
-			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${selectedModel}._.(C.BadgeGroup.${selectedConfiguration}._.Badge.${transformBadgeValue(
+			// Log the values we're using to construct the URL
+			console.log('Selected Badge:', selectedBadge)
+			console.log('Encoded Badge:', encodeKoreanForApi(selectedBadge))
+
+			// Construct URL matching the exact structure of the working example
+			const url = `https://api.encar.com/search/car/list/general?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+				selectedModel,
+			)}._.(C.BadgeGroup.${selectedConfiguration}._.Badge.${encodeKoreanForApi(
 				selectedBadge,
 			)}.))))))&inav=%7CMetadata%7CSort`
 
-			console.log(url)
+			console.log('Fetching badge details with URL:', url)
 
 			try {
 				const response = await axios.get(url)
@@ -432,7 +409,8 @@ const Catalog = () => {
 
 				setBadgeDetails(badgeDetails)
 			} catch (error) {
-				console.error('Ошибка при получении badgeDetails:', error)
+				console.error('Error fetching badge details:', error)
+				console.error('Error details:', error.response?.data || error.message)
 			}
 		}
 
@@ -447,7 +425,6 @@ const Catalog = () => {
 
 	const fetchCars = async () => {
 		setLoading(true)
-		setError('')
 
 		let queryParts = []
 		let filters = []
@@ -460,49 +437,72 @@ const Catalog = () => {
 			queryParts.push('(And.Hidden.N._.SellType.일반._.')
 		}
 
-		if (selectedManufacturer) {
-			if (
-				selectedModelGroup &&
-				selectedModel &&
-				selectedConfiguration &&
-				selectedBadge &&
-				selectedBadgeDetails
-			) {
-				queryParts.push(
-					`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${selectedModel}._.(C.BadgeGroup.${selectedConfiguration}._.(C.Badge.${transformBadgeValue(
-						selectedBadge,
-					)}._.BadgeDetail.${selectedBadgeDetails}.))))))`,
-				)
-			} else if (
-				selectedModelGroup &&
-				selectedModel &&
-				selectedConfiguration &&
-				selectedBadge
-			) {
-				queryParts.push(
-					`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${selectedModel}._.(C.BadgeGroup.${selectedConfiguration}._.Badge.${transformBadgeValue(
-						selectedBadge,
-					)}.)))))`,
-				)
-			} else if (selectedModelGroup && selectedModel && selectedConfiguration) {
-				queryParts.push(
-					`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${selectedModel}._.BadgeGroup.${selectedConfiguration}.))))`,
-				)
-			} else if (selectedModelGroup && selectedModel) {
-				queryParts.push(
-					`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${selectedModel}.)))`,
-				)
-			} else if (selectedModelGroup) {
-				queryParts.push(
-					`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.ModelGroup.${selectedModelGroup}.))`,
-				)
-			} else {
-				queryParts.push(`(C.CarType.A._.Manufacturer.${selectedManufacturer}.)`)
-			}
+		// Проверяем, что все необходимые параметры для фильтрации выбраны
+		if (
+			selectedManufacturer &&
+			selectedModelGroup &&
+			selectedModel &&
+			selectedConfiguration &&
+			selectedBadge &&
+			selectedBadgeDetails
+		) {
+			// Log values for debugging
+			console.log('Using badge:', selectedBadge)
+			console.log('Encoded badge:', encodeKoreanForApi(selectedBadge))
+
+			queryParts.push(
+				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+					selectedModel,
+				)}._.(C.BadgeGroup.${selectedConfiguration}._.(C.Badge.${encodeKoreanForApi(
+					selectedBadge,
+				)}._.BadgeDetail.${selectedBadgeDetails}.))))))`,
+			)
+		} else if (
+			selectedManufacturer &&
+			selectedModelGroup &&
+			selectedModel &&
+			selectedConfiguration &&
+			selectedBadge
+		) {
+			// Log values for debugging
+			console.log('Using badge:', selectedBadge)
+			console.log('Encoded badge:', encodeKoreanForApi(selectedBadge))
+
+			queryParts.push(
+				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+					selectedModel,
+				)}._.(C.BadgeGroup.${selectedConfiguration}._.Badge.${encodeKoreanForApi(
+					selectedBadge,
+				)}.)))))`,
+			)
+		} else if (
+			selectedManufacturer &&
+			selectedModelGroup &&
+			selectedModel &&
+			selectedConfiguration
+		) {
+			queryParts.push(
+				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+					selectedModel,
+				)}._.BadgeGroup.${selectedConfiguration}.))))`,
+			)
+		} else if (selectedManufacturer && selectedModelGroup && selectedModel) {
+			queryParts.push(
+				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${formatModelName(
+					selectedModel,
+				)}.)))`,
+			)
+		} else if (selectedManufacturer && selectedModelGroup) {
+			queryParts.push(
+				`(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.ModelGroup.${selectedModelGroup}.))`,
+			)
+		} else if (selectedManufacturer) {
+			queryParts.push(`(C.CarType.A._.Manufacturer.${selectedManufacturer}.)`)
 		} else {
 			queryParts.push('CarType.A.')
 		}
 
+		// Пробег
 		if (mileageStart && mileageEnd) {
 			filters.push(`Mileage.range(${mileageStart}..${mileageEnd}).`)
 		} else if (mileageStart) {
@@ -511,6 +511,7 @@ const Catalog = () => {
 			filters.push(`Mileage.range(..${mileageEnd}).`)
 		}
 
+		// Год
 		if (startYear && startMonth && endYear && endMonth) {
 			filters.push(
 				`Year.range(${startYear}${startMonth}..${endYear}${endMonth}).`,
@@ -527,6 +528,7 @@ const Catalog = () => {
 			filters.push(`Year.range(..${endYear}99).`)
 		}
 
+		// Цена
 		if (priceStart && priceEnd) {
 			filters.push(`Price.range(${priceStart}..${priceEnd}).`)
 		} else if (priceStart) {
@@ -535,6 +537,7 @@ const Catalog = () => {
 			filters.push(`Price.range(..${priceEnd}).`)
 		}
 
+		// Финальный запрос
 		let query =
 			queryParts.join('') +
 			(filters.length ? `_.${filters.join('_.')}` : '') +
@@ -544,42 +547,38 @@ const Catalog = () => {
 		const itemsPerPage = 20
 		const offset = (currentPage - 1) * itemsPerPage
 
-		const url = `https://encar-proxy.onrender.com/api/catalog?count=true&q=${encodedQuery}&sr=${encodeURIComponent(
-			sortOptions[sortOption],
-		)}%7C${offset}%7C${itemsPerPage}`
+		// Формируем URL запроса
+		const url = `https://encar-proxy.onrender.com/api/catalog?q=${encodedQuery}&sr=${sortOptions[sortOption]}|${offset}|${itemsPerPage}`
 
-		console.log('Generated q=', query)
-		console.log(url)
+		console.log('Generated q=', url)
 
 		try {
 			const response = await axios.get(url)
-
-			if (response.data && response.data.error) {
-				console.error('Получен ответ с ошибкой:', response.data.error)
-				setError(
-					'На сайте ведутся технические работы. Пожалуйста, попробуйте позже.',
-				)
+			// Если ответ пустой, обнуляем результат
+			if (response.data?.Count === 0) {
+				console.log('No results found for query')
 				setCars([])
-				setLoading(false)
-				return
+			} else {
+				setCars(response.data?.SearchResults || [])
 			}
-
-			setCars(response.data?.SearchResults || [])
 			setLoading(false)
 			window.scrollTo({ top: 0, behavior: 'smooth' })
 		} catch (error) {
 			console.error('Ошибка при загрузке автомобилей:', error)
-			setError(
-				'На сайте ведутся технические работы. Пожалуйста, попробуйте позже.',
-			)
+			console.error('Error details:', error.response?.data || error.message)
 			setCars([])
 			setLoading(false)
 		}
 	}
 
+	// Обновляем useEffect для fetchCars, чтобы правильно реагировать на изменения фильтров
 	useEffect(() => {
 		if (filtersReady.current) {
-			fetchCars()
+			// Добавляем небольшую задержку, чтобы убедиться, что все состояния обновились
+			const timer = setTimeout(() => {
+				fetchCars()
+			}, 100)
+			return () => clearTimeout(timer)
 		}
 	}, [
 		selectedManufacturer,
@@ -641,81 +640,6 @@ const Catalog = () => {
 		}
 	}, [selectedBadge])
 
-	const handleManufacturerChange = (e) => {
-		const value = e.target.value
-		setSelectedModelGroup('')
-		setSelectedModel('')
-		setSelectedConfiguration('')
-		setSelectedBadge('')
-		setSelectedBadgeDetails('')
-		setSelectedManufacturer(value)
-		setCurrentPage(1)
-
-		if (value) {
-			navigate(`/catalog?manufacturer=${value}`)
-		} else {
-			navigate('/catalog')
-		}
-	}
-
-	const handleModelGroupChange = (e) => {
-		const value = e.target.value
-		setSelectedModel('')
-		setSelectedConfiguration('')
-		setSelectedBadge('')
-		setSelectedBadgeDetails('')
-		setSelectedModelGroup(value)
-		setCurrentPage(1)
-
-		if (value) {
-			navigate(
-				`/catalog?manufacturer=${selectedManufacturer}&modelGroup=${value}`,
-			)
-		} else {
-			navigate(`/catalog?manufacturer=${selectedManufacturer}`)
-		}
-	}
-
-	const handleModelChange = (e) => {
-		const value = e.target.value
-		setSelectedConfiguration('')
-		setSelectedBadge('')
-		setSelectedBadgeDetails('')
-		setSelectedModel(value)
-		setCurrentPage(1)
-
-		if (value) {
-			navigate(
-				`/catalog?manufacturer=${selectedManufacturer}&modelGroup=${selectedModelGroup}&model=${value}`,
-			)
-		} else {
-			navigate(
-				`/catalog?manufacturer=${selectedManufacturer}&modelGroup=${selectedModelGroup}`,
-			)
-		}
-	}
-
-	const handleConfigurationChange = (e) => {
-		const value = e.target.value
-		setSelectedBadge('')
-		setSelectedBadgeDetails('')
-		setSelectedConfiguration(value)
-		setCurrentPage(1)
-	}
-
-	const handleBadgeChange = (e) => {
-		const value = e.target.value
-		setSelectedBadgeDetails('')
-		setSelectedBadge(value)
-		setCurrentPage(1)
-	}
-
-	const handleBadgeDetailsChange = (e) => {
-		const value = e.target.value
-		setSelectedBadgeDetails(value)
-		setCurrentPage(1)
-	}
-
 	return (
 		<div className='md:mt-40 mt-35 px-6'>
 			<h1 className='text-3xl font-bold text-center mb-5'>
@@ -744,15 +668,14 @@ const Catalog = () => {
 					<select
 						className='w-full border border-gray-300 rounded-md px-3 py-2 mt-4'
 						value={selectedManufacturer}
-						onChange={handleManufacturerChange}
+						onChange={(e) => setSelectedManufacturer(e.target.value)}
 					>
 						<option value=''>Марка</option>
 						{manufacturers
 							?.filter((manufacturer) => manufacturer.Count > 0)
 							.map((manufacturer, index) => (
 								<option key={index} value={manufacturer.Value}>
-									{translateSmartly(manufacturer.Value)} ({manufacturer.Count}{' '}
-									автомобилей)
+									{translateSmartly(manufacturer.Value)} ({manufacturer.Count})
 								</option>
 							))}
 					</select>
@@ -760,15 +683,15 @@ const Catalog = () => {
 						disabled={selectedManufacturer.length === 0}
 						className='w-full border border-gray-300 rounded-md px-3 py-2 mt-4 disabled:bg-gray-200'
 						value={selectedModelGroup}
-						onChange={handleModelGroupChange}
+						onChange={(e) => setSelectedModelGroup(e.target.value)}
 					>
 						<option value=''>Модель</option>
 						{modelGroups
 							?.filter((modelGroup) => modelGroup.Count > 0)
+							.sort((a, b) => (a.Value > b.Value ? 1 : -1))
 							.map((modelGroup, index) => (
 								<option key={index} value={modelGroup.Value}>
-									{translateSmartly(modelGroup.Value)} ({modelGroup.Count}{' '}
-									автомобилей)
+									{translateSmartly(modelGroup.Value)} ({modelGroup.Count})
 								</option>
 							))}
 					</select>
@@ -776,7 +699,7 @@ const Catalog = () => {
 						disabled={selectedModelGroup.length === 0}
 						className='w-full border border-gray-300 rounded-md px-3 py-2 mt-4 disabled:bg-gray-200'
 						value={selectedModel}
-						onChange={handleModelChange}
+						onChange={(e) => setSelectedModel(e.target.value)}
 					>
 						<option value=''>Поколение</option>
 						{models
@@ -787,8 +710,8 @@ const Catalog = () => {
 										translateSmartly(model.Value) ||
 										model.Value}{' '}
 									({formatDate(model?.Metadata?.ModelStartDate[0])} -{' '}
-									{formatDate(model?.Metadata?.ModelEndDate[0])}) ({model.Count}{' '}
-									автомобилей )
+									{formatDate(model?.Metadata?.ModelEndDate[0])}) ({model.Count}
+									)
 								</option>
 							))}
 					</select>
@@ -796,7 +719,7 @@ const Catalog = () => {
 						disabled={selectedModel.length === 0}
 						className='w-full border border-gray-300 rounded-md px-3 py-2 mt-4 disabled:bg-gray-200'
 						value={selectedConfiguration}
-						onChange={handleConfigurationChange}
+						onChange={(e) => setSelectedConfiguration(e.target.value)}
 					>
 						<option value=''>Конфигурация</option>
 						{configurations
@@ -812,7 +735,7 @@ const Catalog = () => {
 						disabled={selectedConfiguration.length === 0}
 						className='w-full border border-gray-300 rounded-md px-3 py-2 mt-4 disabled:bg-gray-200'
 						value={selectedBadge}
-						onChange={handleBadgeChange}
+						onChange={(e) => setSelectedBadge(e.target.value)}
 					>
 						<option value=''>Выберите конфигурацию</option>
 						{badges
@@ -828,7 +751,7 @@ const Catalog = () => {
 						disabled={selectedBadge.length === 0}
 						className='w-full border border-gray-300 rounded-md px-3 py-2 mt-4 disabled:bg-gray-200'
 						value={selectedBadgeDetails}
-						onChange={handleBadgeDetailsChange}
+						onChange={(e) => setSelectedBadgeDetails(e.target.value)}
 					>
 						<option value=''>Выберите комплектацию</option>
 						{badgeDetails
@@ -1024,9 +947,33 @@ const Catalog = () => {
 						</select>
 					</div>
 
+					{/* <select
+						className='w-full border border-gray-300 rounded-md px-3 py-2 mt-4'
+						value={selectedRegion}
+						onChange={(e) => setSelectedRegion(e.target.value)}
+					>
+						<option value=''>Регион</option>
+						<option value='서울'>Сеул (서울)</option>
+						<option value='경기'>Кёнгидо (경기)</option>
+						<option value='인천'>Инчхон (인천)</option>
+						<option value='대전'>Тэджон (대전)</option>
+						<option value='세종'>Сэджон (대전)</option>
+						<option value='충남'>Ханнам (충남)</option>
+						<option value='충북'>Чунбук (충북)</option>
+						<option value='강원'>Канвондо (강원)</option>
+						<option value='부산'>Пусан (부산)</option>
+						<option value='울산'>Ульсан (울산)</option>
+						<option value='경남'>Кённам (경남)</option>
+						<option value='경북'>Кёнбук (경북)</option>
+						<option value='광주'>Кванджу (광주)</option>
+						<option value='전남'>Чоннам (전남)</option>
+						<option value='전북'>Чонбук (전북)</option>
+						<option value='제주'>Чеджу (제주)</option>
+					</select> */}
+
 					<input
 						type='text'
-						placeholder='Поиск по номеру авто (например, 49сер0290)'
+						placeholder='Поиск по номеру авто (например, 49서0290)'
 						className='w-full border border-gray-300 rounded-md px-3 py-2 mt-5'
 						value={searchByNumber}
 						onChange={(e) => {
@@ -1054,7 +1001,6 @@ const Catalog = () => {
 							setPriceEnd('')
 							setSearchByNumber('')
 							setCurrentPage(1)
-							navigate('/catalog')
 						}}
 					>
 						Сбросить фильтры
@@ -1062,9 +1008,7 @@ const Catalog = () => {
 				</div>
 
 				{loading ? (
-					<div className='flex justify-center items-center h-screen'>
-						<Loader />
-					</div>
+					<Loader />
 				) : cars.length > 0 ? (
 					<div className='md:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-8'>
 						<div className='w-full md:hidden'>
@@ -1092,11 +1036,9 @@ const Catalog = () => {
 						))}
 					</div>
 				) : (
-					<div className='flex justify-center items-center h-32'>
-						<p className='text-xl font-semibold text-gray-700'>
-							{error || 'Автомобили не найдены'}
-						</p>
-					</div>
+					<h1 className='text-xl font-bold text-center mt-5 md:mt-0 col-span-3 mb-10'>
+						Автомобили не найдены
+					</h1>
 				)}
 			</div>
 			{cars.length > 0 && totalCars > 20 && (
@@ -1145,4 +1087,4 @@ const Catalog = () => {
 	)
 }
 
-export default Catalog
+export default ExportCatalog

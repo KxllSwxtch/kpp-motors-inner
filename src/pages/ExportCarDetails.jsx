@@ -15,6 +15,7 @@ import {
 	KazakhstanCalculator,
 	KyrgyzstanCalculator,
 	CarInspection,
+	Calculator,
 } from '../components'
 
 const translations = {
@@ -140,20 +141,28 @@ const ExportCarDetails = () => {
 		const fetchUsdKrwRate = async () => {
 			try {
 				const response = await axios.get(
-					'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json',
+					'https://www.cbr-xml-daily.ru/daily_json.js',
 				)
 
 				if (response.status === 200) {
-					const jsonData = response.data
-					const rate = jsonData['usd']['krw']
-					const usdRubRate = jsonData['usd']['rub']
-					const usdKztRate = jsonData['usd']['kzt']
-					const usdEurRate = jsonData['usd']['eur']
+					const data = response.data
+					const usd = data['Valute']['USD']['Value']
+					const krw =
+						data['Valute']['KRW']['Value'] / data['Valute']['KRW']['Nominal']
+					const eur = data['Valute']['EUR']['Value']
 
-					setUsdKrwRate(rate)
-					setUsdRubRate(usdRubRate)
-					setUsdKztRate(usdKztRate + 3)
-					setUsdEurRate(usdEurRate)
+					// Apply 2% dealer commission
+					const usdWithCommission = usd + usd * 0.02
+					const krwWithCommission = krw + krw * 0.02
+					const eurWithCommission = eur + eur * 0.02
+
+					const usdToKrw = usdWithCommission / krwWithCommission
+					const usdToRub = usdWithCommission
+					const usdToEur = usdWithCommission / eurWithCommission
+
+					setUsdKrwRate(usdToKrw)
+					setUsdRubRate(usdToRub)
+					setUsdEurRate(usdToEur)
 				}
 			} catch (e) {
 				console.error(e)
@@ -216,19 +225,10 @@ const ExportCarDetails = () => {
 		fetchUsdtRubRates()
 	}, [])
 
-	// Расчёт под ключ до РФ
+	// Расчёт под ключ до РФ (логика Telegram-бота)
 	const handleCalculate = async () => {
 		setLoadingCalc(true)
 		setErrorCalc('')
-
-		// Логика расчёта логистики
-		let logisticsCostKrw = 2040000 // По умолчанию для всех санкционных авто
-		let logisticsCostUsd = logisticsCostKrw / usdKrwRate
-		let logisticsCostRub = logisticsCostUsd * usdRubRate
-
-		if (car?.spec?.displacement > 2000)
-			logisticsCostUsd = logisticsCostUsd + 200
-
 		try {
 			const response = await axios.post(
 				'https://calcus.ru/calculate/Customs',
@@ -252,33 +252,63 @@ const ExportCarDetails = () => {
 					},
 				},
 			)
-
 			if (!response.status === 200) throw new Error('Ошибка при расчёте')
-
 			const data = await response.data
 
-			const formattedTotal = parseInt(
-				data.total.split(',')[0].split(' ').join(''),
-			)
-			const formattedTotal2 = parseInt(
-				data.total2.split(',')[0].split(' ').join(''),
-			)
+			// Курс рубль/вона, курс доллара (с учетом комиссии дилера)
+			const usdRate = usdRubRate + usdRubRate * 0.02
+			const krwRubRate =
+				(usdRubRate + usdRubRate * 0.02) / (usdKrwRate + usdKrwRate * 0.02)
 
-			const totalWithLogisticsRub = formattedTotal + logisticsCostRub
-			const totalCarWithLogisticsRub = formattedTotal2 + logisticsCostRub
-			const totalCarWithLogisticsUsd = totalCarWithLogisticsRub / usdRubRate
-			const totalCarWithLogisticsUsdt =
-				totalCarWithLogisticsRub / meanUsdtRubRate
+			// Значения из calcus.ru
+			const customsDuty = parseFloat(data.tax.replace(/\s|,/g, ''))
+			const customsFee = parseFloat(data.sbor.replace(/\s|,/g, ''))
+			const recyclingFee = parseFloat(data.util.replace(/\s|,/g, ''))
+
+			// Формула Telegram-бота
+			const priceKrw = car?.advertisement?.price * 10000
+
+			const totalCostRub =
+				50000 +
+				priceKrw * krwRubRate +
+				440000 * krwRubRate +
+				100000 * krwRubRate +
+				350000 * krwRubRate +
+				600 * usdRate +
+				customsDuty +
+				customsFee +
+				recyclingFee +
+				346 * usdRate +
+				50000 +
+				30000 +
+				8000
+
+			const totalCostKrw =
+				50000 / krwRubRate +
+				priceKrw +
+				440000 +
+				100000 +
+				350000 +
+				(600 * usdRate) / krwRubRate +
+				customsDuty / krwRubRate +
+				customsFee / krwRubRate +
+				recyclingFee / krwRubRate +
+				(346 * usdRate) / krwRubRate +
+				50000 / krwRubRate +
+				30000 / krwRubRate +
+				8000 / krwRubRate
+
+			const totalCostUsd = totalCostRub / usdRate
 
 			setCalculatedResult({
 				...data,
-				logisticsCostRub,
-				logisticsCostKrw,
-				logisticsCostUsd,
-				totalWithLogisticsRub,
-				totalCarWithLogisticsRub,
-				totalCarWithLogisticsUsd,
-				totalCarWithLogisticsUsdt,
+				customsDuty,
+				customsFee,
+				recyclingFee,
+				totalCarWithLogisticsRub: totalCostRub,
+				totalCarWithLogisticsKrw: totalCostKrw,
+				totalCarWithLogisticsUsd: totalCostUsd,
+				totalCarWithLogisticsUsdt: totalCostRub / meanUsdtRubRate,
 			})
 		} catch (err) {
 			setErrorCalc(err.message)
@@ -728,80 +758,14 @@ const ExportCarDetails = () => {
 
 			{/* РФ */}
 			{selectedCountry === 'russia' && (
-				<div className='mt-8 flex justify-center'>
-					<button
-						className={`cursor-pointer relative py-3 px-10 rounded-lg shadow-xl text-lg font-semibold transition-all duration-300 border-2 flex items-center gap-2
-			${
-				loadingCalc
-					? 'bg-gray-600 border-gray-700 text-gray-300 opacity-60 cursor-not-allowed'
-					: 'bg-gradient-to-r from-red-600 to-red-700 border-red-800 text-white hover:from-red-700 hover:to-red-800 hover:border-red-900 hover:scale-105'
-			}`}
-						onClick={handleCalculate}
-						disabled={loadingCalc}
-					>
-						{loadingCalc ? (
-							<>
-								<span className='animate-spin border-t-2 border-white border-solid rounded-full w-5 h-5'></span>
-								<span>Расчёт...</span>
-							</>
-						) : (
-							<>
-								📊 <span>Рассчитать стоимость</span>
-							</>
-						)}
-					</button>
-				</div>
-			)}
-
-			{calculatedResult && selectedCountry === 'russia' && (
-				<div className='mt-6 p-5 bg-gray-50 shadow-md rounded-lg text-center'>
-					<h2 className='text-xl font-semibold mb-4'>Расчёт для России</h2>
-					<p className='text-gray-600'>
-						Стоимость автомобиля: ₩{carPriceKorea.toLocaleString()} | $
-						{carPriceUsd.toLocaleString()} |{' '}
-						{Math.round(carPriceRub).toLocaleString()} ₽
-					</p>
-					<br />
-					<p className='text-gray-600'>
-						Расходы по Корее: ₩
-						{calculatedResult?.logisticsCostKrw.toLocaleString()} | $
-						{calculatedResult?.logisticsCostUsd.toLocaleString()} |{' '}
-						{calculatedResult?.logisticsCostRub.toLocaleString()} ₽
-					</p>
-					<br />
-					<br />
-					<h3 className='font-bold text-xl'>Расходы во Владивостоке</h3>
-					<p className='text-gray-600'>
-						Таможенная пошлина: {calculatedResult?.tax?.toLocaleString()} ₽
-					</p>
-					<p className='text-gray-600'>
-						Таможенный сбор: {calculatedResult?.sbor?.toLocaleString()} ₽
-					</p>
-					<p className='text-gray-600'>
-						Утилизационный сбор: {calculatedResult?.util?.toLocaleString()} ₽
-					</p>
-					{/* <p className='text-gray-600'>
-						Итого (таможенные платежи во Владивостоке):{' '}
-						{calculatedResult?.total?.toLocaleString()} ₽
-					</p> */}
-					<p className='text-black font-medium text-lg mx-auto mt-10'>
-						Стоимость автомобиля под ключ во Владивостоке: <br />$
-						{Math.round(
-							calculatedResult?.totalCarWithLogisticsUsd,
-							2,
-						).toLocaleString('en-US')}{' '}
-						|{' '}
-						{calculatedResult?.totalCarWithLogisticsRub?.toLocaleString(
-							'ru-RU',
-						)}{' '}
-						₽
-					</p>
-					<p className='text-black font-medium text-lg mx-auto mt-10'>
-						Стоимость автомобиля под ключ во Владивостоке (USDT): <br />$
-						{Math.round(
-							calculatedResult?.totalCarWithLogisticsUsdt,
-						).toLocaleString('en-US')}{' '}
-					</p>
+				<div className='mt-8'>
+					<Calculator
+						carPrice={car?.advertisement?.price * 10000}
+						engineVolume={car?.spec?.displacement}
+						carYear={car?.category?.formYear}
+						carMonth={car?.category?.yearMonth?.substring(4, 6)}
+						engineType={car?.spec?.fuelName === '가솔린' ? 1 : 2}
+					/>
 				</div>
 			)}
 
