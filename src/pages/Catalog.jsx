@@ -184,7 +184,7 @@ const ExportCatalog = () => {
 
 			// data -> iNav -> Nodes[2] -> Nodes[2]?.Facets -> Nodes[2]?.Facets[0]?.Refinements?.Nodes[0]?.Facets
 			const manufacturers =
-				data?.iNav?.Nodes[2]?.Facets[0]?.Refinements?.Nodes[0]?.Facets
+				data?.iNav?.Nodes[1]?.Facets[0]?.Refinements?.Nodes[0]?.Facets
 
 			setManufacturers(manufacturers)
 		}
