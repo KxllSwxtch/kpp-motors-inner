@@ -173,7 +173,7 @@ const ExportCatalog = () => {
 	useEffect(() => {
 		const fetchManufacturers = async () => {
 			setCurrentPage(1)
-			const url = `https://encar-proxy.habsida.net/api/nav?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.CarType.A.)&inav=%7CMetadata%7CSort`
+			const url = `https://encar-proxy.habsida.net/api/nav?count=true&q=(And.Hidden.N._.CarType.A._.SellType.%EC%9D%BC%EB%B0%98.)&inav=%7CMetadata%7CSort`
 
 			const response = await axios.get(url)
 
