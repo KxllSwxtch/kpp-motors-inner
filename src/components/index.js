@@ -23,6 +23,7 @@ import CarCard from './CarCard'
 import CarInspection from './CarInspection'
 import KazakhstanCalculator from './KazakhstanCalculator'
 import KyrgyzstanCalculator from './KyrgyzstanCalculator'
+import CatalogSection from './CatalogSection'
 
 export {
 	Header,
@@ -51,4 +52,5 @@ export {
 	CarInspection,
 	KazakhstanCalculator,
 	KyrgyzstanCalculator,
+	CatalogSection,
 }

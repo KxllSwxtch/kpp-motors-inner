@@ -12,7 +12,7 @@ const ServiceVideoSection = () => {
 			<div className='relative w-full max-w-4xl mx-auto overflow-hidden rounded-lg shadow-lg'>
 				<video
 					className='w-full h-full object-cover'
-					src='https://res.cloudinary.com/pomegranitedesign/video/upload/v1738204996/kpp-motors/video_10.42.50_AM.mp4'
+					src='/welcomevideo.mp4'
 					playsInline
 					controls
 					controlsList='nodownload'

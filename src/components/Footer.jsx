@@ -9,7 +9,7 @@ const Footer = () => {
 				<div className='mb-4 md:mb-0'>
 					<img
 						className='h-25'
-						src='https://res.cloudinary.com/pomegranitedesign/image/upload/v1742950644/kpp-motors/logo_transparent.png'
+						src='/logo_transparent.png'
 						alt='Bazarish Auto Логотип'
 					/>
 				</div>

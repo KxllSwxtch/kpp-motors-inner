@@ -5,11 +5,11 @@ import {
 	BuyingProcessSection,
 	ContactSection,
 	HeroSection,
-	PopularCars,
 	ServiceVideoSection,
 	WhyUsSection,
 	CostCalculatorSection,
 	InstagramFeed,
+	CatalogSection,
 } from '../components'
 
 const Home = () => {
@@ -31,7 +31,7 @@ const Home = () => {
 		<>
 			<HeroSection />
 			<WhyUsSection />
-			<PopularCars />
+			<CatalogSection />
 			<div id='calculator'>
 				<CostCalculatorSection />
 			</div>

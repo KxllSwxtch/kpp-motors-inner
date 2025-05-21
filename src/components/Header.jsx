@@ -36,7 +36,7 @@ const Header = () => {
 			<div className='flex items-center'>
 				<Link to='/'>
 					<img
-						src='https://res.cloudinary.com/pomegranitedesign/image/upload/v1742950644/kpp-motors/logo_transparent.png'
+						src='/logo_transparent.png'
 						alt='Bazarish Auto Logo'
 						className='h-25 pl-20'
 					/>

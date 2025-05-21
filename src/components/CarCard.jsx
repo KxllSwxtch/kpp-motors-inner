@@ -12,7 +12,7 @@ const CarCard = ({ car, usdKrwRate }) => {
 			<img
 				src={`https://ci.encar.com${car.Photo}001.jpg`}
 				alt={`${car.Manufacturer} ${car.Model}`}
-				className='w-full md:h-40 h-auto object-cover'
+				className='w-full md:h-50 h-auto object-cover'
 			/>
 
 			<div className='p-6 flex flex-col flex-grow justify-between'>

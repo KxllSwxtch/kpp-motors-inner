@@ -5,7 +5,7 @@ const HeroSection = () => {
 		<div className='relative w-full h-screen md:h-[90vh] lg:h-screen'>
 			<video
 				className='absolute top-0 left-0 w-full h-full object-cover'
-				src='https://res.cloudinary.com/pomegranitedesign/video/upload/v1738204854/kpp-motors/bg_video.mp4'
+				src='/bg_video.mp4'
 				autoPlay
 				playsInline
 				muted
