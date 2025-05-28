@@ -19,7 +19,7 @@ const CarCard = ({ car, usdKrwRate }) => {
 
       <div className="p-6 flex flex-col flex-grow justify-between">
         <div>
-          <h2 className="text-lg font-bold text-center text-gray-900 mb-4">
+          <h2 className="text-lg font-bold text-center text-gray-900 mb-4 mt-10">
             {translateSmartly(car.Manufacturer)} {translateSmartly(car.Model)}{" "}
             {translateSmartly(car?.Badge)} {translateSmartly(car?.BadgeDetail)}
           </h2>
