@@ -173,7 +173,7 @@ const ExportCatalog = () => {
   useEffect(() => {
     const fetchManufacturers = async () => {
       setCurrentPage(1)
-      const url = `https://encar-proxy.habsida.net/api/nav?count=true&q=(And.Hidden.N._.CarType.A._.SellType.%EC%9D%BC%EB%B0%98.)&inav=%7CMetadata%7CSort`
+      const url = `https://encar-proxy.onrender.com/api/nav?count=true&q=(And.Hidden.N._.CarType.A._.SellType.%EC%9D%BC%EB%B0%98.)&inav=%7CMetadata%7CSort`
 
       const response = await axios.get(url)
 
@@ -199,7 +199,7 @@ const ExportCatalog = () => {
 
       setCurrentPage(1)
 
-      const url = `https://encar-proxy.habsida.net/api/nav?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.Manufacturer.${selectedManufacturer}.))&inav=%7CMetadata%7CSort`
+      const url = `https://encar-proxy.onrender.com/api/nav?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.Manufacturer.${selectedManufacturer}.))&inav=%7CMetadata%7CSort`
 
       const response = await axios.get(url)
 
@@ -230,7 +230,7 @@ const ExportCatalog = () => {
       if (!selectedModelGroup) return
       setCurrentPage(1)
 
-      const url = `https://encar-proxy.habsida.net/api/nav?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.ModelGroup.${selectedModelGroup}.)))&inav=%7CMetadata%7CSort`
+      const url = `https://encar-proxy.onrender.com/api/nav?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.ModelGroup.${selectedModelGroup}.)))&inav=%7CMetadata%7CSort`
       const response = await axios.get(url)
 
       const data = response?.data
@@ -263,7 +263,7 @@ const ExportCatalog = () => {
       if (!selectedModel) return
       setCurrentPage(1)
 
-      const url = `https://encar-proxy.habsida.net/api/nav?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${formatModelName(
+      const url = `https://encar-proxy.onrender.com/api/nav?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.Model.${formatModelName(
         selectedModel
       )}.))))&inav=%7CMetadata%7CSort`
 
@@ -307,7 +307,7 @@ const ExportCatalog = () => {
     setCurrentPage(1)
 
     const fetchBadges = async () => {
-      const url = `https://encar-proxy.habsida.net/api/nav?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+      const url = `https://encar-proxy.onrender.com/api/nav?count=true&q=(And.Hidden.N._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
         selectedModel
       )}._.BadgeGroup.${selectedConfiguration}.)))))&inav=%7CMetadata%7CSort`
 
@@ -367,7 +367,7 @@ const ExportCatalog = () => {
       console.log("Encoded Badge:", encodeKoreanForApi(selectedBadge))
 
       // Construct URL matching the exact structure of the working example
-      const url = `https://encar-proxy.habsida.net/api/nav?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
+      const url = `https://encar-proxy.onrender.com/api/nav?count=true&q=(And.Hidden.N._.SellType.%EC%9D%BC%EB%B0%98._.(C.CarType.A._.(C.Manufacturer.${selectedManufacturer}._.(C.ModelGroup.${selectedModelGroup}._.(C.Model.${formatModelName(
         selectedModel
       )}._.(C.BadgeGroup.${selectedConfiguration}._.Badge.${encodeKoreanForApi(
         selectedBadge
